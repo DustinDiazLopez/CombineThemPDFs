@@ -1,0 +1,229 @@
+package CombinePDF;
+
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
+import org.apache.pdfbox.pdmodel.PDDocument;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main extends Application {
+    private String defaultDesktopLocation = desktopFinder() + "Combined.pdf";
+    private List<String> paths = new ArrayList<>();
+    private Label dropped = new Label("Waiting...");
+    private Button btn = new Button("Combine");
+    private Button clear = new Button("Reset");
+    private TextField textField = new TextField();
+    private ListView<String> listView = new ListView<>();
+    private ProgressIndicator progressBar = new ProgressIndicator(0);
+    private Label lvLabel = new Label("All files to be combined:");
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    private static String desktopFinder() {
+        String dir = "Desktop";
+        String path = new File("").getAbsolutePath();
+        return path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash;
+    }
+
+    private void btnRun() {
+        File[] files = new File[paths.size()];
+        int counter = 0;
+
+        for (String path : paths) {
+            files[counter] = new File(path);
+            counter++;
+        }
+
+        merge(files);
+    }
+
+    private void closeProgram() {
+        boolean answer = ConfirmBox.display("Close Application", "Are you sure you want to quit? :(");
+
+        if (answer) {
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
+        Label label = new Label("Drag the files to me, one by one and in order.\nI'm not a mind reader. :'v");
+        Label tfLabel = new Label("Export Location:");
+        VBox vBox = new VBox();
+
+        vBox.setSpacing(10);
+
+        vBox.getChildren().addAll(label, progressBar, lvLabel);
+
+        primaryStage.setOnCloseRequest(e -> {
+            e.consume();
+            closeProgram();
+        });
+
+        vBox.setOnDragOver(event -> {
+            if (event.getGestureSource() != vBox
+                    && event.getDragboard().hasFiles()) {
+                /* allow for both copying and moving, whatever user chooses */
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            }
+            event.consume();
+        });
+
+        vBox.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasFiles()) {
+
+                String path = db.getFiles().toString();
+                path = path.substring(1, path.length() - 1);
+                paths.add(path);
+                listView.getItems().add(path);
+                //dropped.setText(path);
+                success = true;
+            }
+            /* let the source know whether the string was successfully
+             * transferred and used */
+            event.setDropCompleted(success);
+
+            event.consume();
+        });
+
+        btn.setOnAction(e -> {
+            if (paths.isEmpty()) {
+                lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
+            } else {
+                btn.setDisable(true);
+                btnRun();
+            }
+        });
+
+        clear.setOnAction(e -> clear());
+
+        textField.setText(defaultDesktopLocation);
+
+        int insectsVal = 12;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        VBox.setMargin(label, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(dropped, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(lvLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
+        VBox.setMargin(listView, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(tfLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
+        VBox.setMargin(textField, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(btn, new Insets(insectsVal, insectsVal, 0, insectsVal));
+        VBox.setMargin(clear, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(progressBar, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
+
+        HBox hb = new HBox();
+        hb.setSpacing(5);
+        hb.setAlignment(Pos.CENTER);
+        hb.getChildren().addAll(btn, clear);
+
+        ObservableList<javafx.scene.Node> list = vBox.getChildren();
+
+        list.addAll(listView, tfLabel, textField, hb);
+
+        StackPane root = new StackPane();
+        root.getChildren().addAll(vBox);
+
+        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 300);
+
+        primaryStage.setTitle("Combine Dem PDFs");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void merge(File[] files) {
+        try {
+
+            double max = 30;
+
+            progressBar.setProgress(0 / max);
+            //Loading an existing PDF document
+            PDDocument[] docs = new PDDocument[files.length];
+
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isFile()) docs[i] = PDDocument.load(files[i]);
+            }
+
+            progressBar.setProgress(10.0 / max);
+
+            //Instantiating PDFMergerUtility class
+            PDFMergerUtility PDFMerger = new PDFMergerUtility();
+
+            //Setting the destination file
+            if (new File(textField.getText()).exists()) {
+                boolean answer = ConfirmBox.display("Existing File", "You are trying to overwrite an existing file!\n"
+                        + textField.getText()
+                        + "\nDo you wish to proceed?");
+
+                if (!answer) {
+                    btn.setDisable(false);
+                    lvLabel.setText("All files to be combined: (Merge aborted change file name)");
+                    return;
+                }
+
+            }
+            PDFMerger.setDestinationFileName(textField.getText());
+
+            //adding the source files
+            for (File f : files) {
+                PDFMerger.addSource(f);
+            }
+
+            progressBar.setProgress(20.0 / max);
+
+            //Merging the two documents
+            //noinspection deprecation
+            PDFMerger.mergeDocuments();
+
+            clear();
+
+            //Closing the documents
+            for (PDDocument document : docs) {
+                document.close();
+            }
+
+            progressBar.setProgress(25.0 / max);
+
+            dropped.setText("Documents merged! Check Desktop!");
+            progressBar.setProgress(max / max);
+        } catch (IOException e) {
+            clear();
+            e.printStackTrace();
+        }
+    }
+
+    private void clear() {
+        lvLabel.setText("All files to be combined:");
+        btn.setDisable(false);
+        paths.clear();
+        listView.getItems().clear();
+        progressBar.setProgress(0);
+    }
+}
