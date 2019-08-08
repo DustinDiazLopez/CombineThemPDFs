@@ -16,9 +16,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -29,8 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application {
+
+    //Default local path
     private String defaultDesktopLocation = desktopFinder() + "Combined.pdf";
+
+    //Variable that contains all the paths of all files to be combined
     private List<String> paths = new ArrayList<>();
+
+    //other
     private Label dropped = new Label("Waiting...");
     private Button btn = new Button("Combine");
     private Button clear = new Button("Reset");
@@ -47,12 +51,22 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * Function to find the devices Desktop folder
+     * *
+     *
+     * @return path to a specified directory in the device in this case it is desktop
+     */
     private static String desktopFinder() {
-        String dir = "Desktop";
+        String dir = "Desktop"; //The directory to find
         String path = new File("").getAbsolutePath();
         return path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash;
     }
 
+    /**
+     * When the button Combine button is pressed it will jump to this function and combine all listed PDF's
+     * in the variable paths
+     */
     private void btnRun() {
         File[] files = new File[paths.size()];
         int counter = 0;
@@ -65,14 +79,21 @@ public class Main extends Application {
         merge(files);
     }
 
+    /**
+     * Consumes exit request and shows a Confirmation Box to assure that the user wants to quit the
+     * application
+     */
     private void closeProgram() {
         boolean answer = ConfirmBox.display("Close Application", "Are you sure you want to quit? :(");
-
         if (answer) {
             System.exit(0);
         }
     }
 
+    /**
+     * On hover with file change color
+     * When the user hovers over the application stage it will it's colors with these functions
+     */
     private void setStyleForVBox() {
         vBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
     }
@@ -81,26 +102,35 @@ public class Main extends Application {
         vBox.setStyle("-fx-background-color: rgba(240, 240, 240, 0.5);");
     }
 
+    /**
+     * @param primaryStage all styling, functionality and initial setup is in this function
+     */
     @Override
     public void start(Stage primaryStage) {
-
-        //primaryStage.initStyle(StageStyle.TRANSPARENT);
+        /*Sets the icon for the application*/
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
+
+        /*Information labels*/
         Label label = new Label("Drag the files to me, one by one and in order.\nI'm not a mind reader. :'v");
         Label tfLabel = new Label("Export Location:");
 
+        /*Sets the spacing for the Vertical Box and sets its color*/
         vBox.setSpacing(10);
         vBox.setBackground(Background.EMPTY);
         setStyleForVBox();
 
+        /*Puts the Information labels in the Vertical Box*/
         vBox.getChildren().addAll(label, progressBar, lvLabel);
 
+        /*Handles Close Request*/
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
             closeProgram();
         });
 
+
         vBox.setOnDragOver(event -> {
+            /*change the color when a file is dragged over the pane*/
             resetStyleForVBox();
             if (event.getGestureSource() != vBox
                     && event.getDragboard().hasFiles()) {
@@ -110,18 +140,22 @@ public class Main extends Application {
             event.consume();
         });
 
+        /*When the user exits or drops the file the pane goes back to its set color*/
         vBox.setOnDragExited(e -> setStyleForVBox());
 
+        /*Handles when the file is dropped*/
         vBox.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasFiles()) {
-
+                //Gets the path
                 String path = db.getFiles().toString();
+                //Removes unnecessary characters []
                 path = path.substring(1, path.length() - 1);
+                //Stores the path
                 paths.add(path);
+                //displays the added path
                 listView.getItems().add(path);
-                //dropped.setText(path);
                 success = true;
             }
             /* let the source know whether the string was successfully
@@ -131,7 +165,9 @@ public class Main extends Application {
             event.consume();
         });
 
+        /*Combine button when clicked*/
         btn.setOnAction(e -> {
+            //Checks if user has provided files to be combined.
             if (paths.isEmpty()) {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
             } else {
@@ -140,13 +176,17 @@ public class Main extends Application {
             }
         });
 
+        /*Clear button*/
         clear.setOnAction(e -> clear());
 
+        /*Shows the default export location can be changed*/
         textField.setText(defaultDesktopLocation);
 
-        int insectsVal = 12;
+        /*Gets the dimensions of the screen*/
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+        /*margins for all items on screen*/
+        int insectsVal = 12;
         VBox.setMargin(label, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(dropped, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(lvLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
@@ -157,13 +197,13 @@ public class Main extends Application {
         VBox.setMargin(clear, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(progressBar, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
 
+        /*Location for buttons*/
         HBox hb = new HBox();
         hb.setSpacing(5);
         hb.setAlignment(Pos.CENTER);
         hb.getChildren().addAll(btn, clear);
 
         ObservableList<javafx.scene.Node> list = vBox.getChildren();
-
         list.addAll(listView, tfLabel, textField, hb);
 
         StackPane root = new StackPane();
@@ -177,6 +217,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Where the magic happens!
+     * @param files merged
+     */
     private void merge(File[] files) {
         try {
 
@@ -211,9 +255,7 @@ public class Main extends Application {
             PDFMerger.setDestinationFileName(textField.getText());
 
             //adding the source files
-            for (File f : files) {
-                PDFMerger.addSource(f);
-            }
+            for (File f : files) PDFMerger.addSource(f);
 
             progressBar.setProgress(20.0 / max);
 
@@ -224,9 +266,7 @@ public class Main extends Application {
             clear();
 
             //Closing the documents
-            for (PDDocument document : docs) {
-                document.close();
-            }
+            for (PDDocument document : docs) document.close();
 
             progressBar.setProgress(25.0 / max);
 
@@ -238,6 +278,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Resets everything
+     */
     private void clear() {
         lvLabel.setText("All files to be combined:");
         btn.setDisable(false);
