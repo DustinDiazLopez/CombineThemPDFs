@@ -169,7 +169,7 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
-        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 300);
+        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight());
 
 
         primaryStage.setTitle("Combine Dem PDFs");
