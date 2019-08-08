@@ -12,10 +12,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -35,6 +38,7 @@ public class Main extends Application {
     private ListView<String> listView = new ListView<>();
     private ProgressIndicator progressBar = new ProgressIndicator(0);
     private Label lvLabel = new Label("All files to be combined:");
+    private VBox vBox = new VBox();
 
     /**
      * @param args the command line arguments
@@ -69,14 +73,25 @@ public class Main extends Application {
         }
     }
 
+    private void setStyleForVBox() {
+        vBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
+    }
+
+    private void resetStyleForVBox() {
+        vBox.setStyle("-fx-background-color: rgba(240, 240, 240, 0.5);");
+    }
+
     @Override
     public void start(Stage primaryStage) {
+
+        //primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
         Label label = new Label("Drag the files to me, one by one and in order.\nI'm not a mind reader. :'v");
         Label tfLabel = new Label("Export Location:");
-        VBox vBox = new VBox();
 
         vBox.setSpacing(10);
+        vBox.setBackground(Background.EMPTY);
+        setStyleForVBox();
 
         vBox.getChildren().addAll(label, progressBar, lvLabel);
 
@@ -86,6 +101,7 @@ public class Main extends Application {
         });
 
         vBox.setOnDragOver(event -> {
+            resetStyleForVBox();
             if (event.getGestureSource() != vBox
                     && event.getDragboard().hasFiles()) {
                 /* allow for both copying and moving, whatever user chooses */
@@ -93,6 +109,8 @@ public class Main extends Application {
             }
             event.consume();
         });
+
+        vBox.setOnDragExited(e -> setStyleForVBox());
 
         vBox.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
@@ -152,6 +170,7 @@ public class Main extends Application {
         root.getChildren().addAll(vBox);
 
         Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 300);
+
 
         primaryStage.setTitle("Combine Dem PDFs");
         primaryStage.setScene(scene);
