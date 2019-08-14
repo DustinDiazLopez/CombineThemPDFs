@@ -24,6 +24,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main extends Application {
@@ -152,10 +153,22 @@ public class Main extends Application {
                 String path = db.getFiles().toString();
                 //Removes unnecessary characters []
                 path = path.substring(1, path.length() - 1);
-                //Stores the path
-                paths.add(path);
-                //displays the added path
-                listView.getItems().add(path);
+                System.err.println(path);
+
+                if (path.contains(",")) {
+                    String[] arrPath = path.split(",");
+
+                    for (int i = 0; i < arrPath.length; i ++) arrPath[i] = arrPath[i].trim();
+
+                    paths.addAll(Arrays.asList(arrPath));
+
+                    for (String s : arrPath) listView.getItems().add(s);
+                } else {
+                    //Stores the path
+                    paths.add(path);
+                    //displays the added path
+                    listView.getItems().add(path);
+                }
                 success = true;
             }
             /* let the source know whether the string was successfully
