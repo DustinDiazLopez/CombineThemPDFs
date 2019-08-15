@@ -112,7 +112,7 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
 
         /*Information labels*/
-        Label label = new Label("Drag the files to me, one by one and in order.\nI'm not a mind reader. :'v");
+        Label label = new Label("Drag the files to me in order.\nI'm not a mind reader. :'v");
         Label tfLabel = new Label("Export Location:");
 
         /*Sets the spacing for the Vertical Box and sets its color*/
