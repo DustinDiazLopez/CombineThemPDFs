@@ -29,10 +29,10 @@ import java.util.List;
 
 public class Main extends Application {
 
-    //Default local path
+    //Default local export path and name for exported file
     private String defaultDesktopLocation = desktopFinder() + "Combined.pdf";
 
-    //Variable that contains all the paths of all files to be combined
+    //Variable that contains all the paths of all files to be combined/merged
     private List<String> paths = new ArrayList<>();
 
     //other
@@ -92,14 +92,14 @@ public class Main extends Application {
     }
 
     /**
-     * On hover with file change color
+     * Change color when on hover with file
      * When the user hovers over the application stage it will it's colors with these functions
      */
-    private void setStyleForVBox() {
+    private void setDefaultColor() {
         vBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
     }
 
-    private void resetStyleForVBox() {
+    private void setNewColor() {
         vBox.setStyle("-fx-background-color: rgba(240, 240, 240, 0.5);");
     }
 
@@ -118,7 +118,7 @@ public class Main extends Application {
         /*Sets the spacing for the Vertical Box and sets its color*/
         vBox.setSpacing(10);
         vBox.setBackground(Background.EMPTY);
-        setStyleForVBox();
+        setDefaultColor();
 
         /*Puts the Information labels in the Vertical Box*/
         vBox.getChildren().addAll(label, progressBar, lvLabel);
@@ -132,7 +132,7 @@ public class Main extends Application {
 
         vBox.setOnDragOver(event -> {
             /*change the color when a file is dragged over the pane*/
-            resetStyleForVBox();
+            setNewColor();
             if (event.getGestureSource() != vBox
                     && event.getDragboard().hasFiles()) {
                 /* allow for both copying and moving, whatever user chooses */
@@ -142,7 +142,7 @@ public class Main extends Application {
         });
 
         /*When the user exits or drops the file the pane goes back to its set color*/
-        vBox.setOnDragExited(e -> setStyleForVBox());
+        vBox.setOnDragExited(e -> setDefaultColor());
 
         /*Handles when the file is dropped*/
         vBox.setOnDragDropped(event -> {
@@ -155,13 +155,19 @@ public class Main extends Application {
                 path = path.substring(1, path.length() - 1);
                 System.err.println(path);
 
+                /*Checks to see if multiple files were dropped at once*/
                 if (path.contains(",")) {
+                    //splits all the file paths into a string array
                     String[] arrPath = path.split(",");
 
+                    //removes spaces in front and before of the string(path)
                     for (int i = 0; i < arrPath.length; i ++) arrPath[i] = arrPath[i].trim();
 
+                    //Turns the String array into a List and adds all its content to the paths variable
+                    //stores the paths
                     paths.addAll(Arrays.asList(arrPath));
 
+                    //Takes all strings in the string array and displays it on screen in the list view
                     for (String s : arrPath) listView.getItems().add(s);
                 } else {
                     //Stores the path
@@ -232,7 +238,7 @@ public class Main extends Application {
 
     /**
      * Where the magic happens!
-     * @param files merged
+     * @param files to be merged/combined
      */
     private void merge(File[] files) {
         try {
