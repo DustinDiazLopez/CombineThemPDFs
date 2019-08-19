@@ -153,7 +153,6 @@ public class Main extends Application {
                 String path = db.getFiles().toString();
                 //Removes unnecessary characters []
                 path = path.substring(1, path.length() - 1);
-                System.err.println(path);
 
                 /*Checks to see if multiple files were dropped at once*/
                 if (path.contains(",")) {
@@ -231,7 +230,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight());
 
 
-        primaryStage.setTitle("Combine Dem PDFs");
+        primaryStage.setTitle("Comb-inator");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
