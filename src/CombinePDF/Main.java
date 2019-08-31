@@ -32,6 +32,8 @@ public class Main extends Application {
     //Default local export path and name for exported file
     private String defaultDesktopLocation = desktopFinder() + "Combined.pdf";
 
+    private String[] check = {"docx", "doc"};
+
     //Variable that contains all the paths of all files to be combined/merged
     private List<String> paths = new ArrayList<>();
 
@@ -59,6 +61,7 @@ public class Main extends Application {
      * @return path to a specified directory in the device in this case it is desktop
      */
     private static String desktopFinder() {
+        //TODO: add a fallback if it fails
         String dir = "Desktop"; //The directory to find
         String path = new File("").getAbsolutePath();
         return path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash;
@@ -170,6 +173,9 @@ public class Main extends Application {
                     for (String s : arrPath) listView.getItems().add(s);
                 } else {
                     //Stores the path
+                    //todo: add docx & doc convertion
+                    //store in temp location and delete it afterwards
+                    //if (path.substring(path.length() - 4).contains("docx"))
                     paths.add(path);
                     //displays the added path
                     listView.getItems().add(path);
