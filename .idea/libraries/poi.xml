@@ -1,0 +1,33 @@
+<component name="libraryTable">
+  <library name="poi">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/activation-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/commons-codec-1.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/commons-collections4-4.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/commons-compress-1.18.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/commons-math3-3.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/jaxb-api-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/jaxb-core-2.3.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/jaxb-impl-2.3.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/junit-4.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/lib/log4j-1.2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/ooxml-lib/curvesapi-1.06.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/ooxml-lib/xmlbeans-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/poi-4.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/poi-examples-4.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/poi-excelant-4.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/poi-ooxml-4.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/poi-ooxml-schemas-4.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/poi/poi-scratchpad-4.1.0.jar!/" />
+      <root url="file://$PROJECT_DIR$/src/libs/poi" />
+      <root url="file://$PROJECT_DIR$/src/libs/poi/lib" />
+      <root url="file://$PROJECT_DIR$/src/libs/poi/ooxml-lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/src/libs/poi" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/src/libs/poi/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/src/libs/poi/ooxml-lib" recursive="false" />
+  </library>
+</component>
