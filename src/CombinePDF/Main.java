@@ -173,9 +173,8 @@ public class Main extends Application {
                     for (String s : arrPath) listView.getItems().add(s);
                 } else {
                     //Stores the path
-                    //todo: add docx & doc convertion
-                    //store in temp location and delete it afterwards
-                    //if (path.substring(path.length() - 4).contains("docx"))
+                    /*todo: add docx & doc conversion store in temp location and delete it afterwards*/
+                    //if (path.substring(path.length() - 4).contains("docx")) path = newPath(path);
                     paths.add(path);
                     //displays the added path
                     listView.getItems().add(path);
