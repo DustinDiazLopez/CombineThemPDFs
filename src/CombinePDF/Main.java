@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class Main extends Application {
 
@@ -36,6 +37,8 @@ public class Main extends Application {
 
     //Variable that contains all the paths of all files to be combined/merged
     private List<String> paths = new ArrayList<>();
+
+    private List<String> delete = new ArrayList<>();
 
     //other
     private Label dropped = new Label("Waiting...");
@@ -90,6 +93,7 @@ public class Main extends Application {
     private void closeProgram() {
         boolean answer = ConfirmBox.display("Close Application", "Are you sure you want to quit? :(");
         if (answer) {
+            deleteTempFiles();
             System.exit(0);
         }
     }
@@ -113,6 +117,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         /*Sets the icon for the application*/
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
+        File tempDir = new File("TEMP");
+        if (tempDir.mkdirs()) {
+            System.out.println(tempDir.getAbsolutePath());
+        } else {
+            if (!tempDir.exists())
+                System.err.println("Could not create temporary folder.\nYou will not be abel to convert DOCX to PDF");
+        }
 
         /*Information labels*/
         Label label = new Label("Drag the files to me in order.\nI'm not a mind reader. :'v");
@@ -165,6 +176,24 @@ public class Main extends Application {
                     //removes spaces in front and before of the string(path)
                     for (int i = 0; i < arrPath.length; i ++) arrPath[i] = arrPath[i].trim();
 
+                    String extension;
+                    String newName;
+                    String originalName;
+                    for (int i = 0; i < arrPath.length; i++) {
+                        extension = arrPath[i];
+                        if (extension.contains("docx") || arrPath[i].contains("doc")) {
+                            originalName = new File(path).getName();
+                            newName = tempDir.getAbsolutePath()
+                                    + "\\"
+                                    + originalName
+                                    + UUID.randomUUID().toString()
+                                    + ".pdf";
+                            delete.add(newName);
+                            Convert.toPDF(extension, newName);
+                            arrPath[i] = newName;
+                        }
+                    }
+
                     //Turns the String array into a List and adds all its content to the paths variable
                     //stores the paths
                     paths.addAll(Arrays.asList(arrPath));
@@ -174,7 +203,20 @@ public class Main extends Application {
                 } else {
                     //Stores the path
                     /*todo: add docx & doc conversion store in temp location and delete it afterwards*/
-                    //if (path.substring(path.length() - 4).contains("docx")) path = newPath(path);
+
+                    if (path.substring(path.length() - 4).contains("docx")) {
+                        String originalName = new File(path).getName();
+                        String newName =
+                                tempDir.getAbsolutePath()
+                                        + "\\"
+                                        + originalName
+                                        + UUID.randomUUID().toString()
+                                        + ".pdf";
+                        delete.add(newName);
+                        Convert.toPDF(path, newName);
+                        path = newName;
+                    }
+
                     paths.add(path);
                     //displays the added path
                     listView.getItems().add(path);
@@ -293,6 +335,8 @@ public class Main extends Application {
 
             progressBar.setProgress(25.0 / max);
 
+            deleteTempFiles();
+
             dropped.setText("Documents merged! Check Desktop!");
             progressBar.setProgress(max / max);
         } catch (IOException e) {
@@ -310,5 +354,16 @@ public class Main extends Application {
         paths.clear();
         listView.getItems().clear();
         progressBar.setProgress(0);
+        deleteTempFiles();
+    }
+
+    private void deleteTempFiles() {
+        for (String pathToDelete : delete) {
+            if (new File(pathToDelete).delete()) {
+                System.out.println("Temp file deleted");
+            } else {
+                System.err.println("Could not delete: " + pathToDelete);
+            }
+        }
     }
 }
