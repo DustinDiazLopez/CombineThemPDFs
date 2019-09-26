@@ -6,14 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Updates jar">
-      <change afterPath="$PROJECT_DIR$/TEMP/books - Copy (4).docx289857c8-93f5-4bce-8c44-0a546e692318.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEMP/books - Copy (4).docx3b14dff2-52b0-4969-bbab-2c0dab435d7f.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEMP/books - Copy (4).docx77188194-d568-4785-84da-d563fe66b909.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEMP/books - Copy (4).docxd1561926-6967-48b3-8b5c-88c2f9d1b903.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEMP/books.docxd40b25e3-bb99-4976-9be9-a287ddef82c8.pdf" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Added docx support :D">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CombinePDF/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Main.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -265,7 +260,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567279734608</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added docx support :D">
+      <created>1569540991583</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1569540991583</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -297,7 +299,8 @@
     <MESSAGE value="Refactored and added comments" />
     <MESSAGE value="Readme" />
     <MESSAGE value="Updates jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updates jar" />
+    <MESSAGE value="Added docx support :D" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added docx support :D" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
