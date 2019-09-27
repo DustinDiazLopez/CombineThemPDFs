@@ -202,8 +202,8 @@ public class Main extends Application {
                     for (String s : arrPath) listView.getItems().add(s);
                 } else {
                     //Stores the path
-
-                    if (path.substring(path.length() - 4).contains("docx")) {
+                    String substring = path.substring(path.length() - 4);
+                    if (substring.contains("docx") || substring.contains("doc")) {
                         String originalName = new File(path).getName();
                         String newName =
                                 tempDir.getAbsolutePath()
