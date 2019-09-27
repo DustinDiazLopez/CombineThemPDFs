@@ -276,7 +276,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight());
 
 
-        primaryStage.setTitle("Comb-inator");
+        primaryStage.setTitle("Combine-inator");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
