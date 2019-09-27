@@ -60,14 +60,14 @@ public class Main extends Application {
     /**
      * Function to find the devices Desktop folder
      * *
-     *
+     *  The problem: it assumes it will be ran in a child folder of the desktop
      * @return path to a specified directory in the device in this case it is desktop
      */
     private static String desktopFinder() {
         //TODO: add a fallback if it fails
         String dir = "Desktop"; //The directory to find
         String path = new File("").getAbsolutePath();
-        return path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash;
+        return path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
     }
 
     /**
@@ -358,10 +358,10 @@ public class Main extends Application {
 
     private void deleteTempFiles() {
         for (String pathToDelete : delete) {
-            if (new File(pathToDelete).delete()) {
-                System.out.println("Temp file deleted");
-            } else {
-                System.err.println("Could not delete: " + pathToDelete);
+            if (!new File(pathToDelete).delete()) {
+                if (new File(pathToDelete).exists()) {
+                    System.err.println("Could not delete: " + pathToDelete);
+                }
             }
         }
     }
