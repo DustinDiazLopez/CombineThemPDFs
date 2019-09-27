@@ -66,13 +66,12 @@ public class Main extends Application {
         String dir = "Desktop"; //The directory to find
         String path = new File("").getAbsolutePath();
         path = path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
-        if (!new File(path).exists())
-            lvLabel.setText("All files to be combined: (PLEASE CHANGE EXPORT LOCATION)");
+        if (!new File(path).exists()) lvLabel.setText("All files to be combined: (PLEASE CHANGE EXPORT LOCATION)");
         return path;
     }
 
     /**
-     * When the button Combine button is pressed it will jump to this function and combine all listed PDF's
+     * When the button Combine button is pressed it will jump to this function and combine all listed PDFs
      * in the variable paths
      */
     private void btnRun() {
