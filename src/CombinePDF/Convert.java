@@ -6,8 +6,8 @@ import com.documents4j.job.LocalConverter;
 
 import java.io.*;
 
-public class Convert {
-    public static void toPDF(String docPath, String pdfPath) {
+class Convert {
+    static void toPDF(String docPath, String pdfPath) {
         File inputWord = new File(docPath);
         File outputFile = new File(pdfPath);
         try {

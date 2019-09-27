@@ -33,8 +33,6 @@ public class Main extends Application {
     //Default local export path and name for exported file
     private String defaultDesktopLocation = desktopFinder() + "Combined.pdf";
 
-    private String[] check = {"docx", "doc"};
-
     //Variable that contains all the paths of all files to be combined/merged
     private List<String> paths = new ArrayList<>();
 
@@ -63,11 +61,14 @@ public class Main extends Application {
      *  The problem: it assumes it will be ran in a child folder of the desktop
      * @return path to a specified directory in the device in this case it is desktop
      */
-    private static String desktopFinder() {
+    private String desktopFinder() {
         //TODO: add a fallback if it fails
         String dir = "Desktop"; //The directory to find
         String path = new File("").getAbsolutePath();
-        return path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
+        path = path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
+        if (!new File(path).exists())
+            lvLabel.setText("All files to be combined: (PLEASE CHANGE EXPORT LOCATION)");
+        return path;
     }
 
     /**
@@ -316,6 +317,7 @@ public class Main extends Application {
                 }
 
             }
+
             PDFMerger.setDestinationFileName(textField.getText());
 
             //adding the source files
@@ -358,11 +360,8 @@ public class Main extends Application {
 
     private void deleteTempFiles() {
         for (String pathToDelete : delete) {
-            if (!new File(pathToDelete).delete()) {
-                if (new File(pathToDelete).exists()) {
-                    System.err.println("Could not delete: " + pathToDelete);
-                }
-            }
+            if (!new File(pathToDelete).delete() && new File(pathToDelete).exists())
+                System.err.println("Could not delete: " + pathToDelete);
         }
     }
 }
