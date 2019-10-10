@@ -358,9 +358,10 @@ public class Main extends Application {
     }
 
     private void deleteTempFiles() {
-        for (String pathToDelete : delete) {
-            if (!new File(pathToDelete).delete() && new File(pathToDelete).exists())
-                System.err.println("Could not delete: " + pathToDelete);
-        }
+        for (String pathToDelete : delete)
+            if (!new File(pathToDelete).delete())
+                if (new File(pathToDelete).exists())
+                    System.err.println("Could not delete: " + pathToDelete);
+
     }
 }
