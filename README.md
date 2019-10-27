@@ -16,10 +16,7 @@ How to run the jar file
 git clone https://github.com/DustinDiazLopez/CombineThemPDFs.git
 ```
 ```
-cd CombineThemPDFs/out/artifacts/CombineThemPDFs_jar
-```
-```
-java -jar CombineThemPDFs.jar
+java -jar CombineThemPDFs/out/artifacts/CombineThemPDFs_jar/CombineThemPDFs.jar
 ```
 
 What I learned
