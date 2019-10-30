@@ -314,7 +314,6 @@ public class Main extends Application {
                     lvLabel.setText("All files to be combined: (Merge aborted change file name)");
                     return;
                 }
-
             }
 
             PDFMerger.setDestinationFileName(textField.getText());
@@ -358,10 +357,10 @@ public class Main extends Application {
     }
 
     private void deleteTempFiles() {
-        for (String pathToDelete : delete)
-            if (!new File(pathToDelete).delete())
-                if (new File(pathToDelete).exists())
-                    System.err.println("Could not delete: " + pathToDelete);
-
+        for (String pathToDelete : delete) {
+            if (new File(pathToDelete).delete()) {
+                System.out.println("Deleted: " + pathToDelete);
+            }
+        }
     }
 }
