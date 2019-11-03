@@ -42,6 +42,7 @@ public class Main extends Application {
     private Label dropped = new Label("Waiting...");
     private Button btn = new Button("Combine");
     private Button clear = new Button("Reset");
+    private Button dup = new Button("Duplicate");
     private TextField textField = new TextField();
     private ListView<String> listView = new ListView<>();
     private ProgressIndicator progressBar = new ProgressIndicator(0);
@@ -107,7 +108,7 @@ public class Main extends Application {
     }
 
     private void setNewColor() {
-        vBox.setStyle("-fx-background-color: rgba(240, 240, 240, 0.5);");
+        vBox.setStyle("-fx-background-color: rgba(200, 200, 200, 0.1);");
     }
 
     /**
@@ -240,11 +241,32 @@ public class Main extends Application {
             }
         });
 
+        /*Duplicate button when clicked*/
+        dup.setOnAction(e -> {
+            if (paths.isEmpty()) {
+                lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
+            } else {
+                int duplicateAmount = ValueBox.display("Duplicator-inator", "Enter the amount of times you want the files to be duplicated:");
+                Object[] temp = paths.toArray();
+                for (int i = 0; i < duplicateAmount; i++) {
+                    System.out.println(i);
+                    for (Object objPath : temp) {
+                        paths.add(objPath.toString());
+                        listView.getItems().add(objPath.toString());
+                    }
+                }
+            }
+        });
+
         /*Clear button*/
         clear.setOnAction(e -> clear());
 
         /*Shows the default export location can be changed*/
         textField.setText(defaultDesktopLocation);
+
+        /*When enter key is pressed when the text field is in focus it will simulate
+         * a button click on the run button*/
+        textField.setOnKeyPressed(event -> btn.fire());
 
         /*Gets the dimensions of the screen*/
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -259,13 +281,14 @@ public class Main extends Application {
         VBox.setMargin(textField, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btn, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(clear, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(dup, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(progressBar, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
 
         /*Location for buttons*/
         HBox hb = new HBox();
         hb.setSpacing(5);
         hb.setAlignment(Pos.CENTER);
-        hb.getChildren().addAll(btn, clear);
+        hb.getChildren().addAll(btn, clear, dup);
 
         ObservableList<javafx.scene.Node> list = vBox.getChildren();
         list.addAll(listView, tfLabel, textField, hb);
@@ -273,7 +296,7 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
-        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight());
+        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 200);
 
 
         primaryStage.setTitle("Combine-inator");
