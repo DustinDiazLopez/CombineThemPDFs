@@ -57,13 +57,11 @@ public class Main extends Application {
     }
 
     /**
-     * Function to find the devices Desktop folder
-     * *
-     *  The problem: it assumes it will be ran in a child folder of the desktop
+     * Function to find the Desktop folder
      * @return path to a specified directory in the device in this case it is desktop
      */
     private String desktopFinder() {
-        //TODO: add a fallback if it fails
+        //TODO: add a fallback if it fails | The problem: it assumes it will be ran in a child folder of the desktop
         String dir = "Desktop"; //The directory to find
         String path = new File("").getAbsolutePath();
         path = path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
@@ -77,13 +75,7 @@ public class Main extends Application {
      */
     private void btnRun() {
         File[] files = new File[paths.size()];
-        int counter = 0;
-
-        for (String path : paths) {
-            files[counter] = new File(path);
-            counter++;
-        }
-
+        for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
         merge(files);
     }
 
@@ -223,10 +215,10 @@ public class Main extends Application {
                 }
                 success = true;
             }
+
             /* let the source know whether the string was successfully
              * transferred and used */
             event.setDropCompleted(success);
-
             event.consume();
         });
 
@@ -270,7 +262,6 @@ public class Main extends Application {
             if (event.getCode().toString().equals("ENTER")) btn.fire();
         });
 
-
         /*Gets the dimensions of the screen*/
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -299,8 +290,7 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
-        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 100);
-
+        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 75);
 
         primaryStage.setTitle("Combinator-inator v1.3");
         primaryStage.setScene(scene);
