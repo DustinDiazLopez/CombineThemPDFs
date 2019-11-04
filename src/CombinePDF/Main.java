@@ -266,7 +266,10 @@ public class Main extends Application {
 
         /*When enter key is pressed when the text field is in focus it will simulate
          * a button click on the run button*/
-        textField.setOnKeyPressed(event -> btn.fire());
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btn.fire();
+        });
+
 
         /*Gets the dimensions of the screen*/
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -296,10 +299,10 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
-        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 200);
+        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 100);
 
 
-        primaryStage.setTitle("Combine-inator");
+        primaryStage.setTitle("Combinator-inator v1.3");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
