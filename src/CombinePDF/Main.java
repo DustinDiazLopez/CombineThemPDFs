@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -39,6 +40,7 @@ public class Main extends Application {
     private List<String> delete = new ArrayList<>();
 
     //other
+    private String titleAndVersion = "Combinator-inator v1.3.1";
     private Label dropped = new Label("Waiting...");
     private Button btn = new Button("Combine");
     private Button clear = new Button("Reset");
@@ -47,7 +49,9 @@ public class Main extends Application {
     private ListView<String> listView = new ListView<>();
     private ProgressIndicator progressBar = new ProgressIndicator(0);
     private Label lvLabel = new Label("All files to be combined:");
+    private Label lblLog = new Label("Log for " + titleAndVersion + ":\n");
     private VBox vBox = new VBox();
+    private ScrollPane scrollPane;
 
     /**
      * @param args the command line arguments
@@ -65,7 +69,10 @@ public class Main extends Application {
         String dir = "Desktop"; //The directory to find
         String path = new File("").getAbsolutePath();
         path = path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
-        if (!new File(path).exists()) lvLabel.setText("All files to be combined: (PLEASE CHANGE EXPORT LOCATION)");
+        if (!new File(path).exists()) {
+            lvLabel.setText("All files to be combined: (PLEASE CHANGE EXPORT LOCATION)");
+            setLog("Please check export location!\n\"" + defaultDesktopLocation + "\" was not found!");
+        }
         return path;
     }
 
@@ -112,10 +119,13 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
         File tempDir = new File("TEMP");
         if (tempDir.mkdirs()) {
-            System.out.println(tempDir.getAbsolutePath());
+            lblLog.setText(lblLog.getText() + "Created " + tempDir.getAbsolutePath());
         } else {
-            if (!tempDir.exists())
+            if (!tempDir.exists()) {
                 System.err.println("Could not create temporary folder.\nYou will not be abel to convert DOCX to PDF");
+                setLog("An error occurred while created temporary folder.\n" +
+                        "You will not be able to convert Word Documents to PDF files...\n");
+            }
         }
 
         /*Information labels*/
@@ -227,6 +237,7 @@ public class Main extends Application {
             //Checks if user has provided files to be combined.
             if (paths.isEmpty()) {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
+                setLog("No files have been selected.\n");
             } else {
                 btn.setDisable(true);
                 btnRun();
@@ -237,11 +248,11 @@ public class Main extends Application {
         dup.setOnAction(e -> {
             if (paths.isEmpty()) {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
+                setLog("No files have been selected.\n");
             } else {
                 int duplicateAmount = ValueBox.display("Duplicator-inator", "Enter the amount of times you want the files to be duplicated:");
                 Object[] temp = paths.toArray();
                 for (int i = 0; i < duplicateAmount; i++) {
-                    System.out.println(i);
                     for (Object objPath : temp) {
                         paths.add(objPath.toString());
                         listView.getItems().add(objPath.toString());
@@ -256,10 +267,41 @@ public class Main extends Application {
         /*Shows the default export location can be changed*/
         textField.setText(defaultDesktopLocation);
 
+        scrollPane = new ScrollPane();
+        scrollPane.setPrefHeight(400);
+        scrollPane.setMaxHeight(400);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setContent(lblLog);
+        scrollPane.setVisible(false);
         /*When enter key is pressed when the text field is in focus it will simulate
-         * a button click on the run button*/
+         * a button click on the run button also checks if the log is visible or not
+         * it will do the opposite of its current state*/
         textField.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) btn.fire();
+
+            if (event.getCode().toString().equals("ALT")) {
+                if (scrollPane.isVisible()) {
+                    scrollPane.setVisible(false);
+                } else {
+                    scrollPane.setVisible(true);
+                }
+            }
+        });
+
+        //if the button is selected and the enter key is pressed it will simulate a button click
+        btn.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btn.fire();
+        });
+
+        //if the clear button is selected and the enter key is pressed it will simulate a button click
+        clear.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) clear.fire();
+        });
+
+        //if the duplicate button is selected and the enter key is pressed it will simulate a button click
+        dup.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) dup.fire();
         });
 
         /*Gets the dimensions of the screen*/
@@ -268,6 +310,7 @@ public class Main extends Application {
         /*margins for all items on screen*/
         int insectsVal = 12;
         VBox.setMargin(label, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(scrollPane, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(dropped, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(lvLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(listView, new Insets(0, insectsVal, insectsVal, insectsVal));
@@ -285,14 +328,14 @@ public class Main extends Application {
         hb.getChildren().addAll(btn, clear, dup);
 
         ObservableList<javafx.scene.Node> list = vBox.getChildren();
-        list.addAll(listView, tfLabel, textField, hb);
+        list.addAll(listView, tfLabel, textField, hb, scrollPane);
 
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
         Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 75);
 
-        primaryStage.setTitle("Combinator-inator v1.3");
+        primaryStage.setTitle(titleAndVersion);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -328,6 +371,7 @@ public class Main extends Application {
                 if (!answer) {
                     btn.setDisable(false);
                     lvLabel.setText("All files to be combined: (Merge aborted change file name)");
+                    lblLog.setText(lblLog.getText() + "\nFile overwrite collision detected change file name.");
                     return;
                 }
             }
@@ -353,11 +397,17 @@ public class Main extends Application {
             deleteTempFiles();
 
             dropped.setText("Documents merged! Check Desktop!");
+            setLog("Finished!\n");
             progressBar.setProgress(max / max);
         } catch (IOException e) {
             clear();
             e.printStackTrace();
+            setLog(e.getMessage() + "\n");
         }
+    }
+
+    private void setLog(String log) {
+        lblLog.setText(lblLog.getText() + log);
     }
 
     /**
@@ -365,6 +415,7 @@ public class Main extends Application {
      */
     private void clear() {
         lvLabel.setText("All files to be combined:");
+        lblLog.setText("Log:\n");
         btn.setDisable(false);
         paths.clear();
         listView.getItems().clear();
@@ -373,10 +424,12 @@ public class Main extends Application {
     }
 
     private void deleteTempFiles() {
+        StringBuilder stringBuilder = new StringBuilder();
         for (String pathToDelete : delete) {
             if (new File(pathToDelete).delete()) {
-                System.out.println("Deleted: " + pathToDelete);
+                stringBuilder.append("Deleted temporary file at ").append(pathToDelete).append("\n");
             }
         }
+        setLog(stringBuilder.toString());
     }
 }
