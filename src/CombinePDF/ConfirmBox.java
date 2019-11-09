@@ -29,28 +29,24 @@ class ConfirmBox {
         Button yesButton = new Button("Yes");
         Button noButton = new Button("No");
 
-        yesButton.setOnKeyPressed(e -> {
-            if (e.getCode().toString().equals("ENTER")) {
-                answer = true;
-                window.close();
-            }
-        });
-
         yesButton.setOnAction(e -> {
             answer = true;
             window.close();
         });
 
-        noButton.setOnKeyPressed(e -> {
-            if (e.getCode().toString().equals("ENTER")) {
-                answer = false;
-                window.close();
-            }
-        });
 
         noButton.setOnAction(e -> {
             answer = false;
             window.close();
+        });
+
+        yesButton.setOnKeyPressed(e -> {
+            if (e.getCode().toString().equals("ENTER")) yesButton.fire();
+
+        });
+
+        noButton.setOnKeyPressed(e -> {
+            if (e.getCode().toString().equals("ENTER")) noButton.fire();
         });
 
         VBox layout = new VBox(10);

@@ -23,7 +23,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,8 +41,10 @@ public class Main extends Application {
 
     private List<String> delete = new ArrayList<>();
 
+    private Scene scene;
+
     //other
-    private String titleAndVersion = "Combinator-inator v1.3.1";
+    private String titleAndVersion = "Combinator-inator v1.3.2";
     private Label dropped = new Label("Waiting...");
     private Button btn = new Button("Combine");
     private Button clear = new Button("Reset");
@@ -54,6 +58,8 @@ public class Main extends Application {
     private ScrollPane scrollPane;
     private int fileCounter = 1;
     private Button removeFile = new Button("Remove");
+    private Button moveFile = new Button("Move");
+    private String lastScreenSizeFileLocation = new File("").getAbsolutePath() + "\\src\\CombinePDF\\Screen\\screen.txt";
 
     /**
      * @param args the command line arguments
@@ -92,10 +98,11 @@ public class Main extends Application {
      * Consumes exit request and shows a Confirmation Box to assure that the user wants to quit the
      * application
      */
-    private void closeProgram() {
+    private void closeProgram() throws FileNotFoundException, UnsupportedEncodingException {
         boolean answer = ConfirmBox.display("Close Application", "Are you sure you want to quit? :(");
         if (answer) {
             deleteTempFiles();
+            Write.txt(new File(lastScreenSizeFileLocation), scene.getHeight() + "," + scene.getWidth());
             System.exit(0);
         }
     }
@@ -116,7 +123,7 @@ public class Main extends Application {
      * @param primaryStage all styling, functionality and initial setup is in this function
      */
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         /*Sets the icon for the application*/
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
         File tempDir = new File("TEMP");
@@ -129,6 +136,7 @@ public class Main extends Application {
                         "You will not be able to convert Word Documents to PDF files...\n");
             }
         }
+        System.out.println(new File("").getAbsolutePath());
 
         /*Information labels*/
         Label label = new Label("Drag the files to me in order.\nI'm not a mind reader. :'v");
@@ -145,7 +153,11 @@ public class Main extends Application {
         /*Handles Close Request*/
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
-            closeProgram();
+            try {
+                closeProgram();
+            } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+                ex.printStackTrace();
+            }
         });
 
         //Place holder for list view when no files have been selected
@@ -258,7 +270,7 @@ public class Main extends Application {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
-                int duplicateAmount = ValueBox.display("Duplicator-inator",
+                int duplicateAmount = DuplicateBox.display("Duplicator-inator",
                         "Enter the amount of copies you want of the current file(s)" +
                                 " including the currently selected file(s):");
                 Object[] temp = paths.toArray();
@@ -277,13 +289,45 @@ public class Main extends Application {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
-                int index = DropDownBox.display("Remove", "Select the file to be removed:", paths);
-                deleteItem(index);
+                int index = RemoveBox.display("Remove-inator", "Select the file to be removed:", paths);
+                if (!(index == -1)) {
+                    setLog("Removing " + paths.get(index - 1) + "\n");
+                    deleteItem(index - 1);
+                    setLog("Removed " + paths.get(index - 1) + "\n");
+                } else {
+                    setLog("Aborted remove file..." + "\n");
+                }
+            }
+        });
+
+        moveFile.setOnAction(event -> {
+            if (paths.isEmpty() || paths.size() < 2) {
+                lvLabel.setText("All files to be combined: (You must have at least two [2] files)");
+                setLog("No files have been selected.\n");
+            } else {
+                int[] indexs = MoveBox.display("Move-inator", paths);
+                if (!(indexs == null)) {
+                    setLog("Moving " + paths.get(indexs[0] - 1) + "\n" +
+                            "to " + paths.get(indexs[1] - 1));
+                    moveItem(indexs[0] - 1, indexs[1] - 1);
+                    setLog("Finished moving...\n");
+                } else {
+                    setLog("Aborted move file..." + "\n");
+                }
             }
         });
         /*Clear button*/
-        clear.setOnAction(e -> clear());
+        clear.setOnAction(e -> {
+            if (paths.isEmpty()) {
+                clear();
+            } else {
+                boolean answer = ConfirmBox
+                        .display("Clear-inator", "This action is irreversible are you sure?");
+                if (answer) clear();
+            }
+        });
 
+        clear.setStyle("-fx-text-fill: #FFFFFF; -fx-background-color: #FA0300");
         /*Shows the default export location can be changed*/
         textField.setText(defaultDesktopLocation);
 
@@ -345,13 +389,14 @@ public class Main extends Application {
         VBox.setMargin(clear, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(dup, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(removeFile, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(moveFile, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(progressBar, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
 
         /*Location for buttons*/
         HBox hb = new HBox();
         hb.setSpacing(5);
         hb.setAlignment(Pos.CENTER);
-        hb.getChildren().addAll(btn, clear, dup, removeFile);
+        hb.getChildren().addAll(btn, clear, dup, removeFile, moveFile);
 
         ObservableList<javafx.scene.Node> list = vBox.getChildren();
         list.addAll(listView, tfLabel, textField, hb, scrollPane);
@@ -359,7 +404,14 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
-        Scene scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 75);
+        String[] sizes = Read.txt(lastScreenSizeFileLocation).split(",");
+
+        try {
+            scene = new Scene(root, Double.parseDouble(sizes[0]), Double.parseDouble(sizes[1]));
+        } catch (Exception e) {
+            setLog("Could not read file for last used screen size...\nReason: " + e.getMessage() + "\n");
+            scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 75);
+        }
 
         primaryStage.setTitle(titleAndVersion);
         primaryStage.setScene(scene);
@@ -372,10 +424,9 @@ public class Main extends Application {
      */
     private void merge(File[] files) {
         try {
-
             double max = 30;
-
             progressBar.setProgress(0 / max);
+
             //Loading an existing PDF document
             PDDocument[] docs = new PDDocument[files.length];
 
@@ -464,19 +515,46 @@ public class Main extends Application {
     }
 
     /**
-     * TODO: Delete a file at a given index location
-     *
+     * Deletes a file at a given index location
      * @param index index of the file to be removed from the listView and paths variables
      */
     private void deleteItem(int index) {
         //Deletes the string at the
         paths.remove(index);
 
+        //Sets up the new list view
+        newListView();
+    }
+
+    /**
+     * Given a file index the method moves that file to a new location
+     *
+     * @param index  index of the file to be moved
+     * @param moveTo index location to move the file
+     */
+    private void moveItem(int index, int moveTo) {
+        //Stores the file to be moved
+        String temp = paths.get(index);
+
+        //Deletes the file in paths
+        paths.remove(index);
+
+        //Places the file in its new location
+        paths.add(moveTo, temp);
+
+        //Sets up the new list view
+        newListView();
+    }
+
+    /**
+     * Sets up a new list view with the updated paths
+     */
+    private void newListView() {
         //Cleats the list view and resets the global file counter
         listView.getItems().clear();
         fileCounter = 1;
 
-        //Sets up the new list view
+        //Sets up the new list view with the file number
         for (String path : paths) {
             listView.getItems().add("[" + fileCounter + "] " + path);
             fileCounter++;

@@ -7,10 +7,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="refactored">
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/DropDownBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CombinePDF/LastScreenSize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CombinePDF/MoveBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CombinePDF/Read.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CombinePDF/Screen/screen.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CombinePDF/Write.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/dudia.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/dudia.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/ConfirmBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/ConfirmBox.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/ValueBox.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CombinePDF/ConfirmBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/ConfirmBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CombinePDF/DropDownBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/RemoveBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CombinePDF/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CombinePDF/ValueBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/DuplicateBox.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +113,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/CombinePDF" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -111,19 +121,20 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\CombinePDF" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\sample" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="CombinePDF" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\documents4j" />
       <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\PDFBox" />
       <recent name="C:\Users\dudia\Desktop\" />
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\sample\imgs" />
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\out\artifacts\CombineThemPDFs_jar" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="CombinePDF" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\sample" />
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs" />
     </key>
   </component>
   <component name="RunDashboard">

@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-class ValueBox {
+class DuplicateBox {
 
     private static int value;
 
@@ -26,7 +26,7 @@ class ValueBox {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinHeight(200);
-        window.setMinWidth(425);
+        window.setMinWidth(450);
         window.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
 
         TextField textField = new TextField("5");
@@ -36,25 +36,21 @@ class ValueBox {
         Button yesButton = new Button("Duplicate");
         Button noButton = new Button("Cancel");
 
-        yesButton.setOnKeyPressed(e -> {
-            if (e.getCode().toString().equals("ENTER")) {
-                value = Integer.parseInt(textField.getText());
-                window.close();
-            }
-        });
-
         yesButton.setOnAction(e -> {
             value = Integer.parseInt(textField.getText());
             window.close();
         });
 
-        noButton.setOnKeyPressed(e -> {
-            if (e.getCode().toString().equals("ENTER")) {
-                window.close();
-            }
+        noButton.setOnAction(e -> window.close());
+
+        yesButton.setOnKeyPressed(e -> {
+            if (e.getCode().toString().equals("ENTER")) yesButton.fire();
+
         });
 
-        noButton.setOnAction(e -> window.close());
+        noButton.setOnKeyPressed(e -> {
+            if (e.getCode().toString().equals("ENTER")) noButton.fire();
+        });
 
         VBox layout = new VBox(10);
         HBox layButton = new HBox(10);

@@ -1,11 +1,11 @@
 package CombinePDF;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -14,14 +14,23 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-class DropDownBox {
+class RemoveBox {
 
     private static int value;
 
     static int display(String title, String message, List<String> paths) {
         Stage window = new Stage();
-        ComboBox<Integer> comboBox = new ComboBox<>();
+        String[] numbers = new String[paths.size()];
+        int counter = 1;
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = counter + "";
+            counter++;
+        }
 
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.setOnAction(event -> System.err.println(comboBox.getValue()));
+
+        comboBox.setItems(FXCollections.observableArrayList(numbers));
 
         window.setOnCloseRequest(e -> {
             e.consume();
@@ -34,38 +43,40 @@ class DropDownBox {
         window.setMinWidth(425);
         window.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
 
-        TextField textField = new TextField("5");
         Label label = new Label();
         label.setText(message);
 
-        Button yesButton = new Button("Duplicate");
+        Button yesButton = new Button("Remove");
         Button noButton = new Button("Cancel");
 
-        yesButton.setOnKeyPressed(e -> {
-            if (e.getCode().toString().equals("ENTER")) {
-                value = Integer.parseInt(textField.getText());
-                window.close();
-            }
-        });
-
         yesButton.setOnAction(e -> {
-            value = Integer.parseInt(textField.getText());
+            if (!(comboBox.getValue() == null)) {
+                value = Integer.parseInt(comboBox.getValue());
+            } else {
+                value = -1;
+            }
             window.close();
         });
 
-        noButton.setOnKeyPressed(e -> {
-            if (e.getCode().toString().equals("ENTER")) {
-                window.close();
-            }
+        noButton.setOnAction(e -> {
+            value = -1;
+            window.close();
         });
 
-        noButton.setOnAction(e -> window.close());
+        yesButton.setOnKeyPressed(e -> {
+            if (e.getCode().toString().equals("ENTER")) yesButton.fire();
+
+        });
+
+        noButton.setOnKeyPressed(e -> {
+            if (e.getCode().toString().equals("ENTER")) noButton.fire();
+        });
 
         VBox layout = new VBox(10);
         HBox layButton = new HBox(10);
         layButton.getChildren().addAll(yesButton, noButton);
         layButton.setAlignment(Pos.CENTER);
-        layout.getChildren().addAll(label, textField, layButton);
+        layout.getChildren().addAll(label, comboBox, layButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
