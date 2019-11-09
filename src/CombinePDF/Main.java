@@ -66,7 +66,7 @@ public class Main extends Application {
      * @return path to a specified directory in the device in this case it is desktop
      */
     private String desktopFinder() {
-        //TODO: add a fallback if it fails | The problem: it assumes it will be ran in a child folder of the desktop
+        //TODO: add a fallback if it fails | The problem: it assumes it will be ran in a child folder of the Desktop
         String dir = "Desktop"; //The directory to find
         String path = new File("").getAbsolutePath();
         path = path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
@@ -147,8 +147,8 @@ public class Main extends Application {
             closeProgram();
         });
 
+        //Place holder for list view when no files have been selected
         listView.setPlaceholder(new Label("No files have been dropped."));
-
 
         vBox.setOnDragOver(event -> {
             /*change the color when a file is dragged over the pane*/
