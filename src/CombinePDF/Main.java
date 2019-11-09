@@ -52,6 +52,7 @@ public class Main extends Application {
     private Label lblLog = new Label("Log for " + titleAndVersion + ":\n");
     private VBox vBox = new VBox();
     private ScrollPane scrollPane;
+    private int fileCounter = 1;
 
     /**
      * @param args the command line arguments
@@ -202,7 +203,10 @@ public class Main extends Application {
                     paths.addAll(Arrays.asList(arrPath));
 
                     //Takes all strings in the string array and displays it on screen in the list view
-                    for (String s : arrPath) listView.getItems().add(s);
+                    for (String s : arrPath) {
+                        listView.getItems().add("[" + fileCounter + "] " + s);
+                        fileCounter++;
+                    }
                 } else {
                     //Stores the path
                     String substring = path.substring(path.length() - 4);
@@ -221,7 +225,8 @@ public class Main extends Application {
 
                     paths.add(path);
                     //displays the added path
-                    listView.getItems().add(path);
+                    listView.getItems().add("[" + fileCounter + "] " + path);
+                    fileCounter++;
                 }
                 success = true;
             }
@@ -250,12 +255,15 @@ public class Main extends Application {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
-                int duplicateAmount = ValueBox.display("Duplicator-inator", "Enter the amount of times you want the files to be duplicated:");
+                int duplicateAmount = ValueBox.display("Duplicator-inator",
+                        "Enter the amount of copies you want of the current file(s)" +
+                                " including the currently selected file(s):");
                 Object[] temp = paths.toArray();
-                for (int i = 0; i < duplicateAmount; i++) {
+                for (int i = 0; i < duplicateAmount - 1; i++) {
                     for (Object objPath : temp) {
                         paths.add(objPath.toString());
-                        listView.getItems().add(objPath.toString());
+                        listView.getItems().add("[" + fileCounter + "] " + objPath.toString());
+                        fileCounter++;
                     }
                 }
             }
@@ -420,6 +428,7 @@ public class Main extends Application {
         paths.clear();
         listView.getItems().clear();
         progressBar.setProgress(0);
+        fileCounter = 1;
         deleteTempFiles();
     }
 

@@ -29,7 +29,7 @@ class ValueBox {
         window.setMinWidth(425);
         window.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
 
-        TextField textField = new TextField("4");
+        TextField textField = new TextField("5");
         Label label = new Label();
         label.setText(message);
 
