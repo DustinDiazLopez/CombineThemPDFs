@@ -19,7 +19,7 @@ class Convert {
             System.out.println("\u001B[32m" + "success!" + "\u001B[0m");
         } catch (Exception e) {
             e.printStackTrace();
-            ConfirmBox.display("Error DOC to PDF", "Uh-Oh! An error occured while converting your file to PDF.\n" +
+            ConfirmBox.display("Error DOC to PDF", "Uh-Oh! An error occurred while converting your file to PDF.\n" +
                     "Stack trace:\n" + e.getMessage());
         }
     }

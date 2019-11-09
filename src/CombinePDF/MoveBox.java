@@ -18,7 +18,7 @@ class MoveBox {
 
     private static int[] value;
 
-    static int[] display(String title, List<String> paths) {
+    static int[] display(List<String> paths) {
         Stage window = new Stage();
         String[] numbers = new String[paths.size()];
         int counter = 1;
@@ -40,7 +40,7 @@ class MoveBox {
         });
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
+        window.setTitle("Move-inator");
         window.setMinHeight(200);
         window.setMinWidth(425);
         window.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));

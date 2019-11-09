@@ -270,7 +270,7 @@ public class Main extends Application {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
-                int duplicateAmount = DuplicateBox.display("Duplicator-inator",
+                int duplicateAmount = DuplicateBox.display(
                         "Enter the amount of copies you want of the current file(s)" +
                                 " including the currently selected file(s):");
                 Object[] temp = paths.toArray();
@@ -289,7 +289,7 @@ public class Main extends Application {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
-                int index = RemoveBox.display("Remove-inator", "Select the file to be removed:", paths);
+                int index = RemoveBox.display(paths);
                 if (!(index == -1)) {
                     setLog("Removing " + paths.get(index - 1) + "\n");
                     deleteItem(index - 1);
@@ -305,7 +305,7 @@ public class Main extends Application {
                 lvLabel.setText("All files to be combined: (You must have at least two [2] files)");
                 setLog("No files have been selected.\n");
             } else {
-                int[] indexs = MoveBox.display("Move-inator", paths);
+                int[] indexs = MoveBox.display(paths);
                 if (!(indexs == null)) {
                     setLog("Moving " + paths.get(indexs[0] - 1) + "\n" +
                             "to " + paths.get(indexs[1] - 1));

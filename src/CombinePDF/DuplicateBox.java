@@ -15,7 +15,7 @@ class DuplicateBox {
 
     private static int value;
 
-    static int display(String title, String message) {
+    static int display(String message) {
         Stage window = new Stage();
 
         window.setOnCloseRequest(e -> {
@@ -24,7 +24,7 @@ class DuplicateBox {
         });
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
+        window.setTitle("Duplicator-inator");
         window.setMinHeight(200);
         window.setMinWidth(450);
         window.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
