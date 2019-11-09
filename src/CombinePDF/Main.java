@@ -53,6 +53,7 @@ public class Main extends Application {
     private VBox vBox = new VBox();
     private ScrollPane scrollPane;
     private int fileCounter = 1;
+    private Button removeFile = new Button("Remove");
 
     /**
      * @param args the command line arguments
@@ -271,6 +272,15 @@ public class Main extends Application {
             }
         });
 
+        removeFile.setOnAction(event -> {
+            if (paths.isEmpty()) {
+                lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
+                setLog("No files have been selected.\n");
+            } else {
+                int index = DropDownBox.display("Remove", "Select the file to be removed:", paths);
+                deleteItem(index);
+            }
+        });
         /*Clear button*/
         clear.setOnAction(e -> clear());
 
@@ -314,6 +324,11 @@ public class Main extends Application {
             if (event.getCode().toString().equals("ENTER")) dup.fire();
         });
 
+        //if the remove button is selected and the enter key is pressed it will simulate a button click
+        removeFile.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) removeFile.fire();
+        });
+
         /*Gets the dimensions of the screen*/
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -329,13 +344,14 @@ public class Main extends Application {
         VBox.setMargin(btn, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(clear, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(dup, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(removeFile, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(progressBar, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
 
         /*Location for buttons*/
         HBox hb = new HBox();
         hb.setSpacing(5);
         hb.setAlignment(Pos.CENTER);
-        hb.getChildren().addAll(btn, clear, dup);
+        hb.getChildren().addAll(btn, clear, dup, removeFile);
 
         ObservableList<javafx.scene.Node> list = vBox.getChildren();
         list.addAll(listView, tfLabel, textField, hb, scrollPane);
@@ -421,7 +437,7 @@ public class Main extends Application {
     }
 
     /**
-     * Resets everything
+     * Clears and resets all variables to their initially given values
      */
     private void clear() {
         lvLabel.setText("All files to be combined:");
@@ -434,6 +450,9 @@ public class Main extends Application {
         deleteTempFiles();
     }
 
+    /**
+     * Deletes all temporally created PDF files in the local TEMP folder
+     */
     private void deleteTempFiles() {
         StringBuilder stringBuilder = new StringBuilder();
         for (String pathToDelete : delete) {
@@ -442,5 +461,25 @@ public class Main extends Application {
             }
         }
         setLog(stringBuilder.toString());
+    }
+
+    /**
+     * TODO: Delete a file at a given index location
+     *
+     * @param index index of the file to be removed from the listView and paths variables
+     */
+    private void deleteItem(int index) {
+        //Deletes the string at the
+        paths.remove(index);
+
+        //Cleats the list view and resets the global file counter
+        listView.getItems().clear();
+        fileCounter = 1;
+
+        //Sets up the new list view
+        for (String path : paths) {
+            listView.getItems().add("[" + fileCounter + "] " + path);
+            fileCounter++;
+        }
     }
 }
