@@ -147,6 +147,8 @@ public class Main extends Application {
             closeProgram();
         });
 
+        listView.setPlaceholder(new Label("No files have been dropped."));
+
 
         vBox.setOnDragOver(event -> {
             /*change the color when a file is dragged over the pane*/
