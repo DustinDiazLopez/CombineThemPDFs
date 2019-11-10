@@ -6,14 +6,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="jar file updated">
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Convert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Convert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/DuplicateBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/DuplicateBox.java" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="refactored">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/CombineThemPDFs_jar/CombineThemPDFs.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/CombineThemPDFs_jar/CombineThemPDFs.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/Convert.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/Convert.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CombineThemPDFs/CombinePDF/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CombinePDF/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/MoveBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/MoveBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Read.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Read.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/RemoveBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/RemoveBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Write.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Write.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Screen/screen.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Screen/screen.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -142,7 +142,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JAR Application.CombineThemPDFs.jar">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -234,8 +234,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JAR Application.CombineThemPDFs.jar" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JAR Application.CombineThemPDFs.jar" />
       </list>
     </recent_temporary>
   </component>
@@ -398,7 +398,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573339197710</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="refactored">
+      <created>1573339400544</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1573339400544</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -438,10 +445,10 @@
     <MESSAGE value="Fixed enter key&#10;refactored" />
     <MESSAGE value="Added number indicators in list view" />
     <MESSAGE value="Added place holder for list view" />
-    <MESSAGE value="refactored" />
     <MESSAGE value="+ Remembers last screen size&#10;+ finished remove button&#10;+ finished move button" />
     <MESSAGE value="jar file updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="jar file updated" />
+    <MESSAGE value="refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

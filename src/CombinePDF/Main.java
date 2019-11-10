@@ -13,10 +13,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -46,10 +45,10 @@ public class Main extends Application {
     //other
     private String titleAndVersion = "Combinator-inator v1.3.2";
     private Label dropped = new Label("Waiting...");
-    private Button btn = new Button("Combine");
-    private Button clear = new Button("Reset");
-    private Button dup = new Button("Duplicate");
-    private TextField textField = new TextField();
+    private Button btnCombine = new Button("Combine");
+    private Button btnClear = new Button("Reset");
+    private Button btnDuplicate = new Button("Duplicate");
+    private TextField textFieldForExportFileLocation = new TextField();
     private ListView<String> listView = new ListView<>();
     private ProgressIndicator progressBar = new ProgressIndicator(0);
     private Label lvLabel = new Label("All files to be combined:");
@@ -57,8 +56,8 @@ public class Main extends Application {
     private VBox vBox = new VBox();
     private ScrollPane scrollPane;
     private int fileCounter = 1;
-    private Button removeFile = new Button("Remove");
-    private Button moveFile = new Button("Move");
+    private Button btnRemoveFile = new Button("Remove");
+    private Button btnMoveFile = new Button("Move");
     private String lastScreenSizeFileLocation = new File("").getAbsolutePath() + "\\src\\CombinePDF\\Screen\\screen.txt";
 
     /**
@@ -136,7 +135,6 @@ public class Main extends Application {
                         "You will not be able to convert Word Documents to PDF files...\n");
             }
         }
-        System.out.println(new File("").getAbsolutePath());
 
         /*Information labels*/
         Label label = new Label("Drag the files to me in order.\nI'm not a mind reader. :'v");
@@ -253,19 +251,19 @@ public class Main extends Application {
         });
 
         /*Combine button when clicked*/
-        btn.setOnAction(e -> {
+        btnCombine.setOnAction(e -> {
             //Checks if user has provided files to be combined.
             if (paths.isEmpty()) {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
-                btn.setDisable(true);
+                btnCombine.setDisable(true);
                 btnRun();
             }
         });
 
         /*Duplicate button when clicked*/
-        dup.setOnAction(e -> {
+        btnDuplicate.setOnAction(e -> {
             if (paths.isEmpty()) {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
@@ -284,7 +282,7 @@ public class Main extends Application {
             }
         });
 
-        removeFile.setOnAction(event -> {
+        btnRemoveFile.setOnAction(event -> {
             if (paths.isEmpty()) {
                 lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
@@ -300,16 +298,16 @@ public class Main extends Application {
             }
         });
 
-        moveFile.setOnAction(event -> {
+        btnMoveFile.setOnAction(event -> {
             if (paths.isEmpty() || paths.size() < 2) {
                 lvLabel.setText("All files to be combined: (You must have at least two [2] files)");
                 setLog("No files have been selected.\n");
             } else {
-                int[] indexs = MoveBox.display(paths);
-                if (!(indexs == null)) {
-                    setLog("Moving " + paths.get(indexs[0] - 1) + "\n" +
-                            "to " + paths.get(indexs[1] - 1));
-                    moveItem(indexs[0] - 1, indexs[1] - 1);
+                int[] indexes = MoveBox.display(paths);
+                if (!(indexes == null)) {
+                    setLog("Moving " + paths.get(indexes[0] - 1) + "\n" +
+                            "to " + paths.get(indexes[1] - 1));
+                    moveItem(indexes[0] - 1, indexes[1] - 1);
                     setLog("Finished moving...\n");
                 } else {
                     setLog("Aborted move file..." + "\n");
@@ -317,7 +315,7 @@ public class Main extends Application {
             }
         });
         /*Clear button*/
-        clear.setOnAction(e -> {
+        btnClear.setOnAction(e -> {
             if (paths.isEmpty()) {
                 clear();
             } else {
@@ -327,9 +325,24 @@ public class Main extends Application {
             }
         });
 
-        clear.setStyle("-fx-text-fill: #FFFFFF; -fx-background-color: #FA0300");
+        //Directory Chooser
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(new File("src"));
+
+        Button btnSelDirectory = new Button("Browse");
+        btnSelDirectory.setOnAction(e -> {
+            setLog("Browsing...");
+            File selectedDirectory = directoryChooser.showDialog(primaryStage);
+            if (selectedDirectory != null) {
+                textFieldForExportFileLocation.setText(selectedDirectory.getAbsolutePath() + "\\Combined.pdf");
+                setLog("Changed export location to:\n" + selectedDirectory.getAbsolutePath() + "\\Combined.pdf");
+            } else {
+                setLog("No directory was selected.");
+            }
+        });
+
         /*Shows the default export location can be changed*/
-        textField.setText(defaultDesktopLocation);
+        textFieldForExportFileLocation.setText(defaultDesktopLocation);
 
         scrollPane = new ScrollPane();
         scrollPane.setPrefHeight(400);
@@ -341,8 +354,8 @@ public class Main extends Application {
         /*When enter key is pressed when the text field is in focus it will simulate
          * a button click on the run button also checks if the log is visible or not
          * it will do the opposite of its current state*/
-        textField.setOnKeyPressed(event -> {
-            if (event.getCode().toString().equals("ENTER")) btn.fire();
+        textFieldForExportFileLocation.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btnCombine.fire();
 
             if (event.getCode().toString().equals("ALT")) {
                 if (scrollPane.isVisible()) {
@@ -354,23 +367,23 @@ public class Main extends Application {
         });
 
         //if the button is selected and the enter key is pressed it will simulate a button click
-        btn.setOnKeyPressed(event -> {
-            if (event.getCode().toString().equals("ENTER")) btn.fire();
+        btnCombine.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btnCombine.fire();
         });
 
         //if the clear button is selected and the enter key is pressed it will simulate a button click
-        clear.setOnKeyPressed(event -> {
-            if (event.getCode().toString().equals("ENTER")) clear.fire();
+        btnClear.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btnClear.fire();
         });
 
         //if the duplicate button is selected and the enter key is pressed it will simulate a button click
-        dup.setOnKeyPressed(event -> {
-            if (event.getCode().toString().equals("ENTER")) dup.fire();
+        btnDuplicate.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btnDuplicate.fire();
         });
 
         //if the remove button is selected and the enter key is pressed it will simulate a button click
-        removeFile.setOnKeyPressed(event -> {
-            if (event.getCode().toString().equals("ENTER")) removeFile.fire();
+        btnRemoveFile.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btnRemoveFile.fire();
         });
 
         /*Gets the dimensions of the screen*/
@@ -384,28 +397,65 @@ public class Main extends Application {
         VBox.setMargin(lvLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(listView, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(tfLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
-        VBox.setMargin(textField, new Insets(0, insectsVal, insectsVal, insectsVal));
-        VBox.setMargin(btn, new Insets(insectsVal, insectsVal, 0, insectsVal));
-        VBox.setMargin(clear, new Insets(0, insectsVal, insectsVal, insectsVal));
-        VBox.setMargin(dup, new Insets(0, insectsVal, insectsVal, insectsVal));
-        VBox.setMargin(removeFile, new Insets(0, insectsVal, insectsVal, insectsVal));
-        VBox.setMargin(moveFile, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(textFieldForExportFileLocation, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(btnSelDirectory, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(btnCombine, new Insets(insectsVal, insectsVal, 0, insectsVal));
+        VBox.setMargin(btnClear, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(btnDuplicate, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(btnRemoveFile, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(btnMoveFile, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(progressBar, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
 
         /*Location for buttons*/
-        HBox hb = new HBox();
-        hb.setSpacing(5);
-        hb.setAlignment(Pos.CENTER);
-        hb.getChildren().addAll(btn, clear, dup, removeFile, moveFile);
+        HBox hBoxBtnModificationsLayout = new HBox();
+        HBox hBoxBtnExecuteLayout = new HBox();
+        VBox vBoxBtnLayout = new VBox();
+
+        vBoxBtnLayout.setSpacing(5);
+        vBoxBtnLayout.setAlignment(Pos.CENTER);
+        hBoxBtnExecuteLayout.setSpacing(5);
+        hBoxBtnExecuteLayout.setAlignment(Pos.CENTER);
+        hBoxBtnModificationsLayout.setSpacing(5);
+        hBoxBtnModificationsLayout.setAlignment(Pos.CENTER);
+
+        hBoxBtnExecuteLayout.getChildren().addAll(btnCombine, btnClear);
+        hBoxBtnModificationsLayout.getChildren().addAll(btnDuplicate, btnRemoveFile, btnMoveFile);
+        //Creating a line object
+        Line line = new Line();
+
+        //Setting the properties to a line
+        line.setStartX(100.0);
+        line.setStartY(150.0);
+        line.setEndX(500.0);
+        line.setEndY(150.0);
+        line.setStyle("-fx-stroke: EFF0F1;");
+
+        btnClear.setStyle("-fx-text-fill: #FFFFFF; -fx-background-color: #cc0000");
+        btnCombine.setStyle("-fx-text-fill: #FFFFFF; -fx-background-color: #0095FF");
+
+        vBoxBtnLayout.getChildren().addAll(hBoxBtnModificationsLayout, line, hBoxBtnExecuteLayout, scrollPane);
 
         ObservableList<javafx.scene.Node> list = vBox.getChildren();
-        list.addAll(listView, tfLabel, textField, hb, scrollPane);
+
+        HBox hBoxSearchForFileLayout = new HBox();
+        HBox.setHgrow(textFieldForExportFileLocation, Priority.ALWAYS);
+        HBox.setHgrow(btnSelDirectory, Priority.ALWAYS);
+        hBoxSearchForFileLayout.getChildren().addAll(textFieldForExportFileLocation, btnSelDirectory);
+        hBoxSearchForFileLayout.setAlignment(Pos.CENTER);
+        hBoxSearchForFileLayout.setSpacing(5);
+        list.addAll(listView, tfLabel, hBoxSearchForFileLayout, vBoxBtnLayout);
 
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
+        //Lastly used screen sizes
         String[] sizes = Read.txt(lastScreenSizeFileLocation).split(",");
 
+        /* *
+         * Tries to use the lastly used screen dimensions
+         * if an error occurs while parsing the values
+         * it will use the default predefined dimensions
+         * */
         try {
             scene = new Scene(root, Double.parseDouble(sizes[0]), Double.parseDouble(sizes[1]));
         } catch (Exception e) {
@@ -415,6 +465,8 @@ public class Main extends Application {
 
         primaryStage.setTitle(titleAndVersion);
         primaryStage.setScene(scene);
+        primaryStage.setMinHeight(567d);
+        primaryStage.setMinWidth(526d);
         primaryStage.show();
     }
 
@@ -440,20 +492,20 @@ public class Main extends Application {
             PDFMergerUtility PDFMerger = new PDFMergerUtility();
 
             //Setting the destination file
-            if (new File(textField.getText()).exists()) {
+            if (new File(textFieldForExportFileLocation.getText()).exists()) {
                 boolean answer = ConfirmBox.display("Existing File", "You are trying to overwrite an existing file!\n"
-                        + textField.getText()
+                        + textFieldForExportFileLocation.getText()
                         + "\nDo you wish to proceed?");
 
                 if (!answer) {
-                    btn.setDisable(false);
+                    btnCombine.setDisable(false);
                     lvLabel.setText("All files to be combined: (Merge aborted change file name)");
                     lblLog.setText(lblLog.getText() + "\nFile overwrite collision detected change file name.");
                     return;
                 }
             }
 
-            PDFMerger.setDestinationFileName(textField.getText());
+            PDFMerger.setDestinationFileName(textFieldForExportFileLocation.getText());
 
             //adding the source files
             for (File f : files) PDFMerger.addSource(f);
@@ -493,7 +545,7 @@ public class Main extends Application {
     private void clear() {
         lvLabel.setText("All files to be combined:");
         lblLog.setText("Log:\n");
-        btn.setDisable(false);
+        btnCombine.setDisable(false);
         paths.clear();
         listView.getItems().clear();
         progressBar.setProgress(0);

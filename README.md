@@ -11,14 +11,27 @@ location. Conversion from [DOCX](https://www.howtogeek.com/304622/what-is-a-.doc
  
 How to run the jar file
 ------
- 
-```
+Minimum requirement: [Java 8](https://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html)
+```$xslt
 git clone https://github.com/DustinDiazLopez/CombineThemPDFs.git
 ```
-```
+```$xslt
 java -jar CombineThemPDFs/out/artifacts/CombineThemPDFs_jar/CombineThemPDFs.jar
 ```
-
+Common error in Windows:
+```$xslt
+Error: Could not find or load main class CombinePDF.Main
+Caused by: java.lang.NoClassDefFoundError: javafx/application/Application
+```
+Do this:
+- Go to the directory of the jar file
+```$xslt
+cd CombineThemPDFs/out/artifacts/CombineThemPDFs_jar
+```
+- Enter the directory location of your Java 8 JDK (this should be the default location) followed by `-Dfile.encoding=windows-1252 -jar CombineThemPDFs.jar`
+```$xslt
+"C:\Program Files\Java\jdk1.8.0_201\bin\java.exe" -Dfile.encoding=windows-1252 -jar CombineThemPDFs.jar
+```
 What I learned
 ------
 - Merging [PDF](https://en.wikipedia.org/wiki/PDF) files with [PDFBox](https://pdfbox.apache.org/).
