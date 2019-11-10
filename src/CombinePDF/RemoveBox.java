@@ -32,11 +32,6 @@ class RemoveBox {
 
         comboBox.setItems(FXCollections.observableArrayList(numbers));
 
-        window.setOnCloseRequest(e -> {
-            e.consume();
-            window.close();
-        });
-
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Remove-inator");
         window.setMinHeight(200);
@@ -83,6 +78,11 @@ class RemoveBox {
         //scene.getStylesheets().add(Main.THEME);
         window.setScene(scene);
         window.showAndWait();
+
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            noButton.fire();
+        });
 
         return value;
     }

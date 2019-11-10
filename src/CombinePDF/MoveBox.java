@@ -34,11 +34,6 @@ class MoveBox {
         indexBox.setItems(FXCollections.observableArrayList(numbers));
         moveToBox.setItems(FXCollections.observableArrayList(numbers));
 
-        window.setOnCloseRequest(e -> {
-            e.consume();
-            window.close();
-        });
-
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Move-inator");
         window.setMinHeight(200);
@@ -89,6 +84,11 @@ class MoveBox {
         //scene.getStylesheets().add(Main.THEME);
         window.setScene(scene);
         window.showAndWait();
+
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            noButton.fire();
+        });
 
         return value;
     }

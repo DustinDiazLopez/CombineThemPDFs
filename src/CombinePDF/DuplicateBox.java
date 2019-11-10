@@ -18,11 +18,6 @@ class DuplicateBox {
     static int display(String message) {
         Stage window = new Stage();
 
-        window.setOnCloseRequest(e -> {
-            e.consume();
-            window.close();
-        });
-
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Duplicator-inator");
         window.setMinHeight(200);
@@ -63,6 +58,11 @@ class DuplicateBox {
         //scene.getStylesheets().add(Main.THEME);
         window.setScene(scene);
         window.showAndWait();
+
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            noButton.fire();
+        });
 
         return value;
     }
