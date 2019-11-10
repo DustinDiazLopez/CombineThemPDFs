@@ -43,4 +43,4 @@ What I learned
 files to [PDF](https://en.wikipedia.org/wiki/PDF) with [documents4j](https://documents4j.com/#/).
 - Manual [JavaFX](https://en.wikipedia.org/wiki/JavaFX) styling and setup.
 - [Drag and drop](https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm) functionality in [JavaFX](https://en.wikipedia.org/wiki/JavaFX).
-- Extensive [String](https://en.wikipedia.org/wiki/String_(computer_science) manipulation.
+- Extensive String manipulation.
