@@ -9,6 +9,10 @@ location. Conversion from [DOCX](https://www.howtogeek.com/304622/what-is-a-.doc
  to [PDF](https://en.wikipedia.org/wiki/PDF) does not work in [macOS](https://en.wikipedia.org/wiki/MacOS) 
  nor [Linux](https://en.wikipedia.org/wiki/Linux).
  
+WARNING!!!!!!!
+------
+CLOSE AND SAVE ALL DOCUMENTS THAT YOU ARE CURRENTLY WORKING ON IN WORD BEFORE USING THIS APPLICATION. IF YOU FAIL TO DO SO IT WILL DELETE ALL UNSAVED WORK IN WORD. I LOST AN ENTIRE ESSAY BECAUSE OF THIS. PLEASE SAVE ALL YOUR WORK IN WORD BEFORE USING THIS APPLICATION. PLEASE!
+ 
 How to run the jar file
 ------
 Minimum requirement: [Java 8](https://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html)
