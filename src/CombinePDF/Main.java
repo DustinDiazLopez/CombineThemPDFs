@@ -319,8 +319,11 @@ public class Main extends Application {
             if (paths.isEmpty()) {
                 clear();
             } else {
-                boolean answer = ConfirmBox
-                        .display("Clear-inator", "This action is irreversible are you sure?");
+                boolean answer = ConfirmBox.display(
+                        "Clear-inator",
+                        "This action is irreversible are you sure?"
+                );
+
                 if (answer) clear();
             }
         });
