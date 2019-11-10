@@ -28,8 +28,6 @@ class RemoveBox {
         }
 
         ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.setOnAction(event -> System.err.println(comboBox.getValue()));
-
         comboBox.setItems(FXCollections.observableArrayList(numbers));
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -81,6 +79,7 @@ class RemoveBox {
 
         window.setOnCloseRequest(e -> {
             e.consume();
+            value = -1;
             noButton.fire();
         });
 

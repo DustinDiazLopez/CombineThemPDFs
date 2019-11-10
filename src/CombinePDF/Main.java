@@ -288,12 +288,13 @@ public class Main extends Application {
                 setLog("No files have been selected.\n");
             } else {
                 int index = RemoveBox.display(paths);
-                if (!(index == -1)) {
+
+                try {
                     setLog("Removing " + paths.get(index - 1) + "\n");
                     deleteItem(index - 1);
                     setLog("Removed " + paths.get(index - 1) + "\n");
-                } else {
-                    setLog("Aborted remove file..." + "\n");
+                } catch (Exception e) {
+                    setLog("Aborted remove file..." + "\n" + e.getMessage() + "\n");
                 }
             }
         });
