@@ -16,7 +16,7 @@ CLOSE AND SAVE ALL DOCUMENTS THAT YOU ARE CURRENTLY WORKING ON IN WORD BEFORE US
 What I learned
 ------
 - Merging [PDF](https://en.wikipedia.org/wiki/PDF) files with [PDFBox](https://pdfbox.apache.org/).
-- Converting Word document or [DOCX](https://www.howtogeek.com/304622/what-is-a-.docx-file-and-how-is-it-different-from-a-.doc-file-in-microsoft-word/) 
+- Converting [Word document](https://www.howtogeek.com/304622/what-is-a-.docx-file-and-how-is-it-different-from-a-.doc-file-in-microsoft-word/) 
 files to [PDF](https://en.wikipedia.org/wiki/PDF) with [documents4j](https://documents4j.com/#/).
 - Manual [JavaFX](https://en.wikipedia.org/wiki/JavaFX) styling and setup.
 - [Drag and drop](https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm) functionality in [JavaFX](https://en.wikipedia.org/wiki/JavaFX).
