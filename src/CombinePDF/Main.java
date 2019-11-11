@@ -58,7 +58,7 @@ public class Main extends Application {
     private int fileCounter = 1;
     private Button btnRemoveFile = new Button("Remove");
     private Button btnMoveFile = new Button("Move");
-    private String lastScreenSizeFileLocation = new File("").getAbsolutePath() + "\\src\\CombinePDF\\Screen\\screen.txt";
+    private String lastScreenSizeFileLocation = new File("").getAbsolutePath();
 
     /**
      * @param args the command line arguments
@@ -290,9 +290,9 @@ public class Main extends Application {
                 int index = RemoveBox.display(paths);
 
                 try {
-                    setLog("Removing " + paths.get(index - 1) + "\n");
+                    setLog("Removing " + paths.get(index - 1) + ".\n");
                     deleteItem(index - 1);
-                    setLog("Removed " + paths.get(index - 1) + "\n");
+                    setLog("Removed.\n");
                 } catch (Exception e) {
                     setLog("Aborted remove file..." + "\n" + e.getMessage() + "\n");
                 }
@@ -334,12 +334,22 @@ public class Main extends Application {
         directoryChooser.setInitialDirectory(new File("src"));
 
         Button btnSelDirectory = new Button("Browse");
+
         btnSelDirectory.setOnAction(e -> {
             setLog("Browsing...");
             File selectedDirectory = directoryChooser.showDialog(primaryStage);
             if (selectedDirectory != null) {
-                textFieldForExportFileLocation.setText(selectedDirectory.getAbsolutePath() + "\\Combined.pdf");
-                setLog("Changed export location to:\n" + selectedDirectory.getAbsolutePath() + "\\Combined.pdf");
+                String dir = selectedDirectory.getAbsolutePath();
+
+                if (dir.contains("/")) {
+                    dir += "/Combined.pdf";
+                    textFieldForExportFileLocation.setText(dir);
+                } else {
+                    dir += "\\Combined.pdf";
+                    textFieldForExportFileLocation.setText(dir);
+                }
+
+                setLog("Changed export location to:\n" + dir);
             } else {
                 setLog("No directory was selected.");
             }
@@ -453,6 +463,12 @@ public class Main extends Application {
         root.getChildren().addAll(vBox);
 
         //Lastly used screen sizes
+        if (lastScreenSizeFileLocation.contains("/")) {
+            lastScreenSizeFileLocation += "/src/CombinePDF/Screen/screen.txt";
+        } else {
+            lastScreenSizeFileLocation += "\\src\\CombinePDF\\Screen\\screen.txt";
+        }
+
         String[] sizes = Read.txt(lastScreenSizeFileLocation).split(",");
 
         /* *
