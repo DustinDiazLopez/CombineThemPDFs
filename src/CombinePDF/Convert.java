@@ -16,7 +16,7 @@ class Convert {
             IConverter converter = LocalConverter.builder().build();
             converter.convert(docxInputStream).as(DocumentType.DOCX).to(outputStream).as(DocumentType.PDF).execute();
             outputStream.close();
-            System.out.println("\u001B[32m" + "success!" + "\u001B[0m");
+            System.out.println("Successful conversion!\n\"" + docPath + "\" -> \"" + pdfPath + "\"");
         } catch (Exception e) {
             e.printStackTrace();
             ConfirmBox.display("Error DOC to PDF", "Uh-Oh! An error occurred while converting your file to PDF.\n" +
