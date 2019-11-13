@@ -1,8 +1,5 @@
 
 .idea/workspace.xml
-.idea/workspace.xml
-.idea/workspace.xml
-.idea/workspace.xml
 out/production/CombineThemPDFs/CombinePDF/DuplicateBox.class
 out/production/CombineThemPDFs/CombinePDF/MoveBox.class
 out/production/CombineThemPDFs/CombinePDF/Read.class
@@ -11,6 +8,7 @@ out/production/CombineThemPDFs/CombinePDF/Screen/screen.txt
 out/production/CombineThemPDFs/CombinePDF/Write.class
 out/production/CombineThemPDFs/META-INF/CombineThemPDFs.kotlin_module
 src/CombinePDF/Screen/screen.txt
+src/CombinePDF/Screen/**
 out/production/CombineThemPDFs/CombinePDF/Convert.class
 out/artifacts/CombineThemPDFs_jar/CombineThemPDFs.jar
 out/artifacts/.DS_Store
@@ -52,10 +50,5 @@ out/production/CombineThemPDFs/libs/poi/poi-ooxml-4.1.0.jar
 out/production/CombineThemPDFs/libs/poi/poi-ooxml-schemas-4.1.0.jar
 out/production/CombineThemPDFs/libs/poi/poi-scratchpad-4.1.0.jar
 out/production/CombineThemPDFs/META-INF/MANIFEST.MF
-src/CombinePDF/Screen/screen.txt
-src/CombinePDF/Screen/screen.txt
-src/CombinePDF/Screen/screen.txt
-.idea/workspace.xml
-.idea/workspace.xml
 .idea/codeStyles/Project.xml
-.idea/workspace.xml
+.idea/**
