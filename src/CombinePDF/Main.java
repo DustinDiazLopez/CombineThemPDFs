@@ -12,11 +12,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -51,7 +53,8 @@ public class Main extends Application {
     private TextField textFieldForExportFileLocation = new TextField();
     private ListView<String> listView = new ListView<>();
     private ProgressIndicator progressBar = new ProgressIndicator(0);
-    private Label lvLabel = new Label("All files to be combined:");
+    private String lvLblDefault = "All files to be combined:";
+    private Label listViewLabel = new Label(lvLblDefault);
     private Label lblLog = new Label("Log for " + titleAndVersion + ":\n");
     private VBox vBox = new VBox();
     private ScrollPane scrollPane;
@@ -59,6 +62,7 @@ public class Main extends Application {
     private Button btnRemoveFile = new Button("Remove");
     private Button btnMoveFile = new Button("Move");
     private String lastScreenSizeFileLocation = new File("").getAbsolutePath();
+    private int pages = 0;
 
     /**
      * @param args the command line arguments
@@ -67,20 +71,8 @@ public class Main extends Application {
         launch(args);
     }
 
-    /**
-     * Function to find the Desktop folder
-     * @return path to a specified directory in the device in this case it is desktop
-     */
-    private String desktopFinder() {
-        //TODO: add a fallback if it fails | The problem: it assumes it will be ran in a child folder of the Desktop
-        String dir = "Desktop"; //The directory to find
-        String path = new File("").getAbsolutePath();
-        path = path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
-        if (!new File(path).exists()) {
-            lvLabel.setText("All files to be combined: (PLEASE CHANGE EXPORT LOCATION)");
-            setLog("Please check export location!\n\"" + defaultDesktopLocation + "\" was not found!");
-        }
-        return path;
+    public static void duplicateFile(File from, File to) throws IOException {
+        FileUtils.copyFile(from, to);
     }
 
     /**
@@ -119,6 +111,23 @@ public class Main extends Application {
     }
 
     /**
+     * Function to find the Desktop folder
+     *
+     * @return path to a specified directory in the device in this case it is desktop
+     */
+    private String desktopFinder() {
+        //TODO: add a fallback if it fails | The problem: it assumes it will be ran in a child folder of the Desktop
+        String dir = "Desktop"; //The directory to find
+        String path = new File("").getAbsolutePath();
+        path = path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
+        if (!new File(path).exists()) {
+            listViewLabel.setText("All files to be combined: (PLEASE CHANGE EXPORT LOCATION)");
+            setLog("Please check export location!\n\"" + defaultDesktopLocation + "\" was not found!");
+        }
+        return path;
+    }
+
+    /**
      * @param primaryStage all styling, functionality and initial setup is in this function
      */
     @Override
@@ -146,7 +155,7 @@ public class Main extends Application {
         setDefaultColor();
 
         /*Puts the Information labels in the Vertical Box*/
-        vBox.getChildren().addAll(label, progressBar, lvLabel);
+        vBox.getChildren().addAll(label, progressBar, listViewLabel);
 
         /*Handles Close Request*/
         primaryStage.setOnCloseRequest(e -> {
@@ -244,6 +253,12 @@ public class Main extends Application {
                 success = true;
             }
 
+            try {
+                totalPages();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             /* let the source know whether the string was successfully
              * transferred and used */
             event.setDropCompleted(success);
@@ -254,7 +269,7 @@ public class Main extends Application {
         btnCombine.setOnAction(e -> {
             //Checks if user has provided files to be combined.
             if (paths.isEmpty()) {
-                lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
+                listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
                 btnCombine.setDisable(true);
@@ -265,7 +280,7 @@ public class Main extends Application {
         /*Duplicate button when clicked*/
         btnDuplicate.setOnAction(e -> {
             if (paths.isEmpty()) {
-                lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
+                listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
                 int duplicateAmount = DuplicateBox.display(
@@ -284,7 +299,7 @@ public class Main extends Application {
 
         btnRemoveFile.setOnAction(event -> {
             if (paths.isEmpty()) {
-                lvLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
+                listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
                 int index = RemoveBox.display(paths);
@@ -301,13 +316,17 @@ public class Main extends Application {
 
         btnMoveFile.setOnAction(event -> {
             if (paths.isEmpty() || paths.size() < 2) {
-                lvLabel.setText("All files to be combined: (You must have at least two [2] files)");
+                listViewLabel.setText("All files to be combined: (You must have at least two [2] files)");
                 setLog("No files have been selected.\n");
             } else {
                 int[] indexes = MoveBox.display(paths);
                 if (!(indexes == null)) {
-                    setLog("Moving " + paths.get(indexes[0] - 1) + "\n" +
-                            "to " + paths.get(indexes[1] - 1));
+                    setLog("Moving " +
+                            "..." + paths.get(indexes[0] - 1).substring(paths.get(indexes[0] - 1).length() / 2).trim() +
+                            "\n" +
+                            "to " + "" +
+                            "..." + paths.get(indexes[1] - 1).substring(paths.get(indexes[1] - 1).length() / 2).trim() +
+                            "\n");
                     moveItem(indexes[0] - 1, indexes[1] - 1);
                     setLog("Finished moving...\n");
                 } else {
@@ -315,6 +334,7 @@ public class Main extends Application {
                 }
             }
         });
+
         /*Clear button*/
         btnClear.setOnAction(e -> {
             if (paths.isEmpty()) {
@@ -326,6 +346,43 @@ public class Main extends Application {
                 );
 
                 if (answer) clear();
+            }
+        });
+
+        listView.setOnMouseClicked(event -> {
+            if (!event.getTarget().toString().contains("StackPane") && !event.getTarget().toString().contains("ListView")) {
+                if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    String informationAboutSelectedElement = event.getPickResult().toString();
+                    int charLocationOne = informationAboutSelectedElement.indexOf("text=\"[") + 7;
+                    informationAboutSelectedElement = informationAboutSelectedElement.substring(charLocationOne);
+                    int charLocationTwo = informationAboutSelectedElement.indexOf("]");
+                    informationAboutSelectedElement = informationAboutSelectedElement.substring(0, charLocationTwo);
+                    int selected = Integer.parseInt(informationAboutSelectedElement) - 1;
+                    String path = paths.get(selected);
+                    PDDocument document;
+
+                    try {
+                        document = PDDocument.load(new File(path));
+                        int totalNumberOfPages = document.getNumberOfPages();
+                        pages += totalNumberOfPages;
+                        /*
+                         * TODO: Boxes for remove, move and duplicate
+                         * TODO: V Remove page from file (careful not to edit the original one. Make a copy first)
+                         * * * * * removePageInFile(file, page number)
+                         * * duplicateFile(from, tempDir)
+                         *
+                         *
+                         * */
+                        setLog("Clicked { " +
+                                "\n\tNumber: " + (selected + 1) + "" +
+                                "\n\tNumber of pages: " + totalNumberOfPages + "" +
+                                "\n\tPath: " + "..." + path.substring(path.length() / 2).trim() + "" +
+                                "\n}\n");
+                        document.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
 
@@ -408,7 +465,7 @@ public class Main extends Application {
         VBox.setMargin(label, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(scrollPane, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(dropped, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
-        VBox.setMargin(lvLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
+        VBox.setMargin(listViewLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(listView, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(tfLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(textFieldForExportFileLocation, new Insets(0, insectsVal, insectsVal, insectsVal));
@@ -490,6 +547,32 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    private void removePageInFile(File file, int pageNumber) throws IOException {
+        PDDocument document = PDDocument.load(file);
+        document.removePage(pageNumber);
+        document.save(file);
+        document.close();
+    }
+
+    private void totalPages() throws IOException {
+        pages = 0;
+        PDDocument document;
+        for (String path : paths) {
+            if (new File(path).isFile()) {
+                document = PDDocument.load(new File(path));
+                pages += document.getNumberOfPages();
+                document.close();
+            }
+        }
+
+        if (paths.size() != 1 && pages != 1)
+            listViewLabel.setText(lvLblDefault + paths.size() + " files | " + pages + " pages");
+        else if (paths.size() == 1 && pages > 1)
+            listViewLabel.setText(lvLblDefault + paths.size() + " file | " + pages + " pages");
+        else
+            listViewLabel.setText(lvLblDefault + paths.size() + " file | " + pages + " page");
+    }
+
     /**
      * Where the magic happens!
      * @param files to be merged/combined
@@ -519,7 +602,7 @@ public class Main extends Application {
 
                 if (!answer) {
                     btnCombine.setDisable(false);
-                    lvLabel.setText("All files to be combined: (Merge aborted change file name)");
+                    listViewLabel.setText("All files to be combined: (Merge aborted change file name)");
                     lblLog.setText(lblLog.getText() + "\nFile overwrite collision detected change file name.");
                     return;
                 }
@@ -563,13 +646,14 @@ public class Main extends Application {
      * Clears and resets all variables to their initially given values
      */
     private void clear() {
-        lvLabel.setText("All files to be combined:");
+        listViewLabel.setText("All files to be combined:");
         lblLog.setText("Log:\n");
         btnCombine.setDisable(false);
         paths.clear();
         listView.getItems().clear();
         progressBar.setProgress(0);
         fileCounter = 1;
+        pages = 0;
         deleteTempFiles();
     }
 
@@ -590,12 +674,15 @@ public class Main extends Application {
      * Deletes a file at a given index location
      * @param index index of the file to be removed from the listView and paths variables
      */
-    private void deleteItem(int index) {
+    private void deleteItem(int index) throws IOException {
         //Deletes the string at the
         paths.remove(index);
 
         //Sets up the new list view
         newListView();
+
+        //Sets the new page amount
+        totalPages();
     }
 
     /**
