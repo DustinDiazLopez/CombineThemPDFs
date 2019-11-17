@@ -359,7 +359,7 @@ public class Main extends Application {
 
         listView.setOnMouseClicked(event -> {
             if (!event.getTarget().toString().contains("StackPane") && !event.getTarget().toString().contains("ListView")) {
-                if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                if (event.getButton() == MouseButton.SECONDARY) {
                     String informationAboutSelectedElement = event.getPickResult().toString();
                     int charLocationOne = informationAboutSelectedElement.indexOf("text=\"[") + 7;
                     informationAboutSelectedElement = informationAboutSelectedElement.substring(charLocationOne);
@@ -373,18 +373,41 @@ public class Main extends Application {
                         document = PDDocument.load(new File(path));
                         int totalNumberOfPages = document.getNumberOfPages();
                         pages += totalNumberOfPages;
+                        String trim = path.substring(path.length() / 2).trim();
+                        String answer = ChooseBox.display(selected);
+
+                        //TODO: REMOVE AND MOVE
+                        if (answer != null) {
+                            if (answer.equals("Remove")) {
+                                deleteItem(selected);
+                            } else if (answer.equals("Move")) {
+                                int[] indexes = MoveBox.display(paths, selected);
+
+                                if (!(indexes == null)) {
+                                    setLog("Moving " +
+                                            "..." + paths.get(indexes[0] - 1).substring(paths.get(indexes[0] - 1).length() / 2).trim() +
+                                            "\n" +
+                                            "to " + "" +
+                                            "..." + paths.get(indexes[1] - 1).substring(paths.get(indexes[1] - 1).length() / 2).trim() +
+                                            "\n");
+                                    moveItem(indexes[0] - 1, indexes[1] - 1);
+                                    setLog("Finished moving...\n");
+                                } else {
+                                    setLog("Aborted move file..." + "\n");
+                                }
+                            }
+                        }
+
                         /*
-                         * TODO: Boxes for remove, move and duplicate
                          * TODO: V Remove page from file (careful not to edit the original one. Make a copy first)
                          * * * * * removePageInFile(file, page number)
                          * * duplicateFile(from, tempDir)
-                         *
-                         *
                          * */
-                        setLog("Clicked { " +
+                        setLog("Action { " +
+                                "\n\tSelection: " + answer + "" +
                                 "\n\tNumber: " + (selected + 1) + "" +
                                 "\n\tNumber of pages: " + totalNumberOfPages + "" +
-                                "\n\tPath: " + "..." + path.substring(path.length() / 2).trim() + "" +
+                                "\n\tPath: " + "..." + trim + "" +
                                 "\n}\n");
                         document.close();
                     } catch (IOException e) {
@@ -556,10 +579,14 @@ public class Main extends Application {
     }
 
     private void removePageInFile(File file, int pageNumber) throws IOException {
-        PDDocument document = PDDocument.load(file);
-        document.removePage(pageNumber);
-        document.save(file);
-        document.close();
+        if (!file.getAbsolutePath().contains(tempDir.getAbsolutePath())) {
+            PDDocument document = PDDocument.load(file);
+            document.removePage(pageNumber);
+            document.save(file);
+            document.close();
+        } else {
+            setLog("Attempted to edit a user file!\nFile must be in temp folder");
+        }
     }
 
     private void totalPages() throws IOException {

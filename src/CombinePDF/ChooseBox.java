@@ -12,53 +12,39 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.List;
+class ChooseBox {
 
-class MoveBox {
+    private static String value;
 
-    private static int[] value;
-
-    static int[] display(List<String> paths) {
-        return display(paths, -1);
-    }
-
-    static int[] display(List<String> paths, int selected) {
+    static String display(int selected) {
         Stage window = new Stage();
-        String[] numbers = new String[paths.size()];
-        int counter = 1;
 
-        for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = counter + "";
-            counter++;
-        }
+        String[] action = {
+                "Move",
+                "Remove"
+        };
 
-        ComboBox<String> indexBox = new ComboBox<>();
-        ComboBox<String> moveToBox = new ComboBox<>();
-
-        indexBox.setItems(FXCollections.observableArrayList(numbers));
-        moveToBox.setItems(FXCollections.observableArrayList(numbers));
-
-        if (selected != -1) indexBox.getSelectionModel().select(selected);
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.setItems(FXCollections.observableArrayList(action));
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Move-inator");
+        window.setTitle("Choose-inator");
         window.setMinHeight(200);
         window.setMinWidth(425);
         window.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
 
-        Button yesButton = new Button("Move");
+        Label label = new Label();
+        label.setText("Choose the action for file [" + (selected + 1) + "]:");
+
+        Button yesButton = new Button("Go");
         Button noButton = new Button("Cancel");
 
         yesButton.setOnAction(e -> {
-            if (indexBox.getValue() == null || moveToBox.getValue() == null) {
-                value = null;
+            if (!(comboBox.getValue() == null)) {
+                value = comboBox.getValue();
             } else {
-                value = new int[]{
-                        Integer.parseInt(indexBox.getValue()),
-                        Integer.parseInt(moveToBox.getValue())
-                };
+                value = null;
             }
-
             window.close();
         });
 
@@ -78,12 +64,9 @@ class MoveBox {
 
         VBox layout = new VBox(10);
         HBox layButton = new HBox(10);
-        HBox labelSection = new HBox(10);
-        labelSection.getChildren().addAll(new Label("Move"), indexBox, new Label("to"), moveToBox);
-        labelSection.setAlignment(Pos.CENTER);
         layButton.getChildren().addAll(yesButton, noButton);
         layButton.setAlignment(Pos.CENTER);
-        layout.getChildren().addAll(labelSection, layButton);
+        layout.getChildren().addAll(label, comboBox, layButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
@@ -93,6 +76,7 @@ class MoveBox {
 
         window.setOnCloseRequest(e -> {
             e.consume();
+            value = null;
             noButton.fire();
         });
 
