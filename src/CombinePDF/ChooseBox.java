@@ -19,12 +19,22 @@ class ChooseBox {
     static String display(int selected) {
         Stage window = new Stage();
 
+        Button yesButton = new Button("Choose");
+        yesButton.setDisable(true);
+        Button noButton = new Button("Cancel");
+
         String[] action = {
                 "Move",
                 "Remove"
         };
 
         ComboBox<String> comboBox = new ComboBox<>();
+
+        comboBox.setOnAction(event -> {
+            if (yesButton.isDisabled()) yesButton.setDisable(false);
+            yesButton.setText(comboBox.getValue());
+        });
+
         comboBox.setItems(FXCollections.observableArrayList(action));
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -35,9 +45,6 @@ class ChooseBox {
 
         Label label = new Label();
         label.setText("Choose the action for file [" + (selected + 1) + "]:");
-
-        Button yesButton = new Button("Go");
-        Button noButton = new Button("Cancel");
 
         yesButton.setOnAction(e -> {
             if (!(comboBox.getValue() == null)) {
