@@ -63,6 +63,7 @@ public class Main extends Application {
     private Button btnMoveFile = new Button("Move");
     private String lastScreenSizeFileLocation = new File("").getAbsolutePath();
     private int pages = 0;
+    private File tempDir;
 
     /**
      * @param args the command line arguments
@@ -71,8 +72,8 @@ public class Main extends Application {
         launch(args);
     }
 
-    public static void duplicateFile(File from, File to) throws IOException {
-        FileUtils.copyFile(from, to);
+    public void duplicateFile(File from) throws IOException {
+        FileUtils.copyFile(from, tempDir);
     }
 
     /**
@@ -134,7 +135,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         /*Sets the icon for the application*/
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
-        File tempDir = new File("TEMP");
+        tempDir = new File("TEMP");
         if (tempDir.mkdirs()) {
             lblLog.setText(lblLog.getText() + "Created " + tempDir.getAbsolutePath());
         } else {
@@ -286,13 +287,20 @@ public class Main extends Application {
                 int duplicateAmount = DuplicateBox.display(
                         "Enter the amount of copies you want of the current file(s)" +
                                 " including the currently selected file(s):");
-                Object[] temp = paths.toArray();
-                for (int i = 0; i < duplicateAmount - 1; i++) {
-                    for (Object objPath : temp) {
-                        paths.add(objPath.toString());
-                        listView.getItems().add("[" + fileCounter + "] " + objPath.toString());
-                        fileCounter++;
+                if (!(duplicateAmount <= 0)) {
+                    Object[] temp = paths.toArray();
+                    for (int i = 0; i < duplicateAmount - 1; i++) {
+                        for (Object objPath : temp) {
+                            paths.add(objPath.toString());
+                            listView.getItems().add("[" + fileCounter + "] " + objPath.toString());
+                            fileCounter++;
+                        }
                     }
+
+                    pages *= duplicateAmount;
+                    updateFileEstimationHeaderInformation();
+                } else {
+                    setLog("Invalid input for duplicator-inator...\n");
                 }
             }
         });
@@ -565,12 +573,16 @@ public class Main extends Application {
             }
         }
 
+        updateFileEstimationHeaderInformation();
+    }
+
+    private void updateFileEstimationHeaderInformation() {
         if (paths.size() != 1 && pages != 1)
-            listViewLabel.setText(lvLblDefault + paths.size() + " files | " + pages + " pages");
+            listViewLabel.setText(lvLblDefault + " " + paths.size() + " files | " + pages + " pages");
         else if (paths.size() == 1 && pages > 1)
-            listViewLabel.setText(lvLblDefault + paths.size() + " file | " + pages + " pages");
+            listViewLabel.setText(lvLblDefault + " " + paths.size() + " file | " + pages + " pages");
         else
-            listViewLabel.setText(lvLblDefault + paths.size() + " file | " + pages + " page");
+            listViewLabel.setText(lvLblDefault + " " + paths.size() + " file | " + pages + " page");
     }
 
     /**

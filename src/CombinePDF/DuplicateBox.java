@@ -32,7 +32,11 @@ class DuplicateBox {
         Button noButton = new Button("Cancel");
 
         yesButton.setOnAction(e -> {
-            value = Integer.parseInt(textField.getText());
+            try {
+                value = Integer.parseInt(textField.getText());
+            } catch (Exception ignored) {
+                value = -1;
+            }
             window.close();
         });
 
