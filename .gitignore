@@ -51,3 +51,9 @@ out/production/CombineThemPDFs/libs/poi/poi-ooxml-schemas-4.1.0.jar
 out/production/CombineThemPDFs/libs/poi/poi-scratchpad-4.1.0.jar
 out/production/CombineThemPDFs/META-INF/MANIFEST.MF
 .idea/codeStyles/Project.xml
+out/production/CombineThemPDFs/CombinePDF/ChooseBox.class
+out/production/CombineThemPDFs/CombinePDF/Bat/reshacker_setup.exe
+out/production/CombineThemPDFs/CombinePDF/Bat/Combine.exe
+out/production/CombineThemPDFs/CombinePDF/Bat/Combine.bat
+out/production/CombineThemPDFs/CombinePDF/Bat/Bat2Exe.bat
+.idea/workspace.xml
