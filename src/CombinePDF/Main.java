@@ -45,7 +45,7 @@ public class Main extends Application {
     private Scene scene;
 
     //other
-    private String titleAndVersion = "Combinator-inator v1.3.2";
+    private String titleAndVersion = "Combinator-inator v0.3";
     private Label dropped = new Label("Waiting...");
     private Button btnCombine = new Button("Combine");
     private Button btnClear = new Button("Reset");
@@ -91,7 +91,7 @@ public class Main extends Application {
      * application
      */
     private void closeProgram() throws FileNotFoundException, UnsupportedEncodingException {
-        boolean answer = ConfirmBox.display("Close Application", "Are you sure you want to quit? :(");
+        boolean answer = ConfirmBox.display("Close-inator", "Are you sure you want to quit? :(");
         if (answer) {
             deleteTempFiles();
             Write.txt(new File(lastScreenSizeFileLocation), scene.getHeight() + "," + scene.getWidth());
