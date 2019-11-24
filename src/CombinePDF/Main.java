@@ -2,6 +2,8 @@ package CombinePDF;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
@@ -23,14 +26,13 @@ import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.awt.*;
+import java.awt.event.InputEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.UUID;
 
 public class Main extends Application {
 
@@ -358,7 +360,8 @@ public class Main extends Application {
         });
 
         listView.setOnMouseClicked(event -> {
-            if (!event.getTarget().toString().contains("StackPane") && !event.getTarget().toString().contains("ListView")) {
+            if ((!event.getTarget().toString().contains("StackPane")
+                    && !event.getTarget().toString().contains("ListView"))) {
                 if (event.getButton() == MouseButton.SECONDARY) {
                     String informationAboutSelectedElement = event.getPickResult().toString();
                     int charLocationOne = informationAboutSelectedElement.indexOf("text=\"[") + 7;
