@@ -425,7 +425,7 @@ public class Main extends Application {
         Button btnSelDirectory = new Button("Browse");
 
         btnSelDirectory.setOnAction(e -> {
-            setLog("Browsing...");
+            setLog("Browsing...\n");
             File selectedDirectory = directoryChooser.showDialog(primaryStage);
             if (selectedDirectory != null) {
                 String dir = selectedDirectory.getAbsolutePath();
