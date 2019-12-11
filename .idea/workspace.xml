@@ -7,38 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="refresh list view button">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/iText.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/TEMP/95a354cc-6bcb-4efe-afd3-886a06eef695.pdf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/TEMP/Outlook-mqx5evwp.png4d8572ed-de72-49d7-8e92-92af94dff0a7.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/barcodes-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/commons-codec-1.5.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/dom4j-1.6.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/font-asian-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/forms-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/fr.opensagres.xdocreport.itext.extension-1.0.6.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/hyph-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/io-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/itext-2.1.7.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/kernel-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/layout-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/ooxml-schemas-1.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/org.apache.poi.xwpf.converter.core-1.0.6.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/org.apache.poi.xwpf.converter.pdf-1.0.6.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/pdfa-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/pdftest-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/poi-3.10-FINAL.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/poi-ooxml-3.10-FINAL.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/sign-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/stax-api-1.0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/styled-xml-parser-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/svg-7.1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/xml-apis-1.0.b2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/iText/xmlbeans-2.3.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CombineThemPDFs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CombineThemPDFs.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/ChooseBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/ChooseBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Convert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Convert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -549,7 +519,21 @@
       <option name="project" value="LOCAL" />
       <updated>1576097699333</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="image to pdf">
+      <created>1576104287795</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1576104287795</updated>
+    </task>
+    <task id="LOCAL-00040" summary="refresh list view button">
+      <created>1576104535799</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1576104535799</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -599,6 +583,7 @@
     <MESSAGE value="hello motto" />
     <MESSAGE value="preview button" />
     <MESSAGE value="better preview" />
+    <MESSAGE value="image to pdf" />
     <MESSAGE value="refresh list view button" />
     <option name="LAST_COMMIT_MESSAGE" value="refresh list view button" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
@@ -610,10 +595,10 @@
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
     <state x="1182" y="265" key="#com.intellij.ide.util.MemberChooser/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576102050504" />
-    <state x="1142" y="139" key="CommitChangelistDialog2" timestamp="1576104286810">
+    <state x="1142" y="139" key="CommitChangelistDialog2" timestamp="1576104534931">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="1142" y="139" key="CommitChangelistDialog2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576104286810" />
+    <state x="1142" y="139" key="CommitChangelistDialog2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576104534931" />
     <state x="935" y="316" key="FileChooserDialogImpl" timestamp="1576103985483">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
@@ -638,10 +623,14 @@
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
     <state x="711" y="149" key="SettingsEditor/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103999305" />
-    <state x="969" y="289" key="Vcs.Push.Dialog.v2" timestamp="1576104289447">
+    <state x="1226" y="471" key="VCS.ChangelistChooser" timestamp="1576104551437">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="969" y="289" key="Vcs.Push.Dialog.v2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576104289447" />
+    <state x="1226" y="471" key="VCS.ChangelistChooser/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576104551437" />
+    <state x="969" y="289" key="Vcs.Push.Dialog.v2" timestamp="1576104542976">
+      <screen x="0" y="0" width="2752" height="1112" />
+    </state>
+    <state x="969" y="289" key="Vcs.Push.Dialog.v2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576104542976" />
     <state x="1333" y="462" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1575763694009">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>

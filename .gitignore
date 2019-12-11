@@ -57,3 +57,16 @@ out/production/CombineThemPDFs/CombinePDF/Bat/Combine.exe
 out/production/CombineThemPDFs/CombinePDF/Bat/Combine.bat
 out/production/CombineThemPDFs/CombinePDF/Bat/Bat2Exe.bat
 .idea/workspace.xml
+.idea/workspace.xml
+out/production/CombineThemPDFs/libs/iText/commons-codec-1.5.jar
+out/production/CombineThemPDFs/libs/iText/dom4j-1.6.1.jar
+out/production/CombineThemPDFs/libs/iText/fr.opensagres.xdocreport.itext.extension-1.0.6.jar
+out/production/CombineThemPDFs/libs/iText/itext-2.1.7.jar
+out/production/CombineThemPDFs/libs/iText/ooxml-schemas-1.1.jar
+out/production/CombineThemPDFs/libs/iText/org.apache.poi.xwpf.converter.core-1.0.6.jar
+out/production/CombineThemPDFs/libs/iText/org.apache.poi.xwpf.converter.pdf-1.0.6.jar
+out/production/CombineThemPDFs/libs/iText/poi-3.10-FINAL.jar
+out/production/CombineThemPDFs/libs/iText/poi-ooxml-3.10-FINAL.jar
+out/production/CombineThemPDFs/libs/iText/stax-api-1.0.1.jar
+out/production/CombineThemPDFs/libs/iText/xml-apis-1.0.b2.jar
+out/production/CombineThemPDFs/libs/iText/xmlbeans-2.3.0.jar
