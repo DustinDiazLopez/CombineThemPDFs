@@ -49,6 +49,7 @@ public class Main extends Application {
     private Label dropped = new Label("Waiting...");
     private Button btnCombine = new Button("Combine");
     private Button btnPreview = new Button("Preview");
+    private Button btnRefreshListView = new Button("Refresh View");
     private Button btnClear = new Button("Reset");
     private Button btnDuplicate = new Button("Duplicate");
     private TextField textFieldForExportFileLocation = new TextField();
@@ -323,6 +324,16 @@ public class Main extends Application {
             }
         });
 
+        btnRefreshListView.setOnAction(e -> {
+            //Checks if user has provided files to be combined.
+            if (paths.isEmpty()) {
+                listViewLabel.setText("All files to be combined: (Nothing to refresh...)");
+                setLog("No files have been selected.\n");
+            } else {
+                newListView();
+            }
+        });
+
         /*Duplicate button when clicked*/
         btnDuplicate.setOnAction(e -> {
             if (paths.isEmpty()) {
@@ -424,23 +435,30 @@ public class Main extends Application {
 
                         //TODO: REMOVE AND MOVE
                         if (answer != null) {
-                            if (answer.equals("Remove")) {
-                                deleteItem(selected);
-                            } else if (answer.equals("Move")) {
-                                int[] indexes = MoveBox.display(paths, selected);
+                            switch (answer) {
+                                case "Remove":
+                                    deleteItem(selected);
+                                    break;
+                                case "Move":
+                                    int[] indexes = MoveBox.display(paths, selected);
 
-                                if (!(indexes == null)) {
-                                    setLog("Moving " +
-                                            "..." + paths.get(indexes[0] - 1).substring(paths.get(indexes[0] - 1).length() / 2).trim() +
-                                            "\n" +
-                                            "to " + "" +
-                                            "..." + paths.get(indexes[1] - 1).substring(paths.get(indexes[1] - 1).length() / 2).trim() +
-                                            "\n");
-                                    moveItem(indexes[0] - 1, indexes[1] - 1);
-                                    setLog("Finished moving...\n");
-                                } else {
-                                    setLog("Aborted move file..." + "\n");
-                                }
+                                    if (!(indexes == null)) {
+                                        setLog("Moving " +
+                                                "..." + paths.get(indexes[0] - 1).substring(paths.get(indexes[0] - 1).length() / 2).trim() +
+                                                "\n" +
+                                                "to " + "" +
+                                                "..." + paths.get(indexes[1] - 1).substring(paths.get(indexes[1] - 1).length() / 2).trim() +
+                                                "\n");
+                                        moveItem(indexes[0] - 1, indexes[1] - 1);
+                                        setLog("Finished moving...\n");
+                                    } else {
+                                        setLog("Aborted move file..." + "\n");
+                                    }
+                                    break;
+                                case "Open":
+                                    System.out.println(path);
+                                    openFile(new File(path));
+                                    break;
                             }
                         }
 
@@ -519,6 +537,10 @@ public class Main extends Application {
             if (event.getCode().toString().equals("ENTER")) btnCombine.fire();
         });
 
+        btnRefreshListView.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btnRefreshListView.fire();
+        });
+
         //if the button is selected and the enter key is pressed it will simulate a button click
         btnPreview.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) btnPreview.fire();
@@ -553,6 +575,7 @@ public class Main extends Application {
         VBox.setMargin(textFieldForExportFileLocation, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnSelDirectory, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnCombine, new Insets(insectsVal, insectsVal, 0, insectsVal));
+        VBox.setMargin(btnRefreshListView, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(btnPreview, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(btnClear, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnDuplicate, new Insets(0, insectsVal, insectsVal, insectsVal));
@@ -573,7 +596,7 @@ public class Main extends Application {
         hBoxBtnModificationsLayout.setAlignment(Pos.CENTER);
 
         hBoxBtnExecuteLayout.getChildren().addAll(btnCombine, btnClear);
-        hBoxBtnModificationsLayout.getChildren().addAll(btnDuplicate, btnRemoveFile, btnMoveFile);
+        hBoxBtnModificationsLayout.getChildren().addAll(btnDuplicate, btnRemoveFile, btnMoveFile, btnRefreshListView);
         //Creating a line object
         Line line = new Line();
 

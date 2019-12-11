@@ -25,7 +25,8 @@ class ChooseBox {
 
         String[] action = {
                 "Move",
-                "Remove"
+                "Remove",
+                "Open"
         };
 
         ComboBox<String> comboBox = new ComboBox<>();
