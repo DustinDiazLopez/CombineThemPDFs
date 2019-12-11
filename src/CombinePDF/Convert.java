@@ -27,7 +27,7 @@ class Convert {
         }
     }
 
-    //uses iText
+    //uses iText :[ need to find another library
     static void imageToPDF(String imagePath, String outputPath) {
         Document document = new Document();
         try {
