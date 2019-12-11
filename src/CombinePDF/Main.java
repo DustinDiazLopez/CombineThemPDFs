@@ -460,7 +460,7 @@ public class Main extends Application {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setInitialDirectory(new File("src"));
 
-        Button btnSelDirectory = new Button("Browse");
+        Button btnSelDirectory = new Button("Change Export Location");
 
         btnSelDirectory.setOnAction(e -> {
             setLog("Browsing...\n");
