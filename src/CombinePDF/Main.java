@@ -65,6 +65,8 @@ public class Main extends Application {
     private String lastScreenSizeFileLocation = new File("").getAbsolutePath();
     private int pages = 0;
     private File tempDir;
+    private boolean btnPreviewPressed = false;
+    private String last;
 
     /**
      * @param args the command line arguments
@@ -85,6 +87,7 @@ public class Main extends Application {
         File[] files = new File[paths.size()];
         for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
         merge(files, true);
+
     }
 
     /**
@@ -95,19 +98,22 @@ public class Main extends Application {
         File[] files = new File[paths.size()];
         for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
         merge(files, false);
-        File tempFile = new File(textFieldForExportFileLocation.getText());
+        File tempFile = new File(last);
+        openFile(tempFile);
+    }
 
-        if (Desktop.isDesktopSupported()) {
-            try {
-                Desktop.getDesktop().open(tempFile);
-            } catch (IOException ignored) {
-                ConfirmBox.display("Error", "No default application set for displaying PDF files!");
+    private void openFile(File file) {
+        if (file.exists()) {
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().open(file);
+                } catch (IOException ignored) {
+                    ConfirmBox.display("Error", "No default application set for displaying PDF files!");
+                }
             }
+        } else {
+            ConfirmBox.display("File does not exist", "Could not find specified file.");
         }
-
-        Thread.sleep(250);
-        if (tempFile.exists()) if (tempFile.delete()) System.out.println(tempFile.toString() + " was deleted.");
-
     }
 
     /**
@@ -117,6 +123,7 @@ public class Main extends Application {
     private void closeProgram() throws FileNotFoundException, UnsupportedEncodingException {
         boolean answer = ConfirmBox.display("Close-inator", "Are you sure you want to quit? :(");
         if (answer) {
+            clear();
             deleteTempFiles();
             Write.txt(new File(lastScreenSizeFileLocation), scene.getHeight() + "," + scene.getWidth());
             System.exit(0);
@@ -662,7 +669,7 @@ public class Main extends Application {
      *
      * @param files to be merged/combined
      */
-    private void merge(File[] files, boolean delete) {
+    private void merge(File[] files, boolean combine) {
         try {
             double max = 30;
             progressBar.setProgress(0 / max);
@@ -679,21 +686,34 @@ public class Main extends Application {
             //Instantiating PDFMergerUtility class
             PDFMergerUtility PDFMerger = new PDFMergerUtility();
 
-            //Setting the destination file
-            if (new File(textFieldForExportFileLocation.getText()).exists()) {
-                boolean answer = ConfirmBox.display("Existing File", "You are trying to overwrite an existing file!\n"
-                        + textFieldForExportFileLocation.getText()
-                        + "\nDo you wish to proceed?");
+            if (combine) {
+                //Setting the destination file
+                if (new File(textFieldForExportFileLocation.getText()).exists()) {
+                    boolean answer = ConfirmBox.display("Existing File", "You are trying to overwrite an existing file!\n"
+                            + textFieldForExportFileLocation.getText()
+                            + "\nDo you wish to proceed?");
 
-                if (!answer) {
-                    btnCombine.setDisable(false);
-                    listViewLabel.setText("All files to be combined: (Merge aborted change file name)");
-                    lblLog.setText(lblLog.getText() + "\nFile overwrite collision detected change file name.");
-                    return;
+                    if (!answer) {
+                        btnCombine.setDisable(false);
+                        listViewLabel.setText("All files to be combined: (Merge aborted change file name)");
+                        lblLog.setText(lblLog.getText() + "\nFile overwrite collision detected change file name.");
+                        return;
+                    }
                 }
             }
 
-            PDFMerger.setDestinationFileName(textFieldForExportFileLocation.getText());
+            if (combine) {
+                PDFMerger.setDestinationFileName(textFieldForExportFileLocation.getText());
+            } else {
+                if (tempDir.getAbsolutePath().contains("/")) {
+                    last = tempDir.getAbsolutePath() + "/" + UUID.randomUUID() + ".pdf";
+                } else {
+                    last = tempDir.getAbsolutePath() + "\\" + UUID.randomUUID() + ".pdf";
+                }
+
+                delete.add(last);
+                PDFMerger.setDestinationFileName(last);
+            }
 
             //adding the source files
             for (File f : files) PDFMerger.addSource(f);
@@ -704,14 +724,14 @@ public class Main extends Application {
             //noinspection deprecation
             PDFMerger.mergeDocuments();
 
-            if (delete) clear();
+            if (combine) clear();
 
             //Closing the documents
             for (PDDocument document : docs) document.close();
 
             progressBar.setProgress(25.0 / max);
 
-            if (delete) deleteTempFiles();
+            if (combine) deleteTempFiles();
 
             dropped.setText("Documents merged! Check Desktop!");
             setLog("Finished!\n");
