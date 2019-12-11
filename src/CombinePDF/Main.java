@@ -48,6 +48,7 @@ public class Main extends Application {
     private String titleAndVersion = "Combinator-inator v0.3";
     private Label dropped = new Label("Waiting...");
     private Button btnCombine = new Button("Combine");
+    private Button btnPreview = new Button("Preview");
     private Button btnClear = new Button("Reset");
     private Button btnDuplicate = new Button("Duplicate");
     private TextField textFieldForExportFileLocation = new TextField();
@@ -83,7 +84,30 @@ public class Main extends Application {
     private void btnRun() {
         File[] files = new File[paths.size()];
         for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
-        merge(files);
+        merge(files, true);
+    }
+
+    /**
+     * When the button Combine button is pressed it will jump to this function and combine all listed PDFs
+     * in the variable paths
+     */
+    private void btnPreview() throws InterruptedException {
+        File[] files = new File[paths.size()];
+        for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
+        merge(files, false);
+        File tempFile = new File(textFieldForExportFileLocation.getText());
+
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().open(tempFile);
+            } catch (IOException ignored) {
+                ConfirmBox.display("Error", "No default application set for displaying PDF files!");
+            }
+        }
+
+        Thread.sleep(250);
+        if (tempFile.exists()) if (tempFile.delete()) System.out.println(tempFile.toString() + " was deleted.");
+
     }
 
     /**
@@ -275,6 +299,20 @@ public class Main extends Application {
             } else {
                 btnCombine.setDisable(true);
                 btnRun();
+            }
+        });
+
+        btnPreview.setOnAction(e -> {
+            //Checks if user has provided files to be combined.
+            if (paths.isEmpty()) {
+                listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
+                setLog("No files have been selected.\n");
+            } else {
+                try {
+                    btnPreview();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -474,6 +512,11 @@ public class Main extends Application {
             if (event.getCode().toString().equals("ENTER")) btnCombine.fire();
         });
 
+        //if the button is selected and the enter key is pressed it will simulate a button click
+        btnPreview.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btnPreview.fire();
+        });
+
         //if the clear button is selected and the enter key is pressed it will simulate a button click
         btnClear.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) btnClear.fire();
@@ -503,6 +546,7 @@ public class Main extends Application {
         VBox.setMargin(textFieldForExportFileLocation, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnSelDirectory, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnCombine, new Insets(insectsVal, insectsVal, 0, insectsVal));
+        VBox.setMargin(btnPreview, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(btnClear, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnDuplicate, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnRemoveFile, new Insets(0, insectsVal, insectsVal, insectsVal));
@@ -543,7 +587,7 @@ public class Main extends Application {
         HBox hBoxSearchForFileLayout = new HBox();
         HBox.setHgrow(textFieldForExportFileLocation, Priority.ALWAYS);
         HBox.setHgrow(btnSelDirectory, Priority.ALWAYS);
-        hBoxSearchForFileLayout.getChildren().addAll(textFieldForExportFileLocation, btnSelDirectory);
+        hBoxSearchForFileLayout.getChildren().addAll(textFieldForExportFileLocation, btnPreview, btnSelDirectory);
         hBoxSearchForFileLayout.setAlignment(Pos.CENTER);
         hBoxSearchForFileLayout.setSpacing(5);
         list.addAll(listView, tfLabel, hBoxSearchForFileLayout, vBoxBtnLayout);
@@ -615,9 +659,10 @@ public class Main extends Application {
 
     /**
      * Where the magic happens!
+     *
      * @param files to be merged/combined
      */
-    private void merge(File[] files) {
+    private void merge(File[] files, boolean delete) {
         try {
             double max = 30;
             progressBar.setProgress(0 / max);
@@ -659,14 +704,14 @@ public class Main extends Application {
             //noinspection deprecation
             PDFMerger.mergeDocuments();
 
-            clear();
+            if (delete) clear();
 
             //Closing the documents
             for (PDDocument document : docs) document.close();
 
             progressBar.setProgress(25.0 / max);
 
-            deleteTempFiles();
+            if (delete) deleteTempFiles();
 
             dropped.setText("Documents merged! Check Desktop!");
             setLog("Finished!\n");
