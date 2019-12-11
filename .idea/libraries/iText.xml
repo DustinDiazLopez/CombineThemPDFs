@@ -1,0 +1,30 @@
+<component name="libraryTable">
+  <library name="iText">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/barcodes-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/commons-codec-1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/forms-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/fr.opensagres.xdocreport.itext.extension-1.0.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/io-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/itext-2.1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/kernel-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/layout-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/ooxml-schemas-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/org.apache.poi.xwpf.converter.core-1.0.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/org.apache.poi.xwpf.converter.pdf-1.0.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/pdfa-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/pdftest-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/poi-3.10-FINAL.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/poi-ooxml-3.10-FINAL.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/sign-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/stax-api-1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/styled-xml-parser-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/svg-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/xml-apis-1.0.b2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/iText/xmlbeans-2.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

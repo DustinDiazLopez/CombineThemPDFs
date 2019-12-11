@@ -10,5 +10,6 @@
     <orderEntry type="library" name="fontbox-2.0.16" level="project" />
     <orderEntry type="library" name="poi" level="project" />
     <orderEntry type="library" name="documents4j" level="project" />
+    <orderEntry type="library" name="iText" level="project" />
   </component>
 </module>

@@ -6,11 +6,39 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="better preview">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="refresh list view button">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/iText.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEMP/95a354cc-6bcb-4efe-afd3-886a06eef695.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEMP/Outlook-mqx5evwp.png4d8572ed-de72-49d7-8e92-92af94dff0a7.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/barcodes-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/commons-codec-1.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/dom4j-1.6.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/font-asian-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/forms-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/fr.opensagres.xdocreport.itext.extension-1.0.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/hyph-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/io-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/itext-2.1.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/kernel-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/layout-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/ooxml-schemas-1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/org.apache.poi.xwpf.converter.core-1.0.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/org.apache.poi.xwpf.converter.pdf-1.0.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/pdfa-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/pdftest-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/poi-3.10-FINAL.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/poi-ooxml-3.10-FINAL.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/sign-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/stax-api-1.0.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/styled-xml-parser-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/svg-7.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/xml-apis-1.0.b2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/iText/xmlbeans-2.3.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CombineThemPDFs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CombineThemPDFs.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CombinePDF/ChooseBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/ChooseBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Convert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Convert.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CombinePDF/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Screen/screen.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Screen/screen.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,28 +137,29 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/CombinePDF" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/libs/iText/xmlbeans-2.3.0.jar!/" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.ignored.files" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\documents4j" />
-      <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\PDFBox" />
-      <recent name="C:\Users\dudia\Desktop\" />
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\sample\imgs" />
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\out\artifacts\CombineThemPDFs_jar" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\iText" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\CombinePDF" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\sample" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="CombinePDF" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\CombinePDF" />
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\sample" />
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\iText" />
+      <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\documents4j" />
+      <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\PDFBox" />
+      <recent name="C:\Users\dudia\Desktop\" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\sample\imgs" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -513,7 +542,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576095564333</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="refresh list view button">
+      <created>1576097699333</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1576097699333</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -563,40 +599,57 @@
     <MESSAGE value="hello motto" />
     <MESSAGE value="preview button" />
     <MESSAGE value="better preview" />
-    <option name="LAST_COMMIT_MESSAGE" value="better preview" />
+    <MESSAGE value="refresh list view button" />
+    <option name="LAST_COMMIT_MESSAGE" value="refresh list view button" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1142" y="139" key="CommitChangelistDialog2" timestamp="1576095563459">
+    <state x="1182" y="265" key="#com.intellij.ide.util.MemberChooser" timestamp="1576102050504">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="1142" y="139" key="CommitChangelistDialog2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576095563459" />
-    <state width="2032" height="293" key="GridCell.Tab.0.bottom" timestamp="1576097633008">
+    <state x="1182" y="265" key="#com.intellij.ide.util.MemberChooser/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576102050504" />
+    <state x="1142" y="139" key="CommitChangelistDialog2" timestamp="1576097698583">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state width="2032" height="293" key="GridCell.Tab.0.bottom/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576097633008" />
-    <state width="2032" height="293" key="GridCell.Tab.0.center" timestamp="1576097633008">
+    <state x="1142" y="139" key="CommitChangelistDialog2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576097698583" />
+    <state x="935" y="316" key="FileChooserDialogImpl" timestamp="1576103985483">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state width="2032" height="293" key="GridCell.Tab.0.center/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576097633008" />
-    <state width="2032" height="293" key="GridCell.Tab.0.left" timestamp="1576097633008">
+    <state x="935" y="316" key="FileChooserDialogImpl/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103985483" />
+    <state width="2709" height="338" key="GridCell.Tab.0.bottom" timestamp="1576103758478">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state width="2032" height="293" key="GridCell.Tab.0.left/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576097633008" />
-    <state width="2032" height="293" key="GridCell.Tab.0.right" timestamp="1576097633008">
+    <state width="2709" height="338" key="GridCell.Tab.0.bottom/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103758478" />
+    <state width="2709" height="338" key="GridCell.Tab.0.center" timestamp="1576103758478">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state width="2032" height="293" key="GridCell.Tab.0.right/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576097633008" />
-    <state x="969" y="289" key="Vcs.Push.Dialog.v2" timestamp="1576095565483">
+    <state width="2709" height="338" key="GridCell.Tab.0.center/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103758478" />
+    <state width="2709" height="338" key="GridCell.Tab.0.left" timestamp="1576103758478">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="969" y="289" key="Vcs.Push.Dialog.v2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576095565483" />
+    <state width="2709" height="338" key="GridCell.Tab.0.left/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103758478" />
+    <state width="2709" height="338" key="GridCell.Tab.0.right" timestamp="1576103758478">
+      <screen x="0" y="0" width="2752" height="1112" />
+    </state>
+    <state width="2709" height="338" key="GridCell.Tab.0.right/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103758478" />
+    <state x="711" y="149" key="SettingsEditor" timestamp="1576103999305">
+      <screen x="0" y="0" width="2752" height="1112" />
+    </state>
+    <state x="711" y="149" key="SettingsEditor/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103999305" />
+    <state x="969" y="289" key="Vcs.Push.Dialog.v2" timestamp="1576097701046">
+      <screen x="0" y="0" width="2752" height="1112" />
+    </state>
+    <state x="969" y="289" key="Vcs.Push.Dialog.v2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576097701046" />
     <state x="1333" y="462" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1575763694009">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
     <state x="1333" y="462" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1575763694009" />
+    <state x="1039" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1576103900194">
+      <screen x="0" y="0" width="2752" height="1112" />
+    </state>
+    <state x="1039" y="243" width="672" height="678" key="search.everywhere.popup/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103900194" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

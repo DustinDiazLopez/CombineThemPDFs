@@ -84,8 +84,8 @@ class ChooseBox {
 
         window.setOnCloseRequest(e -> {
             e.consume();
-            value = null;
             noButton.fire();
+            value = null;
         });
 
         return value;
