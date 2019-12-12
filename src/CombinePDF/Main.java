@@ -68,6 +68,7 @@ public class Main extends Application {
     private File tempDir;
     private String last;
 
+    private String[] supported = "pdf,doc*,png,jpg,gif".split(",");
     /**
      * @param args the command line arguments
      */
@@ -144,13 +145,17 @@ public class Main extends Application {
      * @return path to a specified directory in the device in this case it is desktop
      */
     private String desktopFinder() {
-        //TODO: add a fallback if it fails | The problem: it assumes it will be ran in a child folder of the Desktop
         String dir = "Desktop"; //The directory to find
         String path = new File("").getAbsolutePath();
         path = path.substring(0, path.indexOf(dir) + dir.length() + 1); //plus one for the forward slash /
+
+        //Fallback if application is ran in another folder that is not child to (or is) Desktop
         if (!new File(path).exists()) {
-            listViewLabel.setText("All files to be combined: (PLEASE CHANGE EXPORT LOCATION)");
-            setLog("Please check export location!\n\"" + defaultDesktopLocation + "\" was not found!");
+            ConfirmBox.display("Set Export Location", "Application could not automatically set export location.");
+            String adjusted = new File("").getAbsolutePath();
+            if (adjusted.contains("/")) adjusted += "/Combined.pdf";
+            else adjusted += "\\Combined.pdf";
+            textFieldForExportFileLocation.setText(adjusted);
         }
         return path;
     }
@@ -274,9 +279,17 @@ public class Main extends Application {
                         }
                     }
 
-                    //Turns the String array into a List and adds all its content to the paths variable
-                    //stores the paths
-                    paths.addAll(Arrays.asList(arrPath));
+                    for (String s : arrPath) {
+                        if (s.substring(path.length() - 4).contains("pdf")) {
+                            paths.add(s);
+                        } else {
+                            ConfirmBox.display("Not-Supported-inator",
+                                    "Sorry but " + new File(s).getName() +
+                                            " is not supported and was ignored.\n" +
+                                            "List of supported files " + Arrays.toString(supported) + "\n* Not on Mac/Linux");
+                        }
+                    }
+                    //paths.addAll(Arrays.asList(arrPath));
 
                     //Takes all strings in the string array and displays it on screen in the list view
                     for (String s : arrPath) {
@@ -330,10 +343,21 @@ public class Main extends Application {
                         path = newName;
                     }
 
-                    paths.add(path);
-                    //displays the added path
-                    listView.getItems().add("[" + fileCounter + "] " + path);
-                    fileCounter++;
+                    if (path.substring(path.length() - 4).contains("pdf")) {
+                        paths.add(path);
+                        fileCounter++;
+                    } else {
+                        ConfirmBox.display("Not-Supported-inator",
+                                "Sorry but " + new File(path).getName() +
+                                        " is not supported and was ignored.\n" +
+                                        "List of supported files " + Arrays.toString(supported) + "\n* Not on Mac/Linux");
+                    }
+                }
+
+                try {
+                    newListView();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 success = true;
             }
@@ -513,10 +537,9 @@ public class Main extends Application {
                                     openFile(new File(path));
                                     break;
                                 case "Delete Page":
-                                    //TODO: Remove page from file (careful not to edit the original one. Make a copy first)
                                     duplicateFile(new File(path), indexOfSelected);
                                     int pageNumber = NumberBox.display(totalNumberOfPages);
-                                    removePageInFile(new File(paths.get(indexOfSelected)), --pageNumber);
+                                    removePageInFile(new File(paths.get(indexOfSelected)), --pageNumber); //decrements for index of the page
                                     break;
                             }
                         }
