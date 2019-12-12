@@ -473,7 +473,7 @@ public class Main extends Application {
         listView.setOnMouseClicked(event -> {
             if ((!event.getTarget().toString().contains("StackPane")
                     && !event.getTarget().toString().contains("ListView"))) {
-                if (event.getButton() == MouseButton.SECONDARY) {
+                if (event.getButton().equals(MouseButton.SECONDARY)) {
                     String informationAboutSelectedElement = event.getPickResult().toString();
                     int charLocationOne = informationAboutSelectedElement.indexOf("text=\"[") + 7;
                     informationAboutSelectedElement = informationAboutSelectedElement.substring(charLocationOne);
@@ -513,7 +513,6 @@ public class Main extends Application {
                                     }
                                     break;
                                 case "Open":
-                                    System.out.println(path);
                                     openFile(new File(path));
                                     break;
                             }
@@ -533,6 +532,19 @@ public class Main extends Application {
                         document.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                    }
+                } else if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                    String informationAboutSelectedElement = event.getPickResult().toString();
+                    int charLocationOne = informationAboutSelectedElement.indexOf("text=\"[") + 7;
+                    informationAboutSelectedElement = informationAboutSelectedElement.substring(charLocationOne);
+                    int charLocationTwo = informationAboutSelectedElement.indexOf("]");
+                    informationAboutSelectedElement = informationAboutSelectedElement.substring(0, charLocationTwo);
+                    int selected = Integer.parseInt(informationAboutSelectedElement) - 1;
+                    String path = paths.get(selected);
+                    String name = new File(path).getName();
+
+                    if (ConfirmBox.display("Open " + name, "Do you wish to open " + name + "?")) {
+                        openFile(new File(path));
                     }
                 }
             }
