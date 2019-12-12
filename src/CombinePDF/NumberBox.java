@@ -12,53 +12,45 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-class ChooseBox {
+class NumberBox {
 
-    private static String value;
+    private static int value;
 
-    static String display(int selected) {
+    static int display(int num) {
         Stage window = new Stage();
-
-        Button yesButton = new Button("Choose");
-        yesButton.setDisable(true);
-        Button noButton = new Button("Cancel");
-
-        String[] action = {
-                "Move",
-                "Remove",
-                "Open",
-                "Delete Page"
-        };
+        String[] numbers = new String[num];
+        int counter = 1;
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = counter + "";
+            counter++;
+        }
 
         ComboBox<String> comboBox = new ComboBox<>();
-
-        comboBox.setOnAction(event -> {
-            if (yesButton.isDisabled()) yesButton.setDisable(false);
-            yesButton.setText(comboBox.getValue());
-        });
-
-        comboBox.setItems(FXCollections.observableArrayList(action));
+        comboBox.setItems(FXCollections.observableArrayList(numbers));
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Choose-inator");
+        window.setTitle("Number-selector-inator");
         window.setMinHeight(200);
         window.setMinWidth(425);
         window.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
 
         Label label = new Label();
-        label.setText("Choose the action for file [" + (selected + 1) + "]:");
+        label.setText("Select the file to be removed:");
+
+        Button yesButton = new Button("Remove");
+        Button noButton = new Button("Cancel");
 
         yesButton.setOnAction(e -> {
             if (!(comboBox.getValue() == null)) {
-                value = comboBox.getValue();
+                value = Integer.parseInt(comboBox.getValue());
             } else {
-                value = null;
+                value = -1;
             }
             window.close();
         });
 
         noButton.setOnAction(e -> {
-            value = null;
+            value = -1;
             window.close();
         });
 
@@ -85,8 +77,8 @@ class ChooseBox {
 
         window.setOnCloseRequest(e -> {
             e.consume();
+            value = -1;
             noButton.fire();
-            value = null;
         });
 
         return value;

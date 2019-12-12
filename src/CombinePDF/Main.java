@@ -66,7 +66,6 @@ public class Main extends Application {
     private String lastScreenSizeFileLocation = new File("").getAbsolutePath();
     private int pages = 0;
     private File tempDir;
-    private boolean btnPreviewPressed = false;
     private String last;
 
     /**
@@ -74,10 +73,6 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public void duplicateFile(File from) throws IOException {
-        FileUtils.copyFile(from, tempDir);
     }
 
     /**
@@ -95,7 +90,7 @@ public class Main extends Application {
      * When the button Combine button is pressed it will jump to this function and combine all listed PDFs
      * in the variable paths
      */
-    private void btnPreview() throws InterruptedException {
+    private void btnPreview() {
         File[] files = new File[paths.size()];
         for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
         merge(files, false);
@@ -373,11 +368,7 @@ public class Main extends Application {
                 listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.\n");
             } else {
-                try {
-                    btnPreview();
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+                btnPreview();
             }
         });
 
@@ -387,7 +378,11 @@ public class Main extends Application {
                 listViewLabel.setText("All files to be combined: (Nothing to refresh...)");
                 setLog("No files have been selected.\n");
             } else {
-                newListView();
+                try {
+                    newListView();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -448,7 +443,11 @@ public class Main extends Application {
                             "to " + "" +
                             "..." + paths.get(indexes[1] - 1).substring(paths.get(indexes[1] - 1).length() / 2).trim() +
                             "\n");
-                    moveItem(indexes[0] - 1, indexes[1] - 1);
+                    try {
+                        moveItem(indexes[0] - 1, indexes[1] - 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     setLog("Finished moving...\n");
                 } else {
                     setLog("Aborted move file..." + "\n");
@@ -479,25 +478,23 @@ public class Main extends Application {
                     informationAboutSelectedElement = informationAboutSelectedElement.substring(charLocationOne);
                     int charLocationTwo = informationAboutSelectedElement.indexOf("]");
                     informationAboutSelectedElement = informationAboutSelectedElement.substring(0, charLocationTwo);
-                    int selected = Integer.parseInt(informationAboutSelectedElement) - 1;
-                    String path = paths.get(selected);
+                    int indexOfSelected = Integer.parseInt(informationAboutSelectedElement) - 1;
+                    String path = paths.get(indexOfSelected);
                     PDDocument document;
 
                     try {
                         document = PDDocument.load(new File(path));
                         int totalNumberOfPages = document.getNumberOfPages();
                         pages += totalNumberOfPages;
-                        String trim = path.substring(path.length() / 2).trim();
-                        String answer = ChooseBox.display(selected);
+                        String answer = ChooseBox.display(indexOfSelected);
 
-                        //TODO: REMOVE AND MOVE
                         if (answer != null) {
                             switch (answer) {
                                 case "Remove":
-                                    deleteItem(selected);
+                                    deleteItem(indexOfSelected);
                                     break;
                                 case "Move":
-                                    int[] indexes = MoveBox.display(paths, selected);
+                                    int[] indexes = MoveBox.display(paths, indexOfSelected);
 
                                     if (!(indexes == null)) {
                                         setLog("Moving " +
@@ -515,20 +512,15 @@ public class Main extends Application {
                                 case "Open":
                                     openFile(new File(path));
                                     break;
+                                case "Delete Page":
+                                    //TODO: Remove page from file (careful not to edit the original one. Make a copy first)
+                                    duplicateFile(new File(path), indexOfSelected);
+                                    int pageNumber = NumberBox.display(totalNumberOfPages);
+                                    removePageInFile(new File(paths.get(indexOfSelected)), --pageNumber);
+                                    break;
                             }
                         }
 
-                        /*
-                         * TODO: V Remove page from file (careful not to edit the original one. Make a copy first)
-                         * * * * * removePageInFile(file, page number)
-                         * * duplicateFile(from, tempDir)
-                         * */
-                        setLog("Action { " +
-                                "\n\tSelection: " + answer + "" +
-                                "\n\tNumber: " + (selected + 1) + "" +
-                                "\n\tNumber of pages: " + totalNumberOfPages + "" +
-                                "\n\tPath: " + "..." + trim + "" +
-                                "\n}\n");
                         document.close();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -564,11 +556,11 @@ public class Main extends Application {
 
                 if (dir.contains("/")) {
                     dir += "/Combined.pdf";
-                    textFieldForExportFileLocation.setText(dir);
                 } else {
                     dir += "\\Combined.pdf";
-                    textFieldForExportFileLocation.setText(dir);
                 }
+
+                textFieldForExportFileLocation.setText(dir);
 
                 setLog("Changed export location to:\n" + dir);
             } else {
@@ -722,17 +714,51 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Removes a page in a PDF file
+     *
+     * @param file       file that will have a page removed
+     * @param pageNumber number of the page that is wished to be removed
+     * @throws IOException throws an exception if the file does not exist
+     */
     private void removePageInFile(File file, int pageNumber) throws IOException {
-        if (!file.getAbsolutePath().contains(tempDir.getAbsolutePath())) {
+        if (file.getAbsolutePath().contains(tempDir.getAbsolutePath())) {
             PDDocument document = PDDocument.load(file);
             document.removePage(pageNumber);
             document.save(file);
             document.close();
         } else {
-            setLog("Attempted to edit a user file!\nFile must be in temp folder");
+            ConfirmBox.display("Page-remover-inator", "Attempted to edit a user file!\nFile must be in temp folder");
         }
     }
 
+    /**
+     * Duplicates a file into a TEMP folder.
+     *
+     * @param from path of original file
+     * @throws IOException throws an exception when file is not found.
+     */
+    public void duplicateFile(File from, int index) throws IOException {
+        String path = tempDir.getAbsolutePath();
+
+        String newName = from.getName() + UUID.randomUUID().toString() + ".pdf";
+
+        if (tempDir.getAbsolutePath().contains("/")) path += ("/" + newName); //mac
+        else path += ("\\" + newName); //windows
+
+        delete.add(path); //adds the file path to be erased later
+
+        paths.remove(index);
+        paths.add(index, path);
+
+        newListView();
+
+        FileUtils.copyFile(from, new File(path));
+    }
+
+    /**
+     * Updates the total number of pages in the application
+     */
     private void totalPages() throws IOException {
         pages = 0;
         PDDocument document;
@@ -747,6 +773,9 @@ public class Main extends Application {
         updateFileEstimationHeaderInformation();
     }
 
+    /**
+     * Updates the information about how many pages there will be in the final file
+     */
     private void updateFileEstimationHeaderInformation() {
         if (paths.size() != 1 && pages != 1)
             listViewLabel.setText(lvLblDefault + " " + paths.size() + " files | " + pages + " pages");
@@ -888,7 +917,7 @@ public class Main extends Application {
      * @param index  index of the file to be moved
      * @param moveTo index location to move the file
      */
-    private void moveItem(int index, int moveTo) {
+    private void moveItem(int index, int moveTo) throws IOException {
         //Stores the file to be moved
         String temp = paths.get(index);
 
@@ -905,7 +934,7 @@ public class Main extends Application {
     /**
      * Sets up a new list view with the updated paths
      */
-    private void newListView() {
+    private void newListView() throws IOException {
         //Cleats the list view and resets the global file counter
         listView.getItems().clear();
         fileCounter = 1;
@@ -915,5 +944,7 @@ public class Main extends Application {
             listView.getItems().add("[" + fileCounter + "] " + path);
             fileCounter++;
         }
+
+        totalPages();
     }
 }
