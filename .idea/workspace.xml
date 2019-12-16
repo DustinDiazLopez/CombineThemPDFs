@@ -6,12 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Added fallback if Desktop finder fails">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="refresh list view button">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/sqlite_jdbc_3_28_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/SQLite/mysql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/SQLite/sqlite-jdbc-3.28.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TEMP/SEC-BS-COMP-1.pdf9558f42c-6efb-4c79-b422-cf5b7f9892ac.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Screen/screen.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Screen/screen.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CombineThemPDFs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CombineThemPDFs.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +111,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/libs/iText/xmlbeans-2.3.0.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/libs/SQLite/sqlite-jdbc-3.28.0.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -118,21 +119,22 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.ignored.files" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\iText" />
-      <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\documents4j" />
-      <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\PDFBox" />
-      <recent name="C:\Users\dudia\Desktop\" />
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\sample\imgs" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="CombinePDF" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\SQLite" />
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\iText" />
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\CombinePDF" />
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\sample" />
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="CombinePDF" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\SQLite" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\iText" />
+      <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\documents4j" />
+      <recent name="C:\Users\Dustin\Desktop\Projects\CombineThemPDFs\src\libs\PDFBox" />
+      <recent name="C:\Users\dudia\Desktop\" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -556,6 +558,9 @@
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="1302000" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.sql" />
+  </component>
   <component name="UpdateCopyrightCheckinHandler">
     <option name="UPDATE_COPYRIGHT" value="true" />
   </component>
@@ -617,10 +622,10 @@
     </state>
     <state x="637" y="13" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1576193142390" />
     <state x="1142" y="139" key="CommitChangelistDialog2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576104534931" />
-    <state x="935" y="316" key="FileChooserDialogImpl" timestamp="1576103985483">
+    <state x="935" y="316" key="FileChooserDialogImpl" timestamp="1576465765398">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="935" y="316" key="FileChooserDialogImpl/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103985483" />
+    <state x="935" y="316" key="FileChooserDialogImpl/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576465765398" />
     <state width="1493" height="194" key="GridCell.Tab.0.bottom" timestamp="1576193583329">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -641,10 +646,10 @@
     </state>
     <state width="1493" height="194" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1576193583329" />
     <state width="2709" height="338" key="GridCell.Tab.0.right/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103758478" />
-    <state x="711" y="149" key="SettingsEditor" timestamp="1576103999305">
+    <state x="711" y="149" key="SettingsEditor" timestamp="1576468613010">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="711" y="149" key="SettingsEditor/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576103999305" />
+    <state x="711" y="149" key="SettingsEditor/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576468613010" />
     <state x="1226" y="471" key="VCS.ChangelistChooser" timestamp="1576104551437">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
