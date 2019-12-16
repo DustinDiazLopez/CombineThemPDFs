@@ -1,5 +1,9 @@
 package CombinePDF;
 
+import CombinePDF.Databases.Database;
+import CombinePDF.Databases.DeleteFileDatabase;
+import CombinePDF.Databases.HistoryDatabase;
+import CombinePDF.Databases.ScreenDatabase;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -41,19 +45,20 @@ public class Main extends Application {
     private Scene scene;
 
     //other
-    private String titleAndVersion = "Combinator-inator v0.3";
+    private static String titleAndVersion = "Combinator-inator v0.3";
     private Label dropped = new Label("Waiting...");
     private Button btnCombine = new Button("Combine");
     private Button btnPreview = new Button("Preview");
     private Button btnRefreshListView = new Button("Refresh View");
     private Button btnClear = new Button("Reset");
     private Button btnDuplicate = new Button("Duplicate");
+    private Button btnHistory = new Button("History");
     private TextField textFieldForExportFileLocation = new TextField();
     private ListView<String> listView = new ListView<>();
     private ProgressIndicator progressBar = new ProgressIndicator(0);
     private String lvLblDefault = "All files to be combined:";
     private Label listViewLabel = new Label(lvLblDefault);
-    private Label lblLog = new Label("Log for " + titleAndVersion + ":\n");
+    private static Label lblLog = new Label("Log for " + titleAndVersion + ":\n");
     private VBox vBox = new VBox();
     private ScrollPane scrollPane;
     private int fileCounter = 1;
@@ -67,15 +72,19 @@ public class Main extends Application {
 
     private static String SCREEN = "screen";
     private static String HISTORY = "history";
+    private static String DELETE = "delete";
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Database.createDatabase(SCREEN);
-        Database.createScreenTable(SCREEN);
+        ScreenDatabase.createScreenTable(SCREEN);
 
         Database.createDatabase(HISTORY);
-        Database.createHistoryTable(HISTORY);
+        HistoryDatabase.createHistoryTable(HISTORY);
+
+        Database.createDatabase(DELETE);
+        DeleteFileDatabase.createTable(DELETE);
 
         launch(args);
     }
@@ -89,15 +98,13 @@ public class Main extends Application {
      * in the variable paths
      */
     private void btnRun() {
-        Database.insert(HISTORY, paths.toString());
+        HistoryDatabase.insert(HISTORY, paths.toString());
         File[] files = new File[paths.size()];
         for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
         merge(files, true);
-        List<History> history = Database.history(HISTORY);
 
-        if (history == null) {
-            Database.createHistoryTable(HISTORY);
-        }
+        List<History> history = HistoryDatabase.history(HISTORY);
+        if (history == null) HistoryDatabase.createHistoryTable(HISTORY);
     }
 
     /**
@@ -134,8 +141,8 @@ public class Main extends Application {
         boolean answer = ConfirmBox.display("Close-inator", "Are you sure you want to quit? :(");
         if (answer) {
             clear();
-            deleteTempFiles();
-            Database.insert(SCREEN, scene.getWidth(), scene.getHeight());
+            storeTempFiles();
+            ScreenDatabase.insert(SCREEN, scene.getWidth(), scene.getHeight());
             System.exit(0);
         }
     }
@@ -447,6 +454,15 @@ public class Main extends Application {
             }
         });
 
+        btnHistory.setOnAction(e -> {
+            List<History> histories = HistoryDatabase.history(HISTORY);
+            if (histories == null) {
+                setLog("No history\n");
+            } else {
+                setLog(histories + "\n");
+            }
+        });
+
         btnRemoveFile.setOnAction(event -> {
             if (paths.isEmpty()) {
                 listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
@@ -650,6 +666,10 @@ public class Main extends Application {
             if (event.getCode().toString().equals("ENTER")) btnDuplicate.fire();
         });
 
+        btnHistory.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) btnHistory.fire();
+        });
+
         //if the remove button is selected and the enter key is pressed it will simulate a button click
         btnRemoveFile.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) btnRemoveFile.fire();
@@ -673,6 +693,7 @@ public class Main extends Application {
         VBox.setMargin(btnPreview, new Insets(insectsVal, insectsVal, 0, insectsVal));
         VBox.setMargin(btnClear, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnDuplicate, new Insets(0, insectsVal, insectsVal, insectsVal));
+        VBox.setMargin(btnHistory, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnRemoveFile, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnMoveFile, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(progressBar, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
@@ -690,7 +711,8 @@ public class Main extends Application {
         hBoxBtnModificationsLayout.setAlignment(Pos.CENTER);
 
         hBoxBtnExecuteLayout.getChildren().addAll(btnCombine, btnClear);
-        hBoxBtnModificationsLayout.getChildren().addAll(btnDuplicate, btnRemoveFile, btnMoveFile, btnRefreshListView);
+        //hBoxBtnModificationsLayout.getChildren().addAll(btnDuplicate, btnRemoveFile, btnMoveFile, btnRefreshListView);
+        hBoxBtnModificationsLayout.getChildren().addAll(btnDuplicate, btnHistory, btnRefreshListView);
         //Creating a line object
         Line line = new Line();
 
@@ -719,7 +741,7 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
-        String[] sizes = Database.screen(SCREEN);
+        String[] sizes = ScreenDatabase.screen(SCREEN);
 
         /* *
          * Tries to use the lastly used screen dimensions
@@ -729,8 +751,8 @@ public class Main extends Application {
         try {
             scene = new Scene(root, Double.parseDouble(sizes[0]), Double.parseDouble(sizes[1]));
         } catch (Exception e) {
-            setLog("Could not read file for last used screen size...\nReason: " + e.getMessage() + "\n");
-            scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 75);
+            setLog("Database was empty using default values for window size...");
+            scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 100);
         }
 
         primaryStage.setTitle(titleAndVersion);
@@ -878,7 +900,7 @@ public class Main extends Application {
 
             progressBar.setProgress(25.0 / max);
 
-            if (combine) deleteTempFiles();
+            if (combine) storeTempFiles();
 
             dropped.setText("Documents merged! Check Desktop!");
             setLog("Finished!\n");
@@ -890,7 +912,7 @@ public class Main extends Application {
         }
     }
 
-    private void setLog(String log) {
+    public static void setLog(String log) {
         lblLog.setText(lblLog.getText() + log);
     }
 
@@ -906,20 +928,48 @@ public class Main extends Application {
         progressBar.setProgress(0);
         fileCounter = 1;
         pages = 0;
-        deleteTempFiles();
+        storeTempFiles();
     }
 
     /**
-     * Deletes all temporally created PDF files in the local TEMP folder
+     * Stores all temporally created PDF files in the local TEMP folder
      */
-    private void deleteTempFiles() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String pathToDelete : delete) {
-            if (new File(pathToDelete).delete()) {
-                stringBuilder.append("Deleted temporary file at ").append(pathToDelete).append("\n");
-            }
+    private void storeTempFiles() {
+        delete.forEach(e -> DeleteFileDatabase.insert(DELETE, e));
+    }
+
+
+    /**
+     * Deletes a file.
+     * @param pathToDelete the path to the file
+     * @return returns if the file was deleted
+     */
+    private boolean deleteFile(String pathToDelete) {
+        if (pathToDelete.contains(tempDir.getAbsolutePath())) {
+            return new File(pathToDelete).delete();
+        } else {
+            ConfirmBox.display("Uh-Oh", "The application almost deleted one of your personal files.\n" +
+                    "This shouldn't have happened...\n" + pathToDelete);
+            return false;
         }
-        setLog(stringBuilder.toString());
+    }
+
+    /**
+     * Deletes all temp files and resets the history and delete databases
+     */
+    private void eraseHistoryAndFiles() {
+        HashSet<String> filesToDelete = DeleteFileDatabase.files(DELETE);
+
+        if (filesToDelete != null) {
+            filesToDelete.forEach(e -> {
+                if (deleteFile(e)) setLog(e + " was deleted\n");
+            });
+        } else {
+            setLog("No temporary files were found.");
+        }
+
+        DeleteFileDatabase.deleteTable(DELETE);
+        HistoryDatabase.deleteHistoryTable(HISTORY);
     }
 
     /**

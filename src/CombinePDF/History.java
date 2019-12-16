@@ -1,7 +1,5 @@
 package CombinePDF;
 
-import java.util.List;
-
 public class History {
     private int id;
     private String paths;
