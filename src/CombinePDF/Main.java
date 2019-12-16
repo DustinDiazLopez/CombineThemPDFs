@@ -102,9 +102,6 @@ public class Main extends Application {
         File[] files = new File[paths.size()];
         for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
         merge(files, true);
-
-        List<History> history = HistoryDatabase.history(HISTORY);
-        if (history == null) HistoryDatabase.createHistoryTable(HISTORY);
     }
 
     /**
@@ -295,18 +292,7 @@ public class Main extends Application {
                         }
                     }
 
-                    for (String s : arrPath) {
-                        if (s.substring(path.length() - 4).contains("pdf")) {
-                            paths.add(s);
-                        } else {
-                            ConfirmBox.display("Not-Supported-inator",
-                                    "Sorry but " + new File(s).getName() +
-                                            " is not supported and was ignored.\n" +
-                                            "List of supported files " + Arrays.toString(supported) + "\n* Not on Mac/Linux"
-                            );
-                        }
-                    }
-                    //paths.addAll(Arrays.asList(arrPath));
+                    paths.addAll(Arrays.asList(arrPath));
 
                     //Takes all strings in the string array and displays it on screen in the list view
                     for (String s : arrPath) {
@@ -455,11 +441,35 @@ public class Main extends Application {
         });
 
         btnHistory.setOnAction(e -> {
-            List<History> histories = HistoryDatabase.history(HISTORY);
+            List<History> histories = HistoryDatabase.history(HISTORY, "DESC");
             if (histories == null) {
                 setLog("No history\n");
             } else {
-                setLog(histories + "\n");
+                String content = HistoryBox.recover(HISTORY);
+                if (content != null) {
+                    if (content.equals("-Execute Order 66-")) {
+                        eraseHistoryAndFiles();
+                        content = null;
+                    } else {
+                        List<String> files = stringToList(content);
+                        if (paths.isEmpty()) {
+                            files.forEach(file -> paths.add(file.trim()));
+                        } else {
+                            if (ConfirmBox.display("Information-inator", "Do you want to add this saved state to your current files?")) {
+                                files.forEach(file -> paths.add(file.trim()));
+                            }
+                        }
+
+                        try {
+                            newListView();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+
+                        setLog(files + "\n");
+
+                    }
+                }
             }
         });
 
@@ -751,7 +761,7 @@ public class Main extends Application {
         try {
             scene = new Scene(root, Double.parseDouble(sizes[0]), Double.parseDouble(sizes[1]));
         } catch (Exception e) {
-            setLog("Database was empty using default values for window size...");
+            setLog("Database was empty using default values for window size.");
             scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 100);
         }
 
@@ -945,7 +955,7 @@ public class Main extends Application {
      * @return returns if the file was deleted
      */
     private boolean deleteFile(String pathToDelete) {
-        if (pathToDelete.contains(tempDir.getAbsolutePath())) {
+        if (pathToDelete.contains(tempDir.getAbsolutePath()) || pathToDelete.contains(HistoryDatabase.path)) {
             return new File(pathToDelete).delete();
         } else {
             ConfirmBox.display("Uh-Oh", "The application almost deleted one of your personal files.\n" +
@@ -968,8 +978,20 @@ public class Main extends Application {
             setLog("No temporary files were found.");
         }
 
+        resetDatabases();
+    }
+
+    private void resetDatabases() {
         DeleteFileDatabase.deleteTable(DELETE);
         HistoryDatabase.deleteHistoryTable(HISTORY);
+        deleteFile(HistoryDatabase.path + HISTORY);
+        deleteFile(DeleteFileDatabase.path + DELETE);
+
+        Database.createDatabase(HISTORY);
+        HistoryDatabase.createHistoryTable(HISTORY);
+
+        Database.createDatabase(DELETE);
+        DeleteFileDatabase.createTable(DELETE);
     }
 
     /**

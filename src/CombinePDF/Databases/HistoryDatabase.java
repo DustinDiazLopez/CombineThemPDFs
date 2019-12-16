@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryDatabase {
-    private static String path = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
+    public static String path = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
 
     /**
      * Creates the history table
@@ -69,8 +69,8 @@ public class HistoryDatabase {
         createHistoryTable(fileName);
     }
 
-    public static List<History> history(String dbName) {
-        String sql = "SELECT * FROM history ORDER BY history_id DESC";
+    public static List<History> history(String dbName, String sortDESCorASC) {
+        String sql = "SELECT * FROM history ORDER BY history_id " + sortDESCorASC;
 
         List<History> histories = new ArrayList<>();
         History temp;

@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.*;
 
 public class DeleteFileDatabase {
-    private static String path = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
+    public static String path = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
 
     public static void createTable(String fileName) {
         String url = "jdbc:sqlite:" + path + fileName;
