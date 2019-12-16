@@ -25,10 +25,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.UUID;
 
 public class Main extends Application {
 
@@ -66,14 +64,24 @@ public class Main extends Application {
     private String last;
 
     private String[] supported = "pdf,doc*,png,jpg,gif".split(",");
+
+    private static String SCREEN = "screen";
+    private static String HISTORY = "history";
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ScreenDatabase.createScreenDatabase("screen");
-        ScreenDatabase.createScreenTable("screen");
-        //Screen.selectAll("screen");
+        Database.createDatabase(SCREEN);
+        Database.createScreenTable(SCREEN);
+
+        Database.createDatabase(HISTORY);
+        Database.createHistoryTable(HISTORY);
+
         launch(args);
+    }
+
+    private List<String> stringToList(String paths) {
+        return new ArrayList<>(Arrays.asList(paths.trim().substring(1, paths.length() - 1).trim().split(",")));
     }
 
     /**
@@ -81,10 +89,15 @@ public class Main extends Application {
      * in the variable paths
      */
     private void btnRun() {
+        Database.insert(HISTORY, paths.toString());
         File[] files = new File[paths.size()];
         for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
         merge(files, true);
+        List<History> history = Database.history(HISTORY);
 
+        if (history == null) {
+            Database.createHistoryTable(HISTORY);
+        }
     }
 
     /**
@@ -122,7 +135,7 @@ public class Main extends Application {
         if (answer) {
             clear();
             deleteTempFiles();
-            ScreenDatabase.insert("screen", scene.getWidth(), scene.getHeight());
+            Database.insert(SCREEN, scene.getWidth(), scene.getHeight());
             System.exit(0);
         }
     }
@@ -282,7 +295,8 @@ public class Main extends Application {
                             ConfirmBox.display("Not-Supported-inator",
                                     "Sorry but " + new File(s).getName() +
                                             " is not supported and was ignored.\n" +
-                                            "List of supported files " + Arrays.toString(supported) + "\n* Not on Mac/Linux");
+                                            "List of supported files " + Arrays.toString(supported) + "\n* Not on Mac/Linux"
+                            );
                         }
                     }
                     //paths.addAll(Arrays.asList(arrPath));
@@ -705,7 +719,7 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
-        String[] sizes = ScreenDatabase.screen("screen");
+        String[] sizes = Database.screen(SCREEN);
 
         /* *
          * Tries to use the lastly used screen dimensions
