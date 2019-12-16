@@ -63,7 +63,6 @@ public class Main extends Application {
     private int fileCounter = 1;
     private Button btnRemoveFile = new Button("Remove");
     private Button btnMoveFile = new Button("Move");
-    private String lastScreenSizeFileLocation = new File("").getAbsolutePath();
     private int pages = 0;
     private File tempDir;
     private String last;
@@ -73,6 +72,9 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Screen.createScreenDatabase("screen");
+        Screen.createScreenTable("screen");
+        //Screen.selectAll("screen");
         launch(args);
     }
 
@@ -122,7 +124,7 @@ public class Main extends Application {
         if (answer) {
             clear();
             deleteTempFiles();
-            Write.txt(new File(lastScreenSizeFileLocation), scene.getHeight() + "," + scene.getWidth());
+            Screen.insert("screen", scene.getWidth(), scene.getHeight());
             System.exit(0);
         }
     }
@@ -709,14 +711,7 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
-        //Lastly used screen sizes
-        if (lastScreenSizeFileLocation.contains("/")) {
-            lastScreenSizeFileLocation += "/src/CombinePDF/Screen/screen.txt";
-        } else {
-            lastScreenSizeFileLocation += "\\src\\CombinePDF\\Screen\\screen.txt";
-        }
-
-        String[] sizes = Read.txt(lastScreenSizeFileLocation).split(",");
+        String[] sizes = Screen.screen("screen");
 
         /* *
          * Tries to use the lastly used screen dimensions
