@@ -1,4 +1,7 @@
+# Databases
 src/data/
+
+# TEMP folder
 TEMP/
 
 # IntelliJ
