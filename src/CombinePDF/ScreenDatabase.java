@@ -1,27 +1,9 @@
 package CombinePDF;
 
-import java.io.File;
 import java.sql.*;
 
-public class Screen {
+public class ScreenDatabase {
     private static String path;
-
-    public static void main(String[] args) {
-//        path = new File("").getAbsolutePath();
-//
-//        if (path.contains("\\")) path += "\\";
-//        else path += "/";
-//
-//        String database = "screen";
-//        createNewDatabase(database);
-//        connect(database);
-//        createNewTable(database);
-//
-//        Database app = new Database();
-//        insert(database, 500d, 375d);
-//
-//        app.selectAll(database);
-    }
 
     private static Connection connect(String fileName) {
         // SQLite connection string

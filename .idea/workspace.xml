@@ -187,8 +187,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Screen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CombinePDF.Screen" />
+    <configuration name="ScreenDatabase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="CombinePDF.ScreenDatabase" />
       <module name="CombineThemPDFs" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -245,7 +245,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Screen" />
+        <item itemvalue="Application.ScreenDatabase" />
         <item itemvalue="JAR Application.CombineThemPDFs.jar" />
       </list>
     </recent_temporary>

@@ -24,9 +24,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,8 +70,8 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Screen.createScreenDatabase("screen");
-        Screen.createScreenTable("screen");
+        ScreenDatabase.createScreenDatabase("screen");
+        ScreenDatabase.createScreenTable("screen");
         //Screen.selectAll("screen");
         launch(args);
     }
@@ -119,12 +117,12 @@ public class Main extends Application {
      * Consumes exit request and shows a Confirmation Box to assure that the user wants to quit the
      * application
      */
-    private void closeProgram() throws FileNotFoundException, UnsupportedEncodingException {
+    private void closeProgram() {
         boolean answer = ConfirmBox.display("Close-inator", "Are you sure you want to quit? :(");
         if (answer) {
             clear();
             deleteTempFiles();
-            Screen.insert("screen", scene.getWidth(), scene.getHeight());
+            ScreenDatabase.insert("screen", scene.getWidth(), scene.getHeight());
             System.exit(0);
         }
     }
@@ -166,7 +164,7 @@ public class Main extends Application {
      * @param primaryStage all styling, functionality and initial setup is in this function
      */
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         /*Sets the icon for the application*/
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
         tempDir = new File("TEMP");
@@ -195,11 +193,7 @@ public class Main extends Application {
         /*Handles Close Request*/
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
-            try {
-                closeProgram();
-            } catch (FileNotFoundException | UnsupportedEncodingException ex) {
-                ex.printStackTrace();
-            }
+            closeProgram();
         });
 
         //Place holder for list view when no files have been selected
@@ -711,7 +705,7 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(vBox);
 
-        String[] sizes = Screen.screen("screen");
+        String[] sizes = ScreenDatabase.screen("screen");
 
         /* *
          * Tries to use the lastly used screen dimensions
