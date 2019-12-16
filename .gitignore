@@ -93,3 +93,10 @@ screen
 nullscreen
 nullhistory
 out/production/CombineThemPDFs/CombinePDF/History.class
+.idea/workspace.xml
+out/production/CombineThemPDFs/CombinePDF/Databases/Database.class
+out/production/CombineThemPDFs/CombinePDF/Databases/DeleteFileDatabase.class
+out/production/CombineThemPDFs/CombinePDF/Databases/HistoryDatabase.class
+out/production/CombineThemPDFs/CombinePDF/Databases/ScreenDatabase.class
+src/data/delete
+src/data/history
