@@ -65,7 +65,7 @@ class DuplicateBox {
 
         window.setOnCloseRequest(e -> {
             e.consume();
-            noButton.fire();
+            window.close();
         });
 
         return value;

@@ -29,8 +29,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class Main extends Application {
 
@@ -520,11 +520,7 @@ public class Main extends Application {
             if (paths.isEmpty()) {
                 clear();
             } else {
-                boolean answer = ConfirmBox.display(
-                        "Clear-inator",
-                        "This action is irreversible are you sure?"
-                );
-
+                boolean answer = ConfirmBox.display("Clear-inator", "Are you sure?");
                 if (answer) clear();
             }
         });
@@ -550,7 +546,7 @@ public class Main extends Application {
 
                         if (answer != null) {
                             switch (answer) {
-                                case "Remove":
+                                case "Remove From List":
                                     deleteItem(indexOfSelected);
                                     break;
                                 case "Move":
@@ -569,13 +565,23 @@ public class Main extends Application {
                                         setLog("Aborted move file..." + "\n");
                                     }
                                     break;
-                                case "Open":
+                                case "Open File":
                                     openFile(new File(path));
                                     break;
-                                case "Delete Page":
+                                case "Remove a Page":
+
                                     duplicateFile(new File(path), indexOfSelected);
                                     int pageNumber = NumberBox.display(totalNumberOfPages);
-                                    removePageInFile(new File(paths.get(indexOfSelected)), --pageNumber); //decrements for index of the page
+
+                                    if (totalNumberOfPages == 1 && pageNumber == 1) {
+                                        deleteItem(indexOfSelected);
+                                        break;
+                                    }
+
+                                    if (pageNumber != -1) {
+                                        removePageInFile(new File(paths.get(indexOfSelected)), --pageNumber); //decrements for index of the page
+                                    }
+
                                     break;
                             }
                         }

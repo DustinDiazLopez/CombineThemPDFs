@@ -25,9 +25,9 @@ class ChooseBox {
 
         String[] action = {
                 "Move",
-                "Remove",
-                "Open",
-                "Delete Page"
+                "Remove From List",
+                "Open File",
+                "Remove a Page"
         };
 
         ComboBox<String> comboBox = new ComboBox<>();
@@ -85,8 +85,8 @@ class ChooseBox {
 
         window.setOnCloseRequest(e -> {
             e.consume();
-            noButton.fire();
             value = null;
+            window.close();
         });
 
         return value;

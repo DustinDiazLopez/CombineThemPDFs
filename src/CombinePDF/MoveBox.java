@@ -93,7 +93,8 @@ class MoveBox {
 
         window.setOnCloseRequest(e -> {
             e.consume();
-            noButton.fire();
+            value = null;
+            window.close();
         });
 
         return value;

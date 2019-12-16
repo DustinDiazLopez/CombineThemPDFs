@@ -78,7 +78,7 @@ class NumberBox {
         window.setOnCloseRequest(e -> {
             e.consume();
             value = -1;
-            noButton.fire();
+            window.close();
         });
 
         return value;
