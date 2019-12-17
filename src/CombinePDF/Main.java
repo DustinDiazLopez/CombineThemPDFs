@@ -86,7 +86,7 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        if (new File(DATA).mkdir()) System.out.println("Generated \"" + DATA + "\" folder for databases.");
+        if (new File(DATA).mkdir()) setLog("Generated \"" + DATA + "\" folder for databases.\n");
 
         Database.createDatabase(SCREEN);
         ScreenDatabase.createScreenTable(SCREEN);
@@ -838,13 +838,13 @@ public class Main extends Application {
         styleFileMenuItem.setOnAction(e -> {
             Object[] array = toggleGroup.getToggles().toArray();
             if (array[0].toString().contains("selected")) {
-                System.out.println("light");
                 scene.getStylesheets().clear();
                 styleSelected = false;
+                setLog("Changed theme to 'Light'");
             } else if (array[1].toString().contains("selected")) {
-                System.out.println("dark");
                 scene.getStylesheets().add(THEME);
                 styleSelected = true;
+                setLog("Changed theme to 'Dark'");
             }
         });
 
@@ -857,16 +857,17 @@ public class Main extends Application {
 
         String help = new File("").getAbsolutePath() +
                 (new File("").getAbsolutePath().contains("\\")
-                        ? "\\src\\CombinePDF\\help\\help.html"
-                        : "/src/CombinePDF/help/help.html");
+                        ? "\\src\\CombinePDF\\help\\index.html"
+                        : "/src/CombinePDF/help/index.html");
 
         aboutHelpMenuItem.setOnAction(e -> {
-            System.out.println(help);
-            setLog(help + "\n");
+            setLog("Opening file: \"" + help + "\"\n");
             openFile(new File(help));
         });
 
-        if (styleSelected) scene.getStylesheets().add(THEME);
+        if (styleSelected) {
+            scene.getStylesheets().add(THEME);
+        }
 
         primaryStage.setTitle(titleAndVersion);
         primaryStage.setScene(scene);
