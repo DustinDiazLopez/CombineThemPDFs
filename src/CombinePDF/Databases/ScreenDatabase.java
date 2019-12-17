@@ -1,10 +1,12 @@
 package CombinePDF.Databases;
 
+import CombinePDF.Main;
+
 import java.io.File;
 import java.sql.*;
 
 public class ScreenDatabase {
-    private static String path = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
+    private static String path = Main.DATA;
 
     /**
      * Created the screen table in the database if it exists

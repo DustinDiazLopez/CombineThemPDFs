@@ -40,12 +40,12 @@ public class Main extends Application {
     //Variable that contains all the paths of all files to be combined/merged
     private List<String> paths = new ArrayList<>();
 
+    //List that contains all the files to be stored in the delete database for them to be deleted when history is cleared
     private List<String> delete = new ArrayList<>();
 
+    //JavaFX variables
     private Scene scene;
-
-    //other
-    private static String titleAndVersion = "Combinator-inator v0.3";
+    private static String titleAndVersion = "Combinator-inator v0.5";
     private Label dropped = new Label("Waiting...");
     private Button btnCombine = new Button("Combine");
     private Button btnPreview = new Button("Preview");
@@ -68,15 +68,20 @@ public class Main extends Application {
     private File tempDir;
     private String last;
 
+    //Supported extensions
     private String[] supported = "pdf,doc*,png,jpg,gif".split(",");
 
+    //Database variables
     private static String SCREEN = "screen";
     private static String HISTORY = "history";
     private static String DELETE = "delete";
+    public static String DATA = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        if (new File(DATA).mkdir()) System.out.println("Generated \"" + DATA + "\" folder for databases.");
+
         Database.createDatabase(SCREEN);
         ScreenDatabase.createScreenTable(SCREEN);
 

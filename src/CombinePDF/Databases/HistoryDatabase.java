@@ -1,6 +1,7 @@
 package CombinePDF.Databases;
 
 import CombinePDF.History;
+import CombinePDF.Main;
 
 import java.io.File;
 import java.sql.*;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryDatabase {
-    public static String path = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
+    public static String path = Main.DATA;
 
     /**
      * Creates the history table

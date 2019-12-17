@@ -1,13 +1,14 @@
 package CombinePDF.Databases;
 
 import CombinePDF.History;
+import CombinePDF.Main;
 
 import java.io.File;
 import java.sql.*;
 import java.util.*;
 
 public class DeleteFileDatabase {
-    public static String path = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
+    public static String path = Main.DATA;
 
     public static void createTable(String fileName) {
         String url = "jdbc:sqlite:" + path + fileName;
