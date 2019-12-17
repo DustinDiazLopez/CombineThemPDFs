@@ -1,4 +1,4 @@
-Combine Them PDFs... yo
+Combine Them PDFs... yo!
 ------
 Application utilizing [SQLite](https://www.sqlite.org/index.html), [JavaFX](https://en.wikipedia.org/wiki/JavaFX), [PDFBox](https://pdfbox.apache.org/) and [documents4j](https://documents4j.com/#/).
 This [drag-and-drop](https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm) application takes in a list of [PDF](https://en.wikipedia.org/wiki/PDF) files and combines/merge them into one file. 
