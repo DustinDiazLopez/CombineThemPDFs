@@ -6,142 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Added fallback if Desktop finder fails">
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/animate.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/bootstrap-theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/bootstrap-theme.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/bootstrap-theme.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/custom.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/prettyPhoto.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/stroke.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/Stroke-Gap-Icons.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/Stroke-Gap-Icons.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/Stroke-Gap-Icons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/Stroke-Gap-Icons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/font-awesome-4.3.0/css/font-awesome.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/font-awesome-4.3.0/css/font-awesome.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/font-awesome-4.3.0/fonts/FontAwesome.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/font-awesome-4.3.0/fonts/fontawesome-webfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/font-awesome-4.3.0/fonts/fontawesome-webfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/font-awesome-4.3.0/fonts/fontawesome-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/font-awesome-4.3.0/fonts/fontawesome-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/lanenar_Lane.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/lanenar_Lane.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/lanenar_Lane.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/fonts/lanenar_Lane.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/dummy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_rounded/btnNext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_rounded/btnPrevious.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_rounded/contentPattern.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_rounded/default_thumbnail.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_rounded/loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_rounded/sprite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_square/btnNext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_square/btnPrevious.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_square/contentPattern.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_square/default_thumbnail.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_square/loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/dark_square/sprite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/default/default_thumb.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/default/loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/default/sprite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/default/sprite_next.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/default/sprite_prev.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/default/sprite_x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/default/sprite_y.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/facebook/btnNext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/facebook/btnPrevious.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/facebook/contentPatternBottom.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/facebook/contentPatternLeft.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/facebook/contentPatternRight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/facebook/contentPatternTop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/facebook/default_thumbnail.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/facebook/loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/facebook/sprite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_rounded/btnNext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_rounded/btnPrevious.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_rounded/default_thumbnail.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_rounded/loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_rounded/sprite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_square/btnNext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_square/btnPrevious.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_square/default_thumbnail.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_square/loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/prettyPhoto/light_square/sprite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/upload/bg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/upload/plugin1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/upload/plugin2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/upload/plugin3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/images/upload/thumbnail.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/custom.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/jquery.fitvids.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/jquery.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/jquery.min.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/jquery.prettyPhoto.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/retina.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shAutoloader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushAS3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushAppleScript.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushBash.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushCSharp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushColdFusion.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushCpp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushCss.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushDelphi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushDiff.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushErlang.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushGroovy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushJScript.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushJava.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushJavaFX.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushPerl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushPhp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushPlain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushPowerShell.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushPython.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushRuby.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushSass.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushScala.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushSql.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushVb.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shBrushXml.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shCore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/scripts/shLegacy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shCore.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shCoreDefault.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shCoreDjango.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shCoreEclipse.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shCoreEmacs.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shCoreFadeToGrey.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shCoreMDUltra.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shCoreMidnight.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shCoreRDark.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shThemeDefault.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shThemeDjango.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shThemeEclipse.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shThemeEmacs.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shThemeFadeToGrey.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shThemeMDUltra.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shThemeMidnight.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/syntax-highlighter/styles/shThemeRDark.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CombinePDF/help/js/wow.js" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="help template">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombinePDF/help/help.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Bat/Combine.bat" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Bat/Combine.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CombinePDF/Bat/Combine.exe" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombinePDF/Bat/Combine.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -726,7 +594,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576533341509</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="help template">
+      <created>1576616976745</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1576616976745</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -757,7 +632,6 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <MESSAGE value="Updates jar" />
     <MESSAGE value="Added docx support :D" />
     <MESSAGE value="docx :D" />
     <MESSAGE value="name change" />
@@ -782,7 +656,8 @@
     <MESSAGE value="delete page" />
     <MESSAGE value="added SQLite to project structure&#10;added mysql code for reference" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="help template" />
+    <option name="LAST_COMMIT_MESSAGE" value="help template" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -801,9 +676,10 @@
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1576472947289" />
     <state x="894" y="215" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576532762827" />
-    <state x="1142" y="139" key="CommitChangelistDialog2" timestamp="1576533340949">
-      <screen x="0" y="0" width="2752" height="1112" />
+    <state x="300" y="0" key="CommitChangelistDialog2" timestamp="1576616973505">
+      <screen x="0" y="0" width="1216" height="771" />
     </state>
+    <state x="300" y="0" key="CommitChangelistDialog2/0.0.1216.771@0.0.1216.771" timestamp="1576616973505" />
     <state x="637" y="13" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1576193142390" />
     <state x="1142" y="139" key="CommitChangelistDialog2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576533340949" />
     <state x="935" y="316" key="FileChooserDialogImpl" timestamp="1576516373858">
@@ -862,9 +738,10 @@
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
     <state x="1226" y="471" key="VCS.ChangelistChooser/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576104551437" />
-    <state x="969" y="289" key="Vcs.Push.Dialog.v2" timestamp="1576533342473">
-      <screen x="0" y="0" width="2752" height="1112" />
+    <state x="404" y="200" key="Vcs.Push.Dialog.v2" timestamp="1576616984116">
+      <screen x="0" y="0" width="1216" height="771" />
     </state>
+    <state x="404" y="200" key="Vcs.Push.Dialog.v2/0.0.1216.771@0.0.1216.771" timestamp="1576616984116" />
     <state x="541" y="214" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1576191196734" />
     <state x="969" y="289" key="Vcs.Push.Dialog.v2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1576533342473" />
     <state x="744" y="342" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1576181081786">
