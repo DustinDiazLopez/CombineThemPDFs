@@ -135,7 +135,9 @@ class HistoryBox {
         HBox.setHgrow(listView, Priority.ALWAYS);
 
         Scene scene = new Scene(hBox, 800, 400);
-        //scene.getStylesheets().add(Main.THEME);
+        if (Main.styleSelected) {
+            scene.getStylesheets().add(Main.THEME);
+        }
         window.setScene(scene);
         window.showAndWait();
 

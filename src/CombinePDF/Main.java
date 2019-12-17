@@ -11,6 +11,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
@@ -55,7 +58,6 @@ public class Main extends Application {
     private Button btnHistory = new Button("History");
     private TextField textFieldForExportFileLocation = new TextField();
     private ListView<String> listView = new ListView<>();
-    private ProgressIndicator progressBar = new ProgressIndicator(0);
     private String lvLblDefault = "All files to be combined:";
     private Label listViewLabel = new Label(lvLblDefault);
     private static Label lblLog = new Label("Log for " + titleAndVersion + ":\n");
@@ -67,6 +69,9 @@ public class Main extends Application {
     private int pages = 0;
     private File tempDir;
     private String last;
+    public static String THEME = "/css/dark-theme.css";
+    static boolean styleSelected = false; //false = light and true = dark
+    private MenuBar menuBar = new MenuBar();
 
     //Supported extensions
     private String[] supported = "pdf,doc*,png,jpg,gif".split(",");
@@ -76,6 +81,7 @@ public class Main extends Application {
     private static String HISTORY = "history";
     private static String DELETE = "delete";
     public static String DATA = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
+
     /**
      * @param args the command line arguments
      */
@@ -201,7 +207,6 @@ public class Main extends Application {
         }
 
         /*Information labels*/
-        Label label = new Label("Drag the files to me in order.\nI'm not a mind reader. :'v");
         Label tfLabel = new Label("Export Location:");
 
         /*Sets the spacing for the Vertical Box and sets its color*/
@@ -210,7 +215,7 @@ public class Main extends Application {
         setDefaultColor();
 
         /*Puts the Information labels in the Vertical Box*/
-        vBox.getChildren().addAll(label, progressBar, listViewLabel);
+        vBox.getChildren().addAll(menuBar, listViewLabel);
 
         /*Handles Close Request*/
         primaryStage.setOnCloseRequest(e -> {
@@ -701,7 +706,6 @@ public class Main extends Application {
 
         /*margins for all items on screen*/
         int insectsVal = 12;
-        VBox.setMargin(label, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(scrollPane, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(dropped, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(listViewLabel, new Insets(insectsVal, insectsVal, 0, insectsVal));
@@ -717,7 +721,6 @@ public class Main extends Application {
         VBox.setMargin(btnHistory, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnRemoveFile, new Insets(0, insectsVal, insectsVal, insectsVal));
         VBox.setMargin(btnMoveFile, new Insets(0, insectsVal, insectsVal, insectsVal));
-        VBox.setMargin(progressBar, new Insets(insectsVal, insectsVal, insectsVal, insectsVal));
 
         /*Location for buttons*/
         HBox hBoxBtnModificationsLayout = new HBox();
@@ -765,9 +768,7 @@ public class Main extends Application {
         String[] sizes = ScreenDatabase.screen(SCREEN);
 
         /* *
-         * Tries to use the lastly used screen dimensions
-         * if an error occurs while parsing the values
-         * it will use the default predefined dimensions
+         * Gets the last used screen size from database
          * */
         try {
             scene = new Scene(root, Double.parseDouble(sizes[0]), Double.parseDouble(sizes[1]));
@@ -775,6 +776,97 @@ public class Main extends Application {
             setLog("Database was empty using default values for window size.");
             scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 100);
         }
+
+        Menu fileMenu = new Menu("File");
+        CheckMenuItem logFileMenuItem = new CheckMenuItem("Show Log");
+        MenuItem exitFileMenuItem = new MenuItem("Exit");
+        MenuItem previewFileMenuItem = new MenuItem("Preview");
+        MenuItem resetFileMenuItem = new MenuItem("Reset");
+        MenuItem combineFileMenuItem = new MenuItem("Combine");
+        Menu styleFileMenuItem = new Menu("Style");
+        fileMenu.getItems().addAll(
+                previewFileMenuItem, combineFileMenuItem, resetFileMenuItem,
+                new SeparatorMenuItem(), styleFileMenuItem,
+                new SeparatorMenuItem(), logFileMenuItem,
+                new SeparatorMenuItem(), exitFileMenuItem
+        );
+
+        Menu editMenu = new Menu("Edit");
+        MenuItem historyEditMenuItem = new MenuItem("History");
+        MenuItem removeEditMenuItem = new MenuItem("Remove");
+        MenuItem moveEditMenuItem = new MenuItem("Move");
+        MenuItem duplicateEditMenuItem = new MenuItem("Duplicate");
+        MenuItem changeExportLocationEditMenuItem = new MenuItem("Change Export Location");
+        MenuItem refreshViewEditMenuItem = new MenuItem("Refresh View");
+        MenuItem[] editMenuItems = {
+                historyEditMenuItem,
+                new SeparatorMenuItem(), moveEditMenuItem, removeEditMenuItem, duplicateEditMenuItem,
+                new SeparatorMenuItem(), changeExportLocationEditMenuItem, refreshViewEditMenuItem
+        };
+
+        for (MenuItem item : editMenuItems) editMenu.getItems().add(item);
+
+        RadioMenuItem choice1Item = new RadioMenuItem("Light");
+        RadioMenuItem choice2Item = new RadioMenuItem("Dark");
+        ToggleGroup toggleGroup = new ToggleGroup();
+        toggleGroup.getToggles().add(choice1Item);
+        toggleGroup.getToggles().add(choice2Item);
+        styleFileMenuItem.getItems().addAll(choice1Item, choice2Item);
+
+        Menu helpMenu = new Menu("Help");
+        MenuItem aboutHelpMenuItem = new MenuItem("About");
+        helpMenu.getItems().add(aboutHelpMenuItem);
+
+        menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
+
+        //EventHandler<ActionEvent> menuEvent = e -> setLog(((MenuItem)e.getSource()).getText() + " selected\n");
+
+        logFileMenuItem.setOnAction(event -> {
+            if (scrollPane.isVisible()) {
+                scrollPane.setVisible(false);
+            } else {
+                scrollPane.setVisible(true);
+            }
+        });
+
+        exitFileMenuItem.setOnAction(e -> closeProgram());
+
+        previewFileMenuItem.setOnAction(e -> btnPreview.fire());
+        resetFileMenuItem.setOnAction(e -> btnClear.fire());
+        combineFileMenuItem.setOnAction(e -> btnCombine.fire());
+
+        styleFileMenuItem.setOnAction(e -> {
+            Object[] array = toggleGroup.getToggles().toArray();
+            if (array[0].toString().contains("selected")) {
+                System.out.println("light");
+                scene.getStylesheets().clear();
+                styleSelected = false;
+            } else if (array[1].toString().contains("selected")) {
+                System.out.println("dark");
+                scene.getStylesheets().add(THEME);
+                styleSelected = true;
+            }
+        });
+
+        historyEditMenuItem.setOnAction(e -> btnHistory.fire());
+        removeEditMenuItem.setOnAction(e -> btnRemoveFile.fire());
+        moveEditMenuItem.setOnAction(e -> btnMoveFile.fire());
+        duplicateEditMenuItem.setOnAction(e -> btnDuplicate.fire());
+        changeExportLocationEditMenuItem.setOnAction(e -> btnSelDirectory.fire());
+        refreshViewEditMenuItem.setOnAction(e -> btnRefreshListView.fire());
+
+        String help = new File("").getAbsolutePath() +
+                (new File("").getAbsolutePath().contains("\\")
+                        ? "\\src\\CombinePDF\\help\\help.html"
+                        : "/src/CombinePDF/help/help.html");
+
+        aboutHelpMenuItem.setOnAction(e -> {
+            System.out.println(help);
+            setLog(help + "\n");
+            openFile(new File(help));
+        });
+
+        if (styleSelected) scene.getStylesheets().add(THEME);
 
         primaryStage.setTitle(titleAndVersion);
         primaryStage.setScene(scene);
@@ -862,7 +954,6 @@ public class Main extends Application {
     private void merge(File[] files, boolean combine) {
         try {
             double max = 30;
-            progressBar.setProgress(0 / max);
 
             //Loading an existing PDF document
             PDDocument[] docs = new PDDocument[files.length];
@@ -870,8 +961,6 @@ public class Main extends Application {
             for (int i = 0; i < files.length; i++) {
                 if (files[i].isFile()) docs[i] = PDDocument.load(files[i]);
             }
-
-            progressBar.setProgress(10.0 / max);
 
             //Instantiating PDFMergerUtility class
             PDFMergerUtility PDFMerger = new PDFMergerUtility();
@@ -908,8 +997,6 @@ public class Main extends Application {
             //adding the source files
             for (File f : files) PDFMerger.addSource(f);
 
-            progressBar.setProgress(20.0 / max);
-
             //Merging the two documents
             //noinspection deprecation
             PDFMerger.mergeDocuments();
@@ -919,13 +1006,11 @@ public class Main extends Application {
             //Closing the documents
             for (PDDocument document : docs) document.close();
 
-            progressBar.setProgress(25.0 / max);
 
             if (combine) storeTempFiles();
 
             dropped.setText("Documents merged! Check Desktop!");
             setLog("Finished!\n");
-            progressBar.setProgress(max / max);
         } catch (IOException e) {
             clear();
             e.printStackTrace();
@@ -946,7 +1031,6 @@ public class Main extends Application {
         btnCombine.setDisable(false);
         paths.clear();
         listView.getItems().clear();
-        progressBar.setProgress(0);
         fileCounter = 1;
         pages = 0;
         storeTempFiles();

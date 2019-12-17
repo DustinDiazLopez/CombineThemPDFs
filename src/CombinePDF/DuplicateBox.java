@@ -59,7 +59,9 @@ class DuplicateBox {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
-        //scene.getStylesheets().add(Main.THEME);
+        if (Main.styleSelected) {
+            scene.getStylesheets().add(Main.THEME);
+        }
         window.setScene(scene);
         window.showAndWait();
 
