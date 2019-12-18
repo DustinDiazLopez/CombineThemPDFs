@@ -73,6 +73,8 @@ public class Main extends Application {
     static boolean styleSelected = false; //false = light and true = dark
     private MenuBar menuBar = new MenuBar();
     private static String titleAndVersion = "Combinator-inator v0.5.0";
+    private static PreLoaderBox preLoaderBox = new PreLoaderBox();
+    Stage stage;
 
     //Supported extensions
     private String[] supported = "pdf,doc*,png,jpg,gif".split(",");
@@ -101,6 +103,19 @@ public class Main extends Application {
         Database.createDatabase(DELETE);
         DeleteFileDatabase.createTable(DELETE);
     });
+
+    private void loadPreLoader() {
+        preLoaderBox.start(stage);
+    }
+
+    private void stopPreLoader() {
+        preLoaderBox.stop(scene);
+    }
+
+    private void setProgressPreLoader(double progress) {
+        preLoaderBox.progress(progress);
+    }
+
 
     /**
      * @param args the command line arguments
@@ -285,7 +300,6 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-
         if (fistTimeLaunch) {
             boolean answer = ConfirmBox.display("First-Time-Inator", "Hello, Before using the application make sure to save " +
                     "all your work (if any) that you have on Microsoft Word. \nIf you fail to do so all unsaved work will " +
@@ -613,11 +627,18 @@ public class Main extends Application {
 
         //Directory Chooser
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setInitialDirectory(new File("src"));
 
         Button btnSelDirectory = new Button("Change Export Location");
 
         btnSelDirectory.setOnAction(e -> {
+            String exportLocation = ExportLocationDatabase.location(EXPORT_LOCATION);
+            if (exportLocation != null && !exportLocation.isEmpty()) {
+                File el = new File(exportLocation);
+                exportLocation = el.getAbsolutePath().replace(el.getName(), "");
+                directoryChooser.setInitialDirectory(new File(exportLocation));
+            } else {
+                directoryChooser.setInitialDirectory(new File("src"));
+            }
             setLog("Browsing for Directories");
             File selectedDirectory = directoryChooser.showDialog(primaryStage);
             if (selectedDirectory != null) {
@@ -829,7 +850,6 @@ public class Main extends Application {
         FileChooser fileChooser = new FileChooser();
 
         importFileMenuItem.setOnAction(e -> {
-            //TODO save last file location
             String lastKnownLocation = LastFileLocationDatabase.location(LAST_FILE_LOCATION);
 
             if (lastKnownLocation != null && !lastKnownLocation.isEmpty()) {
@@ -903,6 +923,7 @@ public class Main extends Application {
         primaryStage.setMinHeight(567d);
         primaryStage.setMinWidth(526d);
         primaryStage.show();
+        this.stage = primaryStage;
     }
 
     private void updateListOfFiles(String path) {
