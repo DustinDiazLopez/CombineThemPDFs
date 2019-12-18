@@ -140,7 +140,7 @@ public class Main extends Application {
      * When the button Combine button is pressed it will jump to this function and combine all listed PDFs
      * in the variable paths
      */
-    private void btnRun() {
+    private void btnRun() throws IOException {
         HistoryDatabase.insert(HISTORY, paths.toString());
         File[] files = new File[paths.size()];
         for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
@@ -151,7 +151,7 @@ public class Main extends Application {
      * When the button Combine button is pressed it will jump to this function and combine all listed PDFs
      * in the variable paths
      */
-    private void btnPreview() {
+    private void btnPreview() throws IOException {
         File[] files = new File[paths.size()];
         for (int i = 0; i < paths.size(); i++) files[i] = new File(paths.get(i));
         merge(files, false);
@@ -177,7 +177,7 @@ public class Main extends Application {
      * Consumes exit request and shows a Confirmation Box to assure that the user wants to quit the
      * application
      */
-    private void closeProgram() {
+    private void closeProgram() throws IOException {
         boolean answer = ConfirmBox.display("Close-inator", "Are you sure you want to quit? :(");
         if (answer) {
             clear();
@@ -347,7 +347,11 @@ public class Main extends Application {
         /*Handles Close Request*/
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
-            closeProgram();
+            try {
+                closeProgram();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
 
         //Place holder for list view when no files have been selected
@@ -398,7 +402,11 @@ public class Main extends Application {
                 setLog("No files have been selected.");
             } else {
                 btnCombine.setDisable(true);
-                btnRun();
+                try {
+                    btnRun();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -408,7 +416,11 @@ public class Main extends Application {
                 listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
                 setLog("No files have been selected.");
             } else {
-                btnPreview();
+                try {
+                    btnPreview();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -535,11 +547,14 @@ public class Main extends Application {
 
         /*Clear button*/
         btnClear.setOnAction(e -> {
-            if (paths.isEmpty()) {
-                clear();
-            } else {
-                boolean answer = ConfirmBox.display("Clear-inator", "Are you sure?");
-                if (answer) clear();
+            try {
+                if (paths.isEmpty()) {
+                    clear();
+                } else {
+                    boolean answer = ConfirmBox.display("Clear-inator", "Are you sure?");
+                    if (answer) clear();
+                }
+            } catch (IOException ignored) {
             }
         });
 
@@ -878,7 +893,13 @@ public class Main extends Application {
             }
         });
 
-        exitFileMenuItem.setOnAction(e -> closeProgram());
+        exitFileMenuItem.setOnAction(e -> {
+            try {
+                closeProgram();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         previewFileMenuItem.setOnAction(e -> btnPreview.fire());
         resetFileMenuItem.setOnAction(e -> btnClear.fire());
@@ -944,7 +965,7 @@ public class Main extends Application {
             for (int i = 0; i < arrPath.length; i++) {
                 extension = arrPath[i];
                 if (extension.contains("docx") || arrPath[i].contains("doc")) {
-                    originalName = new File(path).getName();
+                    originalName = new File(extension).getName();
                     if (tempDir.getAbsolutePath().contains("/")) {
                         newName = tempDir.getAbsolutePath()
                                 + "/"
@@ -962,7 +983,7 @@ public class Main extends Application {
                     Convert.wordToPDF(extension, newName);
                     arrPath[i] = newName;
                 } else if (extension.contains("png") || extension.contains("jpg") || extension.contains("gif")) {
-                    originalName = new File(path).getName();
+                    originalName = new File(extension).getName();
                     if (tempDir.getAbsolutePath().contains("/")) {
                         newName = tempDir.getAbsolutePath()
                                 + "/"
@@ -1059,7 +1080,7 @@ public class Main extends Application {
      *
      * @param files to be merged/combined
      */
-    private void merge(File[] files, boolean combine) {
+    private void merge(File[] files, boolean combine) throws IOException {
         try {
             //Loading an existing PDF document
             PDDocument[] docs = new PDDocument[files.length];
@@ -1115,7 +1136,7 @@ public class Main extends Application {
 
             if (combine) storeTempFiles();
 
-            dropped.setText("Documents merged! Check Desktop!");
+            dropped.setText("Documents merged!");
             setLog("Finished!");
         } catch (IOException e) {
             clear();
@@ -1127,7 +1148,7 @@ public class Main extends Application {
     /**
      * Clears and resets all variables to their initially given values
      */
-    private void clear() {
+    private void clear() throws IOException {
         listViewLabel.setText("All files to be combined:");
         lblLog.setText("Log:\n");
         btnCombine.setDisable(false);
@@ -1136,6 +1157,7 @@ public class Main extends Application {
         fileCounter = 1;
         pages = 0;
         storeTempFiles();
+        newListView();
     }
 
     /**
@@ -1201,9 +1223,6 @@ public class Main extends Application {
 
         //Sets up the new list view
         newListView();
-
-        //Sets the new page amount
-        totalPages();
     }
 
     /**
