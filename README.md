@@ -26,7 +26,7 @@ To import a file into the application, it must be dragged and dropped in.
 When you right-click a file, you will be prompted with a dialog box. Select Move the program will automatically select the first file for you, you'll just have to select the position where you want the file to be. It will no delete any file in that position, only move it.
 ![](src/CombinePDF/help/images/upload/MoveAFile.gif)
 
-### Remove a file:
+### Remove a file
 When you right-click a file, you will be prompted with a dialog box. Select Remove From List the program will automatically select the file location for you, you'll just have to confirm.
 ![](src/CombinePDF/help/images/upload/RemoveAFile.gif)
 
