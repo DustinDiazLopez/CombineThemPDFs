@@ -1,9 +1,6 @@
 package CombinePDF;
 
-import CombinePDF.Databases.Database;
-import CombinePDF.Databases.DeleteFileDatabase;
-import CombinePDF.Databases.HistoryDatabase;
-import CombinePDF.Databases.ScreenDatabase;
+import CombinePDF.databases.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -24,6 +21,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
@@ -83,7 +81,26 @@ public class Main extends Application {
     private static String SCREEN = "screen";
     private static String HISTORY = "history";
     private static String DELETE = "delete";
+    private static String EXPORT_LOCATION = "export";
+    private static String LAST_FILE_LOCATION = "last";
     public static String DATA = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
+
+    private static Thread thread = new Thread(() -> {
+        Database.createDatabase(EXPORT_LOCATION);
+        ExportLocationDatabase.createExportLocationTable(EXPORT_LOCATION);
+
+        Database.createDatabase(LAST_FILE_LOCATION);
+        LastFileLocationDatabase.createLastFileLocationTable(LAST_FILE_LOCATION);
+
+        Database.createDatabase(SCREEN);
+        ScreenDatabase.createScreenTable(SCREEN);
+
+        Database.createDatabase(HISTORY);
+        HistoryDatabase.createHistoryTable(HISTORY);
+
+        Database.createDatabase(DELETE);
+        DeleteFileDatabase.createTable(DELETE);
+    });
 
     /**
      * @param args the command line arguments
@@ -94,14 +111,7 @@ public class Main extends Application {
             setLog("Generated \"" + DATA + "\" folder for databases.");
         }
 
-        Database.createDatabase(SCREEN);
-        ScreenDatabase.createScreenTable(SCREEN);
-
-        Database.createDatabase(HISTORY);
-        HistoryDatabase.createHistoryTable(HISTORY);
-
-        Database.createDatabase(DELETE);
-        DeleteFileDatabase.createTable(DELETE);
+        thread.start();
 
         launch(args);
     }
@@ -350,131 +360,7 @@ public class Main extends Application {
             if (db.hasFiles()) {
                 //Gets the path
                 String path = db.getFiles().toString();
-                //Removes unnecessary characters []
-                path = path.substring(1, path.length() - 1);
-
-                /*Checks to see if multiple files were dropped at once*/
-                if (path.contains(",")) {
-                    //splits all the file paths into a string array
-                    String[] arrPath = path.split(",");
-
-                    //removes spaces in front and before of the string(path)
-                    for (int i = 0; i < arrPath.length; i ++) arrPath[i] = arrPath[i].trim();
-
-                    String extension;
-                    String newName;
-                    String originalName;
-                    for (int i = 0; i < arrPath.length; i++) {
-                        extension = arrPath[i];
-                        if (extension.contains("docx") || arrPath[i].contains("doc")) {
-                            originalName = new File(path).getName();
-                            if (tempDir.getAbsolutePath().contains("/")) {
-                                newName = tempDir.getAbsolutePath()
-                                        + "/"
-                                        + originalName
-                                        + UUID.randomUUID().toString()
-                                        + ".pdf";
-                            } else {
-                                newName = tempDir.getAbsolutePath()
-                                        + "\\"
-                                        + originalName
-                                        + UUID.randomUUID().toString()
-                                        + ".pdf";
-                            }
-                            delete.add(newName);
-                            Convert.wordToPDF(extension, newName);
-                            arrPath[i] = newName;
-                        } else if (extension.contains("png") || extension.contains("jpg") || extension.contains("gif")) {
-                            originalName = new File(path).getName();
-                            if (tempDir.getAbsolutePath().contains("/")) {
-                                newName = tempDir.getAbsolutePath()
-                                        + "/"
-                                        + originalName
-                                        + UUID.randomUUID().toString()
-                                        + ".pdf";
-                            } else {
-                                newName = tempDir.getAbsolutePath()
-                                        + "\\"
-                                        + originalName
-                                        + UUID.randomUUID().toString()
-                                        + ".pdf";
-                            }
-                            delete.add(newName);
-                            Convert.imageToPDF(extension, newName);
-                            arrPath[i] = newName;
-                        }
-                    }
-
-                    paths.addAll(Arrays.asList(arrPath));
-
-                    //Takes all strings in the string array and displays it on screen in the list view
-                    for (String s : arrPath) {
-                        listView.getItems().add("[" + fileCounter + "] " + s);
-                        fileCounter++;
-                    }
-                } else {
-                    //Stores the path
-                    String substring = path.substring(path.length() - 4);
-                    if (substring.contains("docx") || substring.contains("doc")) {
-                        String originalName = new File(path).getName();
-
-                        String newName;
-                        if (tempDir.getAbsolutePath().contains("/")) {
-                            newName = tempDir.getAbsolutePath()
-                                    + "/"
-                                    + originalName
-                                    + UUID.randomUUID().toString()
-                                    + ".pdf";
-                        } else {
-                            newName = tempDir.getAbsolutePath()
-                                    + "\\"
-                                    + originalName
-                                    + UUID.randomUUID().toString()
-                                    + ".pdf";
-                        }
-
-                        delete.add(newName);
-                        Convert.wordToPDF(path, newName);
-                        path = newName;
-                    } else if (substring.contains("png") || substring.contains("jpg") || substring.contains("gif")) {
-                        String originalName = new File(path).getName();
-
-                        String newName;
-                        if (tempDir.getAbsolutePath().contains("/")) {
-                            newName = tempDir.getAbsolutePath()
-                                    + "/"
-                                    + originalName
-                                    + UUID.randomUUID().toString()
-                                    + ".pdf";
-                        } else {
-                            newName = tempDir.getAbsolutePath()
-                                    + "\\"
-                                    + originalName
-                                    + UUID.randomUUID().toString()
-                                    + ".pdf";
-                        }
-
-                        delete.add(newName);
-                        Convert.imageToPDF(path, newName);
-                        path = newName;
-                    }
-
-                    if (path.substring(path.length() - 4).contains("pdf")) {
-                        paths.add(path);
-                        fileCounter++;
-                    } else {
-                        ConfirmBox.display("Not-Supported-inator",
-                                "Sorry but " + new File(path).getName() +
-                                        " is not supported and was ignored.\n" +
-                                        "List of supported files " + Arrays.toString(supported) + "\n* Not on Mac/Linux");
-                    }
-                }
-
-                try {
-                    newListView();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                updateListOfFiles(path);
                 success = true;
             }
 
@@ -552,6 +438,12 @@ public class Main extends Application {
                 }
             }
         });
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         btnHistory.setOnAction(e -> {
             List<History> histories = HistoryDatabase.history(HISTORY, "DESC");
@@ -726,7 +618,7 @@ public class Main extends Application {
         Button btnSelDirectory = new Button("Change Export Location");
 
         btnSelDirectory.setOnAction(e -> {
-            setLog("Browsing...");
+            setLog("Browsing for Directories");
             File selectedDirectory = directoryChooser.showDialog(primaryStage);
             if (selectedDirectory != null) {
                 String dir = selectedDirectory.getAbsolutePath();
@@ -738,6 +630,7 @@ public class Main extends Application {
                 }
 
                 textFieldForExportFileLocation.setText(dir);
+                ExportLocationDatabase.insert(EXPORT_LOCATION, dir);
 
                 setLog("Changed export location to:\n" + dir);
             } else {
@@ -879,15 +772,25 @@ public class Main extends Application {
             scene = new Scene(root, screenSize.getWidth() / 3, screenSize.getHeight() - 100);
         }
 
+        String exportLocation = ExportLocationDatabase.location(EXPORT_LOCATION);
+        if (exportLocation != null && !exportLocation.isEmpty()) {
+            textFieldForExportFileLocation.setText(exportLocation);
+        } else {
+            textFieldForExportFileLocation.setText(defaultDesktopLocation);
+        }
+
+
         Menu fileMenu = new Menu("File");
         CheckMenuItem logFileMenuItem = new CheckMenuItem("Show Log");
         MenuItem exitFileMenuItem = new MenuItem("Exit");
         MenuItem previewFileMenuItem = new MenuItem("Preview");
         MenuItem resetFileMenuItem = new MenuItem("Reset");
         MenuItem combineFileMenuItem = new MenuItem("Combine");
+        MenuItem importFileMenuItem = new MenuItem("Import");
         Menu styleFileMenuItem = new Menu("Style");
         fileMenu.getItems().addAll(
-                previewFileMenuItem, combineFileMenuItem, resetFileMenuItem,
+                importFileMenuItem,
+                new SeparatorMenuItem(), previewFileMenuItem, combineFileMenuItem, resetFileMenuItem,
                 new SeparatorMenuItem(), styleFileMenuItem,
                 new SeparatorMenuItem(), logFileMenuItem,
                 new SeparatorMenuItem(), exitFileMenuItem
@@ -922,6 +825,30 @@ public class Main extends Application {
         menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
 
         //EventHandler<ActionEvent> menuEvent = e -> setLog(((MenuItem)e.getSource()).getText() + " selected.");
+
+        FileChooser fileChooser = new FileChooser();
+
+        importFileMenuItem.setOnAction(e -> {
+            //TODO save last file location
+            String lastKnownLocation = LastFileLocationDatabase.location(LAST_FILE_LOCATION);
+
+            if (lastKnownLocation != null && !lastKnownLocation.isEmpty()) {
+                fileChooser.setInitialDirectory(new File(lastKnownLocation));
+            } else {
+                fileChooser.setInitialDirectory(new File("src"));
+            }
+
+            File selectedFile = fileChooser.showOpenDialog(primaryStage);
+            if (selectedFile != null) {
+                updateListOfFiles("[" + selectedFile + "]");
+
+                String saveLastLocation = selectedFile.getAbsolutePath().replace(selectedFile.getName(), "");
+                LastFileLocationDatabase.insert(LAST_FILE_LOCATION, saveLastLocation);
+
+            } else {
+                setLog("No file was selected.");
+            }
+        });
 
         logFileMenuItem.setOnAction(event -> {
             if (scrollPane.isVisible()) {
@@ -976,6 +903,134 @@ public class Main extends Application {
         primaryStage.setMinHeight(567d);
         primaryStage.setMinWidth(526d);
         primaryStage.show();
+    }
+
+    private void updateListOfFiles(String path) {
+        //Removes unnecessary characters []
+        path = path.substring(1, path.length() - 1);
+
+        /*Checks to see if multiple files were dropped at once*/
+        if (path.contains(",")) {
+            //splits all the file paths into a string array
+            String[] arrPath = path.split(",");
+
+            //removes spaces in front and before of the string(path)
+            for (int i = 0; i < arrPath.length; i++) arrPath[i] = arrPath[i].trim();
+
+            String extension;
+            String newName;
+            String originalName;
+            for (int i = 0; i < arrPath.length; i++) {
+                extension = arrPath[i];
+                if (extension.contains("docx") || arrPath[i].contains("doc")) {
+                    originalName = new File(path).getName();
+                    if (tempDir.getAbsolutePath().contains("/")) {
+                        newName = tempDir.getAbsolutePath()
+                                + "/"
+                                + originalName
+                                + UUID.randomUUID().toString()
+                                + ".pdf";
+                    } else {
+                        newName = tempDir.getAbsolutePath()
+                                + "\\"
+                                + originalName
+                                + UUID.randomUUID().toString()
+                                + ".pdf";
+                    }
+                    delete.add(newName);
+                    Convert.wordToPDF(extension, newName);
+                    arrPath[i] = newName;
+                } else if (extension.contains("png") || extension.contains("jpg") || extension.contains("gif")) {
+                    originalName = new File(path).getName();
+                    if (tempDir.getAbsolutePath().contains("/")) {
+                        newName = tempDir.getAbsolutePath()
+                                + "/"
+                                + originalName
+                                + UUID.randomUUID().toString()
+                                + ".pdf";
+                    } else {
+                        newName = tempDir.getAbsolutePath()
+                                + "\\"
+                                + originalName
+                                + UUID.randomUUID().toString()
+                                + ".pdf";
+                    }
+                    delete.add(newName);
+                    Convert.imageToPDF(extension, newName);
+                    arrPath[i] = newName;
+                }
+            }
+
+            paths.addAll(Arrays.asList(arrPath));
+
+            //Takes all strings in the string array and displays it on screen in the list view
+            for (String s : arrPath) {
+                listView.getItems().add("[" + fileCounter + "] " + s);
+                fileCounter++;
+            }
+        } else {
+            //Stores the path
+            String substring = path.substring(path.length() - 4);
+            if (substring.contains("docx") || substring.contains("doc")) {
+                String originalName = new File(path).getName();
+
+                String newName;
+                if (tempDir.getAbsolutePath().contains("/")) {
+                    newName = tempDir.getAbsolutePath()
+                            + "/"
+                            + originalName
+                            + UUID.randomUUID().toString()
+                            + ".pdf";
+                } else {
+                    newName = tempDir.getAbsolutePath()
+                            + "\\"
+                            + originalName
+                            + UUID.randomUUID().toString()
+                            + ".pdf";
+                }
+
+                delete.add(newName);
+                Convert.wordToPDF(path, newName);
+                path = newName;
+            } else if (substring.contains("png") || substring.contains("jpg") || substring.contains("gif")) {
+                String originalName = new File(path).getName();
+
+                String newName;
+                if (tempDir.getAbsolutePath().contains("/")) {
+                    newName = tempDir.getAbsolutePath()
+                            + "/"
+                            + originalName
+                            + UUID.randomUUID().toString()
+                            + ".pdf";
+                } else {
+                    newName = tempDir.getAbsolutePath()
+                            + "\\"
+                            + originalName
+                            + UUID.randomUUID().toString()
+                            + ".pdf";
+                }
+
+                delete.add(newName);
+                Convert.imageToPDF(path, newName);
+                path = newName;
+            }
+
+            if (path.substring(path.length() - 4).contains("pdf")) {
+                paths.add(path);
+                fileCounter++;
+            } else {
+                ConfirmBox.display("Not-Supported-inator",
+                        "Sorry but " + new File(path).getName() +
+                                " is not supported and was ignored.\n" +
+                                "List of supported files " + Arrays.toString(supported) + "\n* Not on Mac/Linux");
+            }
+        }
+
+        try {
+            newListView();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
 package CombinePDF;
 
-import CombinePDF.Databases.HistoryDatabase;
+import CombinePDF.databases.HistoryDatabase;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

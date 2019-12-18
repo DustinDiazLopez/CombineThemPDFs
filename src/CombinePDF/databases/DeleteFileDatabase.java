@@ -1,11 +1,9 @@
-package CombinePDF.Databases;
+package CombinePDF.databases;
 
-import CombinePDF.History;
 import CombinePDF.Main;
 
-import java.io.File;
 import java.sql.*;
-import java.util.*;
+import java.util.HashSet;
 
 public class DeleteFileDatabase {
     public static String path = Main.DATA;

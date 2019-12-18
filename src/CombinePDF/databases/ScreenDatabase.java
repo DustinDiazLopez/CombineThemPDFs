@@ -1,8 +1,7 @@
-package CombinePDF.Databases;
+package CombinePDF.databases;
 
 import CombinePDF.Main;
 
-import java.io.File;
 import java.sql.*;
 
 public class ScreenDatabase {

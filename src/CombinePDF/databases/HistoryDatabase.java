@@ -1,9 +1,8 @@
-package CombinePDF.Databases;
+package CombinePDF.databases;
 
 import CombinePDF.History;
 import CombinePDF.Main;
 
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

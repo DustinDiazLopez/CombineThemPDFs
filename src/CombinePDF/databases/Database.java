@@ -1,4 +1,4 @@
-package CombinePDF.Databases;
+package CombinePDF.databases;
 
 import CombinePDF.Main;
 
