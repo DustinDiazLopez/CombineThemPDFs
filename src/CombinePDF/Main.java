@@ -50,7 +50,7 @@ public class Main extends Application {
 
     //JavaFX variables
     private Scene scene;
-    static boolean fistTimeLaunch = true;
+    static boolean fistTimeLaunch = false;
     private Label dropped = new Label("Waiting...");
     private Button btnCombine = new Button("Combine");
     private Button btnPreview = new Button("Preview");
@@ -62,7 +62,7 @@ public class Main extends Application {
     private ListView<String> listView = new ListView<>();
     private String lvLblDefault = "All files to be combined:";
     private Label listViewLabel = new Label(lvLblDefault);
-    private static Label lblLog = new Label("Log for " + titleAndVersion + ":\n");
+    private static Label lblLog = new Label("Log " + ":\n");
     private VBox vBox = new VBox();
     private ScrollPane scrollPane;
     private int fileCounter = 1;
