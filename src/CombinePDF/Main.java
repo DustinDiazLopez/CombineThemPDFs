@@ -32,6 +32,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.*;
 
@@ -48,7 +50,7 @@ public class Main extends Application {
 
     //JavaFX variables
     private Scene scene;
-    private static String titleAndVersion = "Combinator-inator v0.5";
+    static boolean fistTimeLaunch = true;
     private Label dropped = new Label("Waiting...");
     private Button btnCombine = new Button("Combine");
     private Button btnPreview = new Button("Preview");
@@ -72,6 +74,7 @@ public class Main extends Application {
     public static String THEME = "/css/dark-theme.css";
     static boolean styleSelected = false; //false = light and true = dark
     private MenuBar menuBar = new MenuBar();
+    private static String titleAndVersion = "Combinator-inator v0.5.0";
 
     //Supported extensions
     private String[] supported = "pdf,doc*,png,jpg,gif".split(",");
@@ -86,7 +89,10 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        if (new File(DATA).mkdir()) setLog("Generated \"" + DATA + "\" folder for databases.\n");
+        if (new File(DATA).mkdir()) {
+            fistTimeLaunch = true;
+            setLog("Generated \"" + DATA + "\" folder for databases.");
+        }
 
         Database.createDatabase(SCREEN);
         ScreenDatabase.createScreenTable(SCREEN);
@@ -99,6 +105,7 @@ public class Main extends Application {
 
         launch(args);
     }
+
 
     private List<String> stringToList(String paths) {
         return new ArrayList<>(Arrays.asList(paths.trim().substring(1, paths.length() - 1).trim().split(",")));
@@ -188,11 +195,107 @@ public class Main extends Application {
         return path;
     }
 
+    public static void setLog(String log) {
+        lblLog.setText(lblLog.getText() + log + "\n");
+    }
+
+    /**
+     * Removes a page in a PDF file
+     *
+     * @param file       file that will have a page removed
+     * @param pageNumber number of the page that is wished to be removed
+     * @throws IOException throws an exception if the file does not exist
+     */
+    private void removePageInFile(File file, int pageNumber) throws IOException {
+        if (file.getAbsolutePath().contains(tempDir.getAbsolutePath())) {
+            PDDocument document = PDDocument.load(file);
+            document.removePage(pageNumber);
+            document.save(file);
+            document.close();
+        } else {
+            ConfirmBox.display("Page-remover-inator", "Attempted to edit a user file!\nFile must be in temp folder");
+        }
+    }
+
+    /**
+     * Duplicates a file into a TEMP folder.
+     *
+     * @param from path of original file
+     * @throws IOException throws an exception when file is not found.
+     */
+    public void duplicateFile(File from, int index) throws IOException {
+        String path = tempDir.getAbsolutePath();
+
+        String newName = from.getName() + UUID.randomUUID().toString() + ".pdf";
+
+        if (tempDir.getAbsolutePath().contains("/")) path += ("/" + newName); //mac
+        else path += ("\\" + newName); //windows
+
+        delete.add(path); //adds the file path to be erased later
+
+        paths.remove(index);
+        paths.add(index, path);
+
+        newListView();
+
+        FileUtils.copyFile(from, new File(path));
+    }
+
+    /**
+     * Updates the total number of pages in the application
+     */
+    private void totalPages() throws IOException {
+        pages = 0;
+        PDDocument document;
+        for (String path : paths) {
+            if (new File(path).isFile()) {
+                document = PDDocument.load(new File(path));
+                pages += document.getNumberOfPages();
+                document.close();
+            }
+        }
+
+        updateFileEstimationHeaderInformation();
+    }
+
+    /**
+     * Updates the information about how many pages there will be in the final file
+     */
+    private void updateFileEstimationHeaderInformation() {
+        if (paths.size() != 1 && pages != 1)
+            listViewLabel.setText(lvLblDefault + " " + paths.size() + " files | " + pages + " pages");
+        else if (paths.size() == 1 && pages > 1)
+            listViewLabel.setText(lvLblDefault + " " + paths.size() + " file | " + pages + " pages");
+        else
+            listViewLabel.setText(lvLblDefault + " " + paths.size() + " file | " + pages + " page");
+    }
+
     /**
      * @param primaryStage all styling, functionality and initial setup is in this function
      */
     @Override
     public void start(Stage primaryStage) {
+
+        if (fistTimeLaunch) {
+            boolean answer = ConfirmBox.display("First-Time-Inator", "Hello, Before using the application make sure to save " +
+                    "all your work (if any) that you have on Microsoft Word. \nIf you fail to do so all unsaved work will " +
+                    "be lost. \nI will not be liable for any damages. (Read LICENSE in the src folder)" +
+                    "\nWould you like to open it? (use your browser or a text editor)");
+            if (answer) {
+                final String s = "file:///" + new File("LICENSE").getAbsolutePath().replace("\\", "/");
+                System.out.println(s);
+
+                new Thread(() -> {
+                    try {
+                        Desktop.getDesktop().browse(new URI(s));
+                    } catch (IOException | URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+
+            }
+        }
+
         /*Sets the icon for the application*/
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
         tempDir = new File("TEMP");
@@ -202,7 +305,7 @@ public class Main extends Application {
             if (!tempDir.exists()) {
                 System.err.println("Could not create temporary folder.\nYou will not be abel to convert DOCX to PDF");
                 setLog("An error occurred while created temporary folder.\n" +
-                        "You will not be able to convert Word Documents to PDF files...\n");
+                        "You will not be able to convert Word Documents to PDF files...");
             }
         }
 
@@ -392,7 +495,7 @@ public class Main extends Application {
             //Checks if user has provided files to be combined.
             if (paths.isEmpty()) {
                 listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
-                setLog("No files have been selected.\n");
+                setLog("No files have been selected.");
             } else {
                 btnCombine.setDisable(true);
                 btnRun();
@@ -403,7 +506,7 @@ public class Main extends Application {
             //Checks if user has provided files to be combined.
             if (paths.isEmpty()) {
                 listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
-                setLog("No files have been selected.\n");
+                setLog("No files have been selected.");
             } else {
                 btnPreview();
             }
@@ -413,7 +516,7 @@ public class Main extends Application {
             //Checks if user has provided files to be combined.
             if (paths.isEmpty()) {
                 listViewLabel.setText("All files to be combined: (Nothing to refresh...)");
-                setLog("No files have been selected.\n");
+                setLog("No files have been selected.");
             } else {
                 try {
                     newListView();
@@ -427,7 +530,7 @@ public class Main extends Application {
         btnDuplicate.setOnAction(e -> {
             if (paths.isEmpty()) {
                 listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
-                setLog("No files have been selected.\n");
+                setLog("No files have been selected.");
             } else {
                 int duplicateAmount = DuplicateBox.display(
                         "Enter the amount of copies you want of the current file(s)" +
@@ -445,7 +548,7 @@ public class Main extends Application {
                     pages *= duplicateAmount;
                     updateFileEstimationHeaderInformation();
                 } else {
-                    setLog("Invalid input for duplicator-inator...\n");
+                    setLog("Invalid input for duplicator-inator...");
                 }
             }
         });
@@ -453,13 +556,12 @@ public class Main extends Application {
         btnHistory.setOnAction(e -> {
             List<History> histories = HistoryDatabase.history(HISTORY, "DESC");
             if (histories == null) {
-                setLog("No history\n");
+                setLog("No history.");
             } else {
                 String content = HistoryBox.recover(HISTORY);
                 if (content != null) {
                     if (content.equals("-Execute Order 66-")) {
                         eraseHistoryAndFiles();
-                        content = null;
                     } else {
                         List<String> files = stringToList(content);
                         if (paths.isEmpty()) {
@@ -476,7 +578,7 @@ public class Main extends Application {
                             ex.printStackTrace();
                         }
 
-                        setLog(files + "\n");
+                        setLog(files + "");
 
                     }
                 }
@@ -486,16 +588,16 @@ public class Main extends Application {
         btnRemoveFile.setOnAction(event -> {
             if (paths.isEmpty()) {
                 listViewLabel.setText("All files to be combined: (Well I'm gonna need something to work with...)");
-                setLog("No files have been selected.\n");
+                setLog("No files have been selected.");
             } else {
                 int index = RemoveBox.display(paths);
 
                 try {
-                    setLog("Removing " + paths.get(index - 1) + ".\n");
+                    setLog("Removing " + paths.get(index - 1) + ".");
                     deleteItem(index - 1);
                     setLog("Removed.\n");
                 } catch (Exception e) {
-                    setLog("Aborted remove file..." + "\n" + e.getMessage() + "\n");
+                    setLog("Aborted remove file..." + "\n" + e.getMessage() + "");
                 }
             }
         });
@@ -503,7 +605,7 @@ public class Main extends Application {
         btnMoveFile.setOnAction(event -> {
             if (paths.isEmpty() || paths.size() < 2) {
                 listViewLabel.setText("All files to be combined: (You must have at least two [2] files)");
-                setLog("No files have been selected.\n");
+                setLog("No files have been selected.");
             } else {
                 int[] indexes = MoveBox.display(paths);
                 if (!(indexes == null)) {
@@ -518,9 +620,9 @@ public class Main extends Application {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    setLog("Finished moving...\n");
+                    setLog("Finished moving...");
                 } else {
-                    setLog("Aborted move file..." + "\n");
+                    setLog("Aborted move file..." + "");
                 }
             }
         });
@@ -568,11 +670,11 @@ public class Main extends Application {
                                                 "\n" +
                                                 "to " + "" +
                                                 "..." + paths.get(indexes[1] - 1).substring(paths.get(indexes[1] - 1).length() / 2).trim() +
-                                                "\n");
+                                                "");
                                         moveItem(indexes[0] - 1, indexes[1] - 1);
-                                        setLog("Finished moving...\n");
+                                        setLog("Finished moving...");
                                     } else {
-                                        setLog("Aborted move file..." + "\n");
+                                        setLog("Aborted move file...");
                                     }
                                     break;
                                 case "Open File":
@@ -624,7 +726,7 @@ public class Main extends Application {
         Button btnSelDirectory = new Button("Change Export Location");
 
         btnSelDirectory.setOnAction(e -> {
-            setLog("Browsing...\n");
+            setLog("Browsing...");
             File selectedDirectory = directoryChooser.showDialog(primaryStage);
             if (selectedDirectory != null) {
                 String dir = selectedDirectory.getAbsolutePath();
@@ -819,7 +921,7 @@ public class Main extends Application {
 
         menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
 
-        //EventHandler<ActionEvent> menuEvent = e -> setLog(((MenuItem)e.getSource()).getText() + " selected\n");
+        //EventHandler<ActionEvent> menuEvent = e -> setLog(((MenuItem)e.getSource()).getText() + " selected.");
 
         logFileMenuItem.setOnAction(event -> {
             if (scrollPane.isVisible()) {
@@ -861,7 +963,7 @@ public class Main extends Application {
                         : "/src/CombinePDF/help/index.html");
 
         aboutHelpMenuItem.setOnAction(e -> {
-            setLog("Opening file: \"" + help + "\"\n");
+            setLog("Opening file: \"" + help + "\"");
             openFile(new File(help));
         });
 
@@ -877,85 +979,12 @@ public class Main extends Application {
     }
 
     /**
-     * Removes a page in a PDF file
-     *
-     * @param file       file that will have a page removed
-     * @param pageNumber number of the page that is wished to be removed
-     * @throws IOException throws an exception if the file does not exist
-     */
-    private void removePageInFile(File file, int pageNumber) throws IOException {
-        if (file.getAbsolutePath().contains(tempDir.getAbsolutePath())) {
-            PDDocument document = PDDocument.load(file);
-            document.removePage(pageNumber);
-            document.save(file);
-            document.close();
-        } else {
-            ConfirmBox.display("Page-remover-inator", "Attempted to edit a user file!\nFile must be in temp folder");
-        }
-    }
-
-    /**
-     * Duplicates a file into a TEMP folder.
-     *
-     * @param from path of original file
-     * @throws IOException throws an exception when file is not found.
-     */
-    public void duplicateFile(File from, int index) throws IOException {
-        String path = tempDir.getAbsolutePath();
-
-        String newName = from.getName() + UUID.randomUUID().toString() + ".pdf";
-
-        if (tempDir.getAbsolutePath().contains("/")) path += ("/" + newName); //mac
-        else path += ("\\" + newName); //windows
-
-        delete.add(path); //adds the file path to be erased later
-
-        paths.remove(index);
-        paths.add(index, path);
-
-        newListView();
-
-        FileUtils.copyFile(from, new File(path));
-    }
-
-    /**
-     * Updates the total number of pages in the application
-     */
-    private void totalPages() throws IOException {
-        pages = 0;
-        PDDocument document;
-        for (String path : paths) {
-            if (new File(path).isFile()) {
-                document = PDDocument.load(new File(path));
-                pages += document.getNumberOfPages();
-                document.close();
-            }
-        }
-
-        updateFileEstimationHeaderInformation();
-    }
-
-    /**
-     * Updates the information about how many pages there will be in the final file
-     */
-    private void updateFileEstimationHeaderInformation() {
-        if (paths.size() != 1 && pages != 1)
-            listViewLabel.setText(lvLblDefault + " " + paths.size() + " files | " + pages + " pages");
-        else if (paths.size() == 1 && pages > 1)
-            listViewLabel.setText(lvLblDefault + " " + paths.size() + " file | " + pages + " pages");
-        else
-            listViewLabel.setText(lvLblDefault + " " + paths.size() + " file | " + pages + " page");
-    }
-
-    /**
      * Where the magic happens!
      *
      * @param files to be merged/combined
      */
     private void merge(File[] files, boolean combine) {
         try {
-            double max = 30;
-
             //Loading an existing PDF document
             PDDocument[] docs = new PDDocument[files.length];
 
@@ -1011,16 +1040,12 @@ public class Main extends Application {
             if (combine) storeTempFiles();
 
             dropped.setText("Documents merged! Check Desktop!");
-            setLog("Finished!\n");
+            setLog("Finished!");
         } catch (IOException e) {
             clear();
             e.printStackTrace();
-            setLog(e.getMessage() + "\n");
+            setLog(e.getMessage());
         }
-    }
-
-    public static void setLog(String log) {
-        lblLog.setText(lblLog.getText() + log);
     }
 
     /**
@@ -1068,7 +1093,7 @@ public class Main extends Application {
 
         if (filesToDelete != null) {
             filesToDelete.forEach(e -> {
-                if (deleteFile(e)) setLog(e + " was deleted\n");
+                if (deleteFile(e)) setLog(e + " was deleted.");
             });
         } else {
             setLog("No temporary files were found.");

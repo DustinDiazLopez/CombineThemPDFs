@@ -2,7 +2,6 @@ package CombinePDF.Databases;
 
 import CombinePDF.Main;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -39,7 +38,7 @@ public class Database {
             Connection conn = DriverManager.getConnection(url);
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                Main.setLog(meta.getDriverName() + " - " + fileName + " database created or already exists.\n");
+                Main.setLog(meta.getDriverName() + " - " + fileName + " database created or already exists.");
             }
 
         } catch (SQLException e) {
