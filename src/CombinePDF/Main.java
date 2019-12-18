@@ -237,6 +237,7 @@ public class Main extends Application {
             document.removePage(pageNumber);
             document.save(file);
             document.close();
+            newListView();
         } else {
             ConfirmBox.display("Page-remover-inator", "Attempted to edit a user file!\nFile must be in temp folder");
         }
@@ -301,25 +302,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         if (fistTimeLaunch) {
-            boolean answer = ConfirmBox.display("First-Time-Inator", "Hello, Before using the application make sure to save " +
-                    "all your work (if any) that you have on Microsoft Word. \nIf you fail to do so all unsaved work will " +
-                    "be lost. \nI will not be liable for any damages. (Read LICENSE in the src folder)" +
-                    "\nWould you like to open it? (use your browser or a text editor)");
-            if (answer) {
-                final String s = "file:///" + new File("LICENSE").getAbsolutePath().replace("\\", "/");
-                System.out.println(s);
-
-                new Thread(() -> {
-                    try {
-                        Desktop.getDesktop().browse(new URI(s));
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-
+            try {
+                Desktop.getDesktop().browse(
+                        new URI("file:///" + new File("LICENSE").getAbsolutePath().replace("\\", "/")
+                        )
+                );
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
             }
         }
-
         /*Sets the icon for the application*/
         primaryStage.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
         tempDir = new File("TEMP");
@@ -1198,6 +1189,19 @@ public class Main extends Application {
         }
 
         resetDatabases();
+
+        List<String> tempFiles = DirectoryFiles.listFiles(tempDir.getAbsolutePath());
+
+        if (tempFiles != null) {
+            if (!tempFiles.isEmpty()) {
+                tempFiles.forEach(e -> {
+                    String name = new File(e).getName();
+                    if (new File(e).delete()) {
+                        setLog(name + " was deleted.");
+                    }
+                });
+            }
+        }
     }
 
     private void resetDatabases() {

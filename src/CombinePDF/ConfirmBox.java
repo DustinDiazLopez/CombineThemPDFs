@@ -25,6 +25,9 @@ class ConfirmBox {
 
         Label label = new Label();
         label.setText(message);
+        label.setMaxWidth(400);
+        label.setAlignment(Pos.CENTER);
+        label.setWrapText(true);
 
         Button yesButton = new Button("Yes");
         Button noButton = new Button("No");
