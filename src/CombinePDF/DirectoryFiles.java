@@ -11,13 +11,7 @@ import java.util.stream.Stream;
 public class DirectoryFiles {
     public static List<String> listFiles(String path) {
         try (Stream<Path> walk = Files.walk(Paths.get(path))) {
-
-            List<String> result = walk.filter(Files::isRegularFile).map(Path::toString).collect(Collectors.toList());
-
-            result.forEach(System.out::println);
-
-            return result;
-
+            return walk.filter(Files::isRegularFile).map(Path::toString).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
