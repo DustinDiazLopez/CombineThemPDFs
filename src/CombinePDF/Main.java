@@ -757,8 +757,7 @@ public class Main extends Application {
         hBoxBtnModificationsLayout.setAlignment(Pos.CENTER);
 
         hBoxBtnExecuteLayout.getChildren().addAll(btnCombine, btnClear);
-        //hBoxBtnModificationsLayout.getChildren().addAll(btnDuplicate, btnRemoveFile, btnMoveFile, btnRefreshListView);
-        hBoxBtnModificationsLayout.getChildren().addAll(btnDuplicate, btnHistory, btnRefreshListView);
+        hBoxBtnModificationsLayout.getChildren().addAll(btnDuplicate, btnHistory, btnPreview);
         //Creating a line object
         Line line = new Line();
 
@@ -779,7 +778,7 @@ public class Main extends Application {
         HBox hBoxSearchForFileLayout = new HBox();
         HBox.setHgrow(textFieldForExportFileLocation, Priority.ALWAYS);
         HBox.setHgrow(btnSelDirectory, Priority.ALWAYS);
-        hBoxSearchForFileLayout.getChildren().addAll(textFieldForExportFileLocation, btnPreview, btnSelDirectory);
+        hBoxSearchForFileLayout.getChildren().addAll(textFieldForExportFileLocation, btnSelDirectory);
         hBoxSearchForFileLayout.setAlignment(Pos.CENTER);
         hBoxSearchForFileLayout.setSpacing(5);
         list.addAll(listView, tfLabel, hBoxSearchForFileLayout, vBoxBtnLayout);
@@ -831,9 +830,9 @@ public class Main extends Application {
         MenuItem changeExportLocationEditMenuItem = new MenuItem("Change Export Location");
         MenuItem refreshViewEditMenuItem = new MenuItem("Refresh View");
         MenuItem[] editMenuItems = {
-                historyEditMenuItem,
-                new SeparatorMenuItem(), moveEditMenuItem, removeEditMenuItem, duplicateEditMenuItem,
-                new SeparatorMenuItem(), changeExportLocationEditMenuItem, refreshViewEditMenuItem
+                moveEditMenuItem, removeEditMenuItem, duplicateEditMenuItem,
+                new SeparatorMenuItem(), historyEditMenuItem,
+                new SeparatorMenuItem(), refreshViewEditMenuItem, changeExportLocationEditMenuItem
         };
 
         for (MenuItem item : editMenuItems) editMenu.getItems().add(item);
@@ -846,7 +845,7 @@ public class Main extends Application {
         styleFileMenuItem.getItems().addAll(choice1Item, choice2Item);
 
         Menu helpMenu = new Menu("Help");
-        MenuItem aboutHelpMenuItem = new MenuItem("About");
+        MenuItem aboutHelpMenuItem = new MenuItem("How to...");
         helpMenu.getItems().add(aboutHelpMenuItem);
 
         menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
