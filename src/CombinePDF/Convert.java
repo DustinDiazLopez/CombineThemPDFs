@@ -3,9 +3,6 @@ package CombinePDF;
 import com.documents4j.api.DocumentType;
 import com.documents4j.api.IConverter;
 import com.documents4j.job.LocalConverter;
-import com.lowagie.text.Document;
-import com.lowagie.text.Image;
-import com.lowagie.text.pdf.PdfWriter;
 
 import java.io.*;
 
@@ -27,19 +24,8 @@ class Convert {
         }
     }
 
-    //uses iText :[ need to find another library
+    //need to find another library
     static void imageToPDF(String imagePath, String outputPath) {
-        Document document = new Document();
-        try {
-            FileOutputStream fos = new FileOutputStream(outputPath);
-            PdfWriter writer = PdfWriter.getInstance(document, fos);
-            writer.open();
-            document.open();
-            document.add(Image.getInstance(imagePath));
-            document.close();
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 }

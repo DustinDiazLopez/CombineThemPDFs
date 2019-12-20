@@ -77,7 +77,7 @@ public class Main extends Application {
     Stage stage;
 
     //Supported extensions
-    private String[] supported = "pdf,doc*,png,jpg,gif".split(",");
+    private String[] supported = "pdf,doc,docx".split(",");
 
     //Database variables
     private static String SCREEN = "screen";
@@ -938,6 +938,7 @@ public class Main extends Application {
     }
 
     private void updateListOfFiles(String path) {
+        boolean skip = false;
         //Removes unnecessary characters []
         path = path.substring(1, path.length() - 1);
 
@@ -973,23 +974,23 @@ public class Main extends Application {
                     Convert.wordToPDF(extension, newName);
                     arrPath[i] = newName;
                 } else if (extension.contains("png") || extension.contains("jpg") || extension.contains("gif")) {
-                    originalName = new File(extension).getName();
-                    if (tempDir.getAbsolutePath().contains("/")) {
-                        newName = tempDir.getAbsolutePath()
-                                + "/"
-                                + originalName
-                                + UUID.randomUUID().toString()
-                                + ".pdf";
-                    } else {
-                        newName = tempDir.getAbsolutePath()
-                                + "\\"
-                                + originalName
-                                + UUID.randomUUID().toString()
-                                + ".pdf";
-                    }
-                    delete.add(newName);
-                    Convert.imageToPDF(extension, newName);
-                    arrPath[i] = newName;
+//                    originalName = new File(extension).getName();
+//                    if (tempDir.getAbsolutePath().contains("/")) {
+//                        newName = tempDir.getAbsolutePath()
+//                                + "/"
+//                                + originalName
+//                                + UUID.randomUUID().toString()
+//                                + ".pdf";
+//                    } else {
+//                        newName = tempDir.getAbsolutePath()
+//                                + "\\"
+//                                + originalName
+//                                + UUID.randomUUID().toString()
+//                                + ".pdf";
+//                    }
+//                    delete.add(newName);
+//                    Convert.imageToPDF(extension, newName);
+//                    arrPath[i] = newName;
                 }
             }
 
@@ -1025,26 +1026,26 @@ public class Main extends Application {
                 Convert.wordToPDF(path, newName);
                 path = newName;
             } else if (substring.contains("png") || substring.contains("jpg") || substring.contains("gif")) {
-                String originalName = new File(path).getName();
-
-                String newName;
-                if (tempDir.getAbsolutePath().contains("/")) {
-                    newName = tempDir.getAbsolutePath()
-                            + "/"
-                            + originalName
-                            + UUID.randomUUID().toString()
-                            + ".pdf";
-                } else {
-                    newName = tempDir.getAbsolutePath()
-                            + "\\"
-                            + originalName
-                            + UUID.randomUUID().toString()
-                            + ".pdf";
-                }
-
-                delete.add(newName);
-                Convert.imageToPDF(path, newName);
-                path = newName;
+//                String originalName = new File(path).getName();
+//
+//                String newName;
+//                if (tempDir.getAbsolutePath().contains("/")) {
+//                    newName = tempDir.getAbsolutePath()
+//                            + "/"
+//                            + originalName
+//                            + UUID.randomUUID().toString()
+//                            + ".pdf";
+//                } else {
+//                    newName = tempDir.getAbsolutePath()
+//                            + "\\"
+//                            + originalName
+//                            + UUID.randomUUID().toString()
+//                            + ".pdf";
+//                }
+//
+//                delete.add(newName);
+//                Convert.imageToPDF(path, newName);
+//                path = newName;
             }
 
             if (path.substring(path.length() - 4).contains("pdf")) {
