@@ -77,7 +77,7 @@ public class Main extends Application {
     Stage stage;
 
     //Supported extensions
-    private String[] supported = "pdf,doc,docx".split(",");
+    private String[] supported = "pdf,doc*".split(",");
 
     //Database variables
     private static String SCREEN = "screen";
