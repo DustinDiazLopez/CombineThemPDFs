@@ -211,11 +211,11 @@ public class Main extends Application {
 
         //Fallback if application is ran in another folder that is not child to (or is) Desktop
         if (!new File(path).exists()) {
-            ConfirmBox.display("Set Export Location", "Application could not automatically set export location.");
+            //ConfirmBox.display("Set Export Location", "Application could not automatically set export location.");
             String adjusted = new File("").getAbsolutePath();
             if (adjusted.contains("/")) adjusted += "/Combined.pdf";
             else adjusted += "\\Combined.pdf";
-            textFieldForExportFileLocation.setText(adjusted);
+            path = adjusted.replace("Combined.pdf", "");
         }
         return path;
     }
