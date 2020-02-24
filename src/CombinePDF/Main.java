@@ -243,6 +243,75 @@ public class Main extends Application {
         }
     }
 
+    private void removePagesInFile(File file, int start, int end) throws IOException {
+        if (file.getAbsolutePath().contains(tempDir.getAbsolutePath())) {
+            if (start > end) {
+                ConfirmBox.display("Page-remover-inator", "Start must be smaller than end.");
+                return;
+            }
+
+            int diff = (end - start) + 1;
+            setLog("Remove amount: " + diff + " pages");
+            PDDocument document = PDDocument.load(file);
+
+            do {
+                document.removePage(end);
+                setLog("Removed page #" + (end + 1));
+                end--;
+            } while (end >= start);
+
+            document.save(file);
+            document.close();
+            newListView();
+        } else {
+            ConfirmBox.display("Page-remover-inator", "Attempted to edit a user file!\nFile must be in temp folder");
+        }
+    }
+
+    private void keepPagesInFile(File file, int start, int end) throws IOException {
+        if (file.getAbsolutePath().contains(tempDir.getAbsolutePath())) {
+            if (start > end) {
+                ConfirmBox.display("Page-remover-inator", "Start must be smaller than end.");
+                return;
+            }
+
+            PDDocument document = PDDocument.load(file);
+            int ending = document.getNumberOfPages() - 1;
+            int starting = start - 1;
+            System.out.println(starting);
+
+            if (starting == -1) {
+                document.close();
+                setLog("[" + (end + 1) + ", " + (document.getNumberOfPages() + 1) + "]");
+                removePagesInFile(file, end + 1, document.getNumberOfPages() - 1);
+                return;
+            } else if (end + 1 == document.getNumberOfPages()) {
+                document.close();
+                setLog("[" + (end + 1) + ", " + (document.getNumberOfPages() + 1) + "]");
+                removePagesInFile(file, 0, start - 1);
+                return;
+            }
+
+            do {
+                document.removePage(ending);
+                setLog("Removed page #" + (ending + 1));
+                ending--;
+            } while (ending != end);
+
+            do {
+                document.removePage(starting);
+                setLog("Removed page #" + (starting + 1));
+                starting--;
+            } while (starting >= 0);
+
+            document.save(file);
+            document.close();
+            newListView();
+        } else {
+            ConfirmBox.display("Page-remover-inator", "Attempted to edit a user file!\nFile must be in temp folder");
+        }
+    }
+
     /**
      * Duplicates a file into a TEMP folder.
      *
@@ -593,7 +662,6 @@ public class Main extends Application {
                                     openFile(new File(path));
                                     break;
                                 case "Remove a Page":
-
                                     duplicateFile(new File(path), indexOfSelected);
                                     int pageNumber = NumberBox.display(totalNumberOfPages);
 
@@ -604,6 +672,24 @@ public class Main extends Application {
 
                                     if (pageNumber != -1) {
                                         removePageInFile(new File(paths.get(indexOfSelected)), --pageNumber); //decrements for index of the page
+                                    }
+
+                                    break;
+                                case "Remove a Range of Pages":
+                                    duplicateFile(new File(path), indexOfSelected);
+                                    int[] range = RangeBox.display(totalNumberOfPages, "Remove Range");
+
+                                    if (range != null) {
+                                        removePagesInFile(new File(paths.get(indexOfSelected)), --range[0], --range[1]);
+                                    }
+
+                                    break;
+                                case "Keep Range of Pages":
+                                    duplicateFile(new File(path), indexOfSelected);
+                                    int[] keep = RangeBox.display(totalNumberOfPages, "Keep Range");
+
+                                    if (keep != null) {
+                                        keepPagesInFile(new File(paths.get(indexOfSelected)), --keep[0], --keep[1]);
                                     }
 
                                     break;
