@@ -26,6 +26,8 @@ import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
 import java.awt.*;
 import java.io.File;
@@ -41,43 +43,43 @@ public class Main extends Application {
     private String defaultDesktopLocation = desktopFinder() + "Combined.pdf";
 
     //Variable that contains all the paths of all files to be combined/merged
-    private List<String> paths = new ArrayList<>();
+    private static List<String> paths = new ArrayList<>();
 
     //List that contains all the files to be stored in the delete database for them to be deleted when history is cleared
-    private List<String> delete = new ArrayList<>();
+    public static List<String> delete = new ArrayList<>();
 
     //JavaFX variables
     private Scene scene;
     static boolean fistTimeLaunch = false;
-    private Label dropped = new Label("Waiting...");
-    private Button btnCombine = new Button("Combine");
+    private static Label dropped = new Label("Waiting...");
+    private static Button btnCombine = new Button("Combine");
     private Button btnPreview = new Button("Preview");
     private Button btnRefreshListView = new Button("Refresh View");
     private Button btnClear = new Button("Reset");
     private Button btnDuplicate = new Button("Duplicate");
     private Button btnHistory = new Button("History");
-    private TextField textFieldForExportFileLocation = new TextField();
-    private ListView<String> listView = new ListView<>();
-    private String lvLblDefault = "All files to be combined:";
-    private Label listViewLabel = new Label(lvLblDefault);
+    private static TextField textFieldForExportFileLocation = new TextField();
+    private static ListView<String> listView = new ListView<>();
+    private static String lvLblDefault = "All files to be combined:";
+    private static Label listViewLabel = new Label(lvLblDefault);
     private static Label lblLog = new Label("Log:\n");
     private VBox vBox = new VBox();
     private ScrollPane scrollPane;
-    private int fileCounter = 1;
+    private static int fileCounter = 1;
     private Button btnRemoveFile = new Button("Remove");
     private Button btnMoveFile = new Button("Move");
-    private int pages = 0;
-    private File tempDir;
-    private String last;
+    private static int pages = 0;
+    public static File tempDir;
+    public static String last;
     public static String THEME = "/css/dark-theme.css";
     static boolean styleSelected = false; //false = light and true = dark
     private MenuBar menuBar = new MenuBar();
-    private static String titleAndVersion = "Combinator-inator v0.5.0";
+    private static String titleAndVersion = "Combinator-inator v0.5.2";
     private static PreLoaderBox preLoaderBox = new PreLoaderBox();
     Stage stage;
 
     //Supported extensions
-    private String[] supported = "pdf,doc*".split(",");
+    private String[] supported = "pdf,doc*,png,jpg,ppt".split(",");
 
     //Database variables
     private static String SCREEN = "screen";
@@ -103,18 +105,6 @@ public class Main extends Application {
         Database.createDatabase(DELETE);
         DeleteFileDatabase.createTable(DELETE);
     });
-
-    private void loadPreLoader() {
-        preLoaderBox.start(stage);
-    }
-
-    private void stopPreLoader() {
-        preLoaderBox.stop(scene);
-    }
-
-    private void setProgressPreLoader(double progress) {
-        preLoaderBox.progress(progress);
-    }
 
 
     /**
@@ -303,7 +293,6 @@ public class Main extends Application {
                 setLog("Removed page #" + (starting + 1));
                 starting--;
             } while (starting >= 0);
-
             document.save(file);
             document.close();
             newListView();
@@ -339,7 +328,7 @@ public class Main extends Application {
     /**
      * Updates the total number of pages in the application
      */
-    private void totalPages() throws IOException {
+    private static void totalPages() throws IOException {
         pages = 0;
         PDDocument document;
         for (String path : paths) {
@@ -356,7 +345,7 @@ public class Main extends Application {
     /**
      * Updates the information about how many pages there will be in the final file
      */
-    private void updateFileEstimationHeaderInformation() {
+    private static void updateFileEstimationHeaderInformation() {
         if (paths.size() != 1 && pages != 1)
             listViewLabel.setText(lvLblDefault + " " + paths.size() + " files | " + pages + " pages");
         else if (paths.size() == 1 && pages > 1)
@@ -1060,23 +1049,32 @@ public class Main extends Application {
                     Convert.wordToPDF(extension, newName);
                     arrPath[i] = newName;
                 } else if (extension.contains("png") || extension.contains("jpg") || extension.contains("gif")) {
-//                    originalName = new File(extension).getName();
-//                    if (tempDir.getAbsolutePath().contains("/")) {
-//                        newName = tempDir.getAbsolutePath()
-//                                + "/"
-//                                + originalName
-//                                + UUID.randomUUID().toString()
-//                                + ".pdf";
-//                    } else {
-//                        newName = tempDir.getAbsolutePath()
-//                                + "\\"
-//                                + originalName
-//                                + UUID.randomUUID().toString()
-//                                + ".pdf";
-//                    }
-//                    delete.add(newName);
-//                    Convert.imageToPDF(extension, newName);
-//                    arrPath[i] = newName;
+                    originalName = new File(extension).getName();
+                    if (tempDir.getAbsolutePath().contains("/")) {
+                        newName = tempDir.getAbsolutePath()
+                                + "/"
+                                + originalName
+                                + UUID.randomUUID().toString()
+                                + ".pdf";
+                    } else {
+                        newName = tempDir.getAbsolutePath()
+                                + "\\"
+                                + originalName
+                                + UUID.randomUUID().toString()
+                                + ".pdf";
+                    }
+                    delete.add(newName);
+                    Convert.imageToPDF(extension, newName);
+                    arrPath[i] = newName;
+                } else if (extension.contains("ppt")) {
+                    try {
+                        newName = Convert.PPTtoPDF(extension);
+                        delete.add(newName);
+                        arrPath[i] = newName;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        setLog("Error converting ppt to PDF");
+                    }
                 }
             }
 
@@ -1112,26 +1110,34 @@ public class Main extends Application {
                 Convert.wordToPDF(path, newName);
                 path = newName;
             } else if (substring.contains("png") || substring.contains("jpg") || substring.contains("gif")) {
-//                String originalName = new File(path).getName();
-//
-//                String newName;
-//                if (tempDir.getAbsolutePath().contains("/")) {
-//                    newName = tempDir.getAbsolutePath()
-//                            + "/"
-//                            + originalName
-//                            + UUID.randomUUID().toString()
-//                            + ".pdf";
-//                } else {
-//                    newName = tempDir.getAbsolutePath()
-//                            + "\\"
-//                            + originalName
-//                            + UUID.randomUUID().toString()
-//                            + ".pdf";
-//                }
-//
-//                delete.add(newName);
-//                Convert.imageToPDF(path, newName);
-//                path = newName;
+                String originalName = new File(path).getName();
+
+                String newName;
+                if (tempDir.getAbsolutePath().contains("/")) {
+                    newName = tempDir.getAbsolutePath()
+                            + "/"
+                            + originalName
+                            + UUID.randomUUID().toString()
+                            + ".pdf";
+                } else {
+                    newName = tempDir.getAbsolutePath()
+                            + "\\"
+                            + originalName
+                            + UUID.randomUUID().toString()
+                            + ".pdf";
+                }
+
+                delete.add(newName);
+                Convert.imageToPDF(path, newName);
+                path = newName;
+            } else if (substring.contains("ppt")) {
+                try {
+                    path = Convert.PPTtoPDF(path);
+                    delete.add(path);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    setLog("Error converting ppt to PDF");
+                }
             }
 
             if (path.substring(path.length() - 4).contains("pdf")) {
@@ -1157,7 +1163,7 @@ public class Main extends Application {
      *
      * @param files to be merged/combined
      */
-    private void merge(File[] files, boolean combine) throws IOException {
+    public static void merge(File[] files, boolean combine) throws IOException {
         try {
             //Loading an existing PDF document
             PDDocument[] docs = new PDDocument[files.length];
@@ -1225,7 +1231,7 @@ public class Main extends Application {
     /**
      * Clears and resets all variables to their initially given values
      */
-    private void clear() throws IOException {
+    private static void clear() throws IOException {
         listViewLabel.setText("All files to be combined:");
         lblLog.setText("Log:\n");
         btnCombine.setDisable(false);
@@ -1240,7 +1246,7 @@ public class Main extends Application {
     /**
      * Stores all temporally created PDF files in the local TEMP folder
      */
-    private void storeTempFiles() {
+    private static void storeTempFiles() {
         delete.forEach(e -> DeleteFileDatabase.insert(DELETE, e));
     }
 
@@ -1250,11 +1256,11 @@ public class Main extends Application {
      * @param pathToDelete the path to the file
      * @return returns if the file was deleted
      */
-    private boolean deleteFile(String pathToDelete) {
+    public static boolean deleteFile(String pathToDelete) {
         if (pathToDelete.contains(tempDir.getAbsolutePath()) || pathToDelete.contains(HistoryDatabase.path)) {
             return new File(pathToDelete).delete();
         } else {
-            ConfirmBox.display("Uh-Oh", "The application almost deleted one of your personal files.\n" +
+            ConfirmBox.display("Uh-Oh", "Your files are SAFE.\nThe application almost deleted one of your personal files.\n" +
                     "This shouldn't have happened...\n" + pathToDelete);
             return false;
         }
@@ -1338,7 +1344,7 @@ public class Main extends Application {
     /**
      * Sets up a new list view with the updated paths
      */
-    private void newListView() throws IOException {
+    private static void newListView() throws IOException {
         //Cleats the list view and resets the global file counter
         listView.getItems().clear();
         fileCounter = 1;
