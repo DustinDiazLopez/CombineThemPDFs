@@ -12,56 +12,48 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-class ChooseBox {
+import java.util.ArrayList;
+import java.util.List;
 
-    private static String value;
+class SelectorBox {
 
-    static String display(int selected) {
+    private static int value;
+
+    static int display(List<String> paths, int exclude) {
         Stage window = new Stage();
+        List<String> numbers = new ArrayList<>();
 
-        Button yesButton = new Button("Choose");
-        yesButton.setDisable(true);
-        Button noButton = new Button("Cancel");
-
-        String[] action = {
-                "Move",
-                "Remove From List",
-                "Open File",
-                "Remove a Page",
-                "Remove a Range of Pages",
-                "Keep Range of Pages",
-                "Insert In-Between"
-        };
+        for (int i = 0; i < paths.size(); i++) {
+            if (i == exclude) continue;
+            numbers.add((i + 1) + "");
+        }
 
         ComboBox<String> comboBox = new ComboBox<>();
-
-        comboBox.setOnAction(event -> {
-            if (yesButton.isDisabled()) yesButton.setDisable(false);
-            yesButton.setText(comboBox.getValue());
-        });
-
-        comboBox.setItems(FXCollections.observableArrayList(action));
+        comboBox.setItems(FXCollections.observableArrayList(numbers));
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Choose-inator");
+        window.setTitle("Insert-inator");
         window.setMinHeight(200);
         window.setMinWidth(425);
         window.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
 
         Label label = new Label();
-        label.setText("Choose the action for file [" + (selected + 1) + "]:");
+        label.setText("Select the file to be inserted:");
+
+        Button yesButton = new Button("Select");
+        Button noButton = new Button("Cancel");
 
         yesButton.setOnAction(e -> {
             if (!(comboBox.getValue() == null)) {
-                value = comboBox.getValue();
+                value = Integer.parseInt(comboBox.getValue());
             } else {
-                value = null;
+                value = -1;
             }
             window.close();
         });
 
         noButton.setOnAction(e -> {
-            value = null;
+            value = -1;
             window.close();
         });
 
@@ -82,17 +74,15 @@ class ChooseBox {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
-
         if (Main.styleSelected) {
             scene.getStylesheets().add(Main.THEME);
         }
-
         window.setScene(scene);
         window.showAndWait();
 
         window.setOnCloseRequest(e -> {
             e.consume();
-            value = null;
+            value = -1;
             window.close();
         });
 

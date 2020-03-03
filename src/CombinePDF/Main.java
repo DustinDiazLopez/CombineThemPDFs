@@ -26,8 +26,6 @@ import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
 import java.awt.*;
 import java.io.File;
@@ -255,6 +253,60 @@ public class Main extends Application {
             newListView();
         } else {
             ConfirmBox.display("Page-remover-inator", "Attempted to edit a user file!\nFile must be in temp folder");
+        }
+    }
+
+    //Drag-in file to edit
+    //Drag-in file to be inserted
+    //right-click file to edit
+    //select insert in-between
+    //display available files
+    //select the file
+    //select start and end idx
+    //duplicate file to edit twice
+    //save reference
+    //cut the files in half one head and a tail
+    private void insertInBetween(int selectedIdx, int child, int firstIdx, int secondIdx) throws IOException {
+        if (new File(paths.get(selectedIdx)).getAbsolutePath().startsWith(tempDir.getAbsolutePath())) {
+            File parent = new File(paths.get(selectedIdx));
+            File insert = new File(paths.get(child));
+
+            //new names
+            File head = new File(parent.getAbsolutePath() + "HEAD.pdf");
+            File tail = new File(parent.getAbsolutePath() + "TAIL.pdf");
+
+            //adds paths to be deleted
+            delete.add(head.getAbsolutePath());
+            delete.add(tail.getAbsolutePath());
+
+            //duplicates the file twice
+            FileUtils.copyFile(parent, head);
+            FileUtils.copyFile(parent, tail);
+
+            PDDocument document = PDDocument.load(parent);
+            int maxIdx = document.getNumberOfPages() - 1;
+            document.close();
+
+            removePagesInFile(head, 0, firstIdx);
+            removePagesInFile(tail, secondIdx, maxIdx);
+
+            File[] files = new File[]{
+                    tail,
+                    insert,
+                    head
+            };
+
+            merge(files, false);
+
+            setLog(Main.last);
+
+            paths.remove(selectedIdx);
+            paths.add(selectedIdx, Main.last);
+
+            newListView();
+
+        } else {
+            ConfirmBox.display("Insert-inator", "Cannot edit files outside TEMP folder.");
         }
     }
 
@@ -679,6 +731,49 @@ public class Main extends Application {
 
                                     if (keep != null) {
                                         keepPagesInFile(new File(paths.get(indexOfSelected)), --keep[0], --keep[1]);
+                                    }
+
+                                    break;
+                                case "Insert In-Between":
+
+                                    if (paths.size() == 1) {
+                                        setLog("You must have at least two files for insertion.");
+                                    }
+
+                                    duplicateFile(new File(path), indexOfSelected);
+
+                                    //return selected file and range
+                                    int selected = SelectorBox.display(paths, indexOfSelected) - 1;
+
+                                    if (selected != -1) {
+                                        int[] sandwich = SelectRangeBox.display(totalNumberOfPages, "Select");
+
+                                        //validates the input
+                                        if (sandwich == null) {
+                                            setLog("No page was selected for insertion.");
+                                            break;
+                                        } else if (sandwich[1] - sandwich[0] != 1) {
+                                            ConfirmBox.display("Error-inator", "File must be between two pages.");
+                                            setLog("Error while inserting page. File must be between two pages.");
+                                            break;
+                                        } else {
+                                            setLog("Validation for insertion passed!");
+                                        }
+
+                                        //duplicate selected file if not temp
+                                        if (!paths.get(selected).startsWith(tempDir.getAbsolutePath()))
+                                            duplicateFile(new File(paths.get(selected)), selected);
+
+                                        //insert
+                                        insertInBetween(indexOfSelected, selected, --sandwich[0], --sandwich[1]);
+
+                                        //removes the inserted file from list
+                                        paths.remove(selected);
+
+                                        //updates the list view
+                                        newListView();
+                                    } else {
+                                        setLog("No file was selected for insertion.");
                                     }
 
                                     break;

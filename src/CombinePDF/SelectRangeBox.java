@@ -12,51 +12,41 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-class ChooseBox {
+class SelectRangeBox {
 
-    private static String value;
+    private static int[] value;
 
-    static String display(int selected) {
+    static int[] display(int totalPages, String btnText) {
         Stage window = new Stage();
+        String[] numbers = new String[totalPages];
 
-        Button yesButton = new Button("Choose");
-        yesButton.setDisable(true);
-        Button noButton = new Button("Cancel");
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = (i + 1) + "";
+        }
 
-        String[] action = {
-                "Move",
-                "Remove From List",
-                "Open File",
-                "Remove a Page",
-                "Remove a Range of Pages",
-                "Keep Range of Pages",
-                "Insert In-Between"
-        };
+        ComboBox<String> indexBox = new ComboBox<>();
 
-        ComboBox<String> comboBox = new ComboBox<>();
-
-        comboBox.setOnAction(event -> {
-            if (yesButton.isDisabled()) yesButton.setDisable(false);
-            yesButton.setText(comboBox.getValue());
-        });
-
-        comboBox.setItems(FXCollections.observableArrayList(action));
+        indexBox.setItems(FXCollections.observableArrayList(numbers));
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Choose-inator");
+        window.setTitle("Insert-inator");
         window.setMinHeight(200);
         window.setMinWidth(425);
         window.getIcons().add(new Image("CombinePDF/img/android-chrome-512x512.png"));
 
-        Label label = new Label();
-        label.setText("Choose the action for file [" + (selected + 1) + "]:");
+        Button yesButton = new Button(btnText);
+        Button noButton = new Button("Cancel");
 
         yesButton.setOnAction(e -> {
-            if (!(comboBox.getValue() == null)) {
-                value = comboBox.getValue();
-            } else {
+            if (indexBox.getValue() == null) {
                 value = null;
+            } else {
+                value = new int[]{
+                        Integer.parseInt(indexBox.getValue()),
+                        Integer.parseInt(indexBox.getValue()) + 1
+                };
             }
+
             window.close();
         });
 
@@ -76,17 +66,18 @@ class ChooseBox {
 
         VBox layout = new VBox(10);
         HBox layButton = new HBox(10);
+        HBox labelSection = new HBox(10);
+        labelSection.getChildren().addAll(new Label("Insert after"), indexBox);
+        labelSection.setAlignment(Pos.CENTER);
         layButton.getChildren().addAll(yesButton, noButton);
         layButton.setAlignment(Pos.CENTER);
-        layout.getChildren().addAll(label, comboBox, layButton);
+        layout.getChildren().addAll(labelSection, layButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
-
         if (Main.styleSelected) {
             scene.getStylesheets().add(Main.THEME);
         }
-
         window.setScene(scene);
         window.showAndWait();
 
