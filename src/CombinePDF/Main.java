@@ -72,7 +72,7 @@ public class Main extends Application {
     public static String THEME = "/css/dark-theme.css";
     static boolean styleSelected = false; //false = light and true = dark
     private MenuBar menuBar = new MenuBar();
-    private static String titleAndVersion = "Combinator-inator v0.5.2";
+    private static String titleAndVersion = "Combinator-inator v0.5.5";
     private static PreLoaderBox preLoaderBox = new PreLoaderBox();
     Stage stage;
 
@@ -256,16 +256,6 @@ public class Main extends Application {
         }
     }
 
-    //Drag-in file to edit
-    //Drag-in file to be inserted
-    //right-click file to edit
-    //select insert in-between
-    //display available files
-    //select the file
-    //select start and end idx
-    //duplicate file to edit twice
-    //save reference
-    //cut the files in half one head and a tail
     private void insertInBetween(int selectedIdx, int child, int firstIdx, int secondIdx) throws IOException {
         if (new File(paths.get(selectedIdx)).getAbsolutePath().startsWith(tempDir.getAbsolutePath())) {
             File parent = new File(paths.get(selectedIdx));
@@ -1108,7 +1098,6 @@ public class Main extends Application {
     }
 
     private void updateListOfFiles(String path) {
-        boolean skip = false;
         //Removes unnecessary characters []
         path = path.substring(1, path.length() - 1);
 
