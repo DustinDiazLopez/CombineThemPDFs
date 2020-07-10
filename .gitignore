@@ -7,6 +7,10 @@ TEMP/
 # IntelliJ
 out/
 
+JAR/CombineThemPDFs.jar
+JAR/data
+JAR/TEMP
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml

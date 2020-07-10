@@ -96,7 +96,8 @@ public class Main extends Application {
     private final Button btnRemoveFile = new Button("Remove");
     private final Button btnMoveFile = new Button("Move");
     private final MenuBar menuBar = new MenuBar();
-    public static String DATA = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
+    //public static String DATA = new File("").getAbsolutePath() + (new File("").getAbsolutePath().contains("\\") ? "\\src\\data\\" : "/src/data/");
+    public static String DATA = new File("data").getAbsolutePath() + System.getProperty("file.separator");
     //Supported extensions
     private final String[] supported = "pdf,doc*,png,jpg,ppt".split(",");
 

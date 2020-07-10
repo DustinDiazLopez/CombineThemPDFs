@@ -2,119 +2,13 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="CombineThemPDFs:jar2" />
+      <artifact name="CTP-JAR" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Updated to JavaFX 12.0.2 and to JDK14 (User needs to set PATH_TO_FX system variable)">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/CombineThemPDFs_jar2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/CombineThemPDFs_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/CombineThemPDFs_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/documents4j.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/fontbox_2_0_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/poi.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sqlite_jdbc_3_28_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CombineThemPDFs.eml" beforeDir="false" afterPath="$PROJECT_DIR$/CombineThemPDFs.eml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CombineThemPDFs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CombineThemPDFs.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CombineThemPDFs.userlibraries" beforeDir="false" afterPath="$PROJECT_DIR$/CombineThemPDFs.userlibraries" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-console-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-datetime-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-debug-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-errorhandling-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-file-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-file-l1-2-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-file-l2-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-handle-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-heap-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-interlocked-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-libraryloader-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-localization-l1-2-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-memory-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-namedpipe-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-processenvironment-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-processthreads-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-processthreads-l1-1-1.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-profile-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-rtlsupport-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-string-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-synch-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-synch-l1-2-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-sysinfo-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-timezone-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-core-util-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-conio-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-convert-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-environment-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-filesystem-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-heap-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-locale-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-math-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-multibyte-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-private-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-process-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-runtime-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-stdio-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-string-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-time-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/api-ms-win-crt-utility-l1-1-0.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/concrt140.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/decora_sse.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/fxplugins.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/glass.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/glib-lite.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/gstreamer-lite.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/javafx_font.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/javafx_iio.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/jfxmedia.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/jfxwebkit.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/msvcp140.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/prism_common.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/prism_d3d.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/prism_sw.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/ucrtbase.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/bin/vcruntime140.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.base/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.base/ASSEMBLY_EXCEPTION" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.base/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.controls/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.controls/ASSEMBLY_EXCEPTION" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.controls/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.fxml/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.fxml/ASSEMBLY_EXCEPTION" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.fxml/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.graphics/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.graphics/ASSEMBLY_EXCEPTION" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.graphics/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.graphics/jpeg_fx.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.media/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.media/ASSEMBLY_EXCEPTION" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.media/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.media/applecoreaudio.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.media/glib.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.media/gstreamer.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.media/libffi.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.swing/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.swing/ASSEMBLY_EXCEPTION" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.swing/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.web/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.web/ASSEMBLY_EXCEPTION" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.web/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.web/icu_web.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.web/libxml2.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.web/libxslt.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/legal/javafx.web/webkit.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/javafx-swt.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/javafx.base.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/javafx.controls.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/javafx.fxml.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/javafx.graphics.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/javafx.media.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/javafx.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/javafx.swing.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/javafx.web.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/javafx-sdk-12.0.2/lib/src.zip" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,25 +105,14 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts" />
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/JAR" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\CombinePDF\help\images\upload" />
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\CombinePDF\help\images" />
-      <recent name="C:\Users\dudia\OneDrive\Desktop\Just some stuff\Projects\CombineThemPDFs\src\CombinePDF\help" />
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\style\css" />
-      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\SQLite" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="CombinePDF" />
-      <recent name="CombinePDF.databases" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\CombinePDF\Bat" />
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\css" />
@@ -237,8 +120,19 @@
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\SQLite" />
       <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\libs\iText" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="CombinePDF" />
+      <recent name="CombinePDF.databases" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\JAR" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\CombinePDF\help\images\upload" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\CombinePDF\help\images" />
+      <recent name="C:\Users\dudia\OneDrive\Desktop\Just some stuff\Projects\CombineThemPDFs\src\CombinePDF\help" />
+      <recent name="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\src\style\css" />
+    </key>
   </component>
-  <component name="RunManager" selected="JAR Application.CombineThemPDFs.jar (2)">
+  <component name="RunManager" selected="JAR Application.CombineThemPDFs.jar (1)">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -293,6 +187,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="run" type="BatchConfigurationType" factoryName="Batch" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\dudia\Desktop\Projects\CombineThemPDFs\out\artifacts\CombineThemPDFs_jar2" />
+      <option name="PARENT_ENVS" value="true" />
+      <module name="" />
+      <option name="SCRIPT_NAME" value="run.bat" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -303,8 +208,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CombineThemPDFs.jar (2)" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/CombineThemPDFs_jar2/CombineThemPDFs.jar" />
+    <configuration name="CombineThemPDFs.jar (1)" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/JAR/CombineThemPDFs.jar" />
       <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
@@ -336,12 +241,14 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="Batch.run" />
       <item itemvalue="JAR Application.CombineThemPDFs.jar" />
-      <item itemvalue="JAR Application.CombineThemPDFs.jar (2)" />
+      <item itemvalue="JAR Application.CombineThemPDFs.jar (1)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JAR Application.CombineThemPDFs.jar (2)" />
+        <item itemvalue="JAR Application.CombineThemPDFs.jar (1)" />
+        <item itemvalue="Batch.run" />
         <item itemvalue="JAR Application.CombineThemPDFs.jar" />
         <item itemvalue="Application.Main" />
       </list>
@@ -358,27 +265,6 @@
       <option name="presentableId" value="Default" />
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
-    </task>
-    <task id="LOCAL-00013" summary="refactored">
-      <created>1570707978369</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1570707978369</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Added Duplicate function">
-      <created>1572806576994</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1572806576994</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Fixed enter key&#10;refactored">
-      <created>1572855682845</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1572855682845</updated>
     </task>
     <task id="LOCAL-00016" summary="refactored">
       <created>1572872752564</created>
@@ -702,7 +588,28 @@
       <option name="project" value="LOCAL" />
       <updated>1594368474008</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Updated to JavaFX 12.0.2 and to JDK14 (User needs to set PATH_TO_FX system variable)">
+      <created>1594373501846</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1594373501846</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Updated to JavaFX 12.0.2 and to JDK14 (User needs to set PATH_TO_FX system variable)">
+      <created>1594376453299</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1594376453300</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Updated to JavaFX 12.0.2 and to JDK14 (User needs to set PATH_TO_FX system variable)">
+      <created>1594381078955</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1594381078956</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -763,14 +670,18 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1046" y="85" key="#CombineThemPDFs.jar_(2)" timestamp="1594373134062">
+    <state x="884" y="115" key="#CombineThemPDFs.jar_(1)" timestamp="1594382438136">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="1046" y="85" key="#CombineThemPDFs.jar_(2)/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373134062" />
-    <state x="1142" y="84" width="1097" height="974" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594373209150">
+    <state x="884" y="115" key="#CombineThemPDFs.jar_(1)/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594382438136" />
+    <state x="1046" y="85" key="#CombineThemPDFs.jar_(2)" timestamp="1594373859248">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="1142" y="84" width="1097" height="974" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373209150" />
+    <state x="1046" y="85" key="#CombineThemPDFs.jar_(2)/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373859248" />
+    <state x="1142" y="84" width="1097" height="974" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594382464443">
+      <screen x="0" y="0" width="2752" height="1112" />
+    </state>
+    <state x="1142" y="84" width="1097" height="974" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594382464443" />
     <state x="1352" y="302" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1594366624145">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
@@ -779,10 +690,14 @@
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
     <state x="1125" y="323" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373056409" />
-    <state x="1141" y="18" key="CommitChangelistDialog2" timestamp="1594371102990">
+    <state x="1345" y="264" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594381136397">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="1141" y="18" key="CommitChangelistDialog2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594371102990" />
+    <state x="1345" y="264" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594381136397" />
+    <state x="1141" y="18" key="CommitChangelistDialog2" timestamp="1594381078196">
+      <screen x="0" y="0" width="2752" height="1112" />
+    </state>
+    <state x="1141" y="18" key="CommitChangelistDialog2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594381078196" />
     <state x="1227" y="429" key="DetectedRootsChooserDialog" timestamp="1594363984631">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
@@ -791,33 +706,33 @@
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
     <state x="1472" y="361" key="EnvironmentVariablesDialog/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594364811685" />
-    <state x="1121" y="262" key="FileChooserDialogImpl" timestamp="1594373063130">
+    <state x="1121" y="262" key="FileChooserDialogImpl" timestamp="1594375948311">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="1121" y="262" key="FileChooserDialogImpl/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373063130" />
-    <state width="2697" height="237" key="GridCell.Tab.0.bottom" timestamp="1594373384646">
+    <state x="1121" y="262" key="FileChooserDialogImpl/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594375948311" />
+    <state width="1852" height="214" key="GridCell.Tab.0.bottom" timestamp="1594382386528">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state width="2697" height="237" key="GridCell.Tab.0.bottom/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373384646" />
-    <state width="2697" height="237" key="GridCell.Tab.0.center" timestamp="1594373384646">
+    <state width="1852" height="214" key="GridCell.Tab.0.bottom/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594382386528" />
+    <state width="1852" height="214" key="GridCell.Tab.0.center" timestamp="1594382386528">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state width="2697" height="237" key="GridCell.Tab.0.center/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373384646" />
-    <state width="2697" height="237" key="GridCell.Tab.0.left" timestamp="1594373384646">
+    <state width="1852" height="214" key="GridCell.Tab.0.center/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594382386528" />
+    <state width="1852" height="214" key="GridCell.Tab.0.left" timestamp="1594382386528">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state width="2697" height="237" key="GridCell.Tab.0.left/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373384646" />
-    <state width="2697" height="237" key="GridCell.Tab.0.right" timestamp="1594373384646">
+    <state width="1852" height="214" key="GridCell.Tab.0.left/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594382386528" />
+    <state width="1852" height="214" key="GridCell.Tab.0.right" timestamp="1594382386528">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state width="2697" height="237" key="GridCell.Tab.0.right/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373384646" />
-    <state x="813" y="54" key="SettingsEditor" timestamp="1594373148530">
+    <state width="1852" height="214" key="GridCell.Tab.0.right/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594382386528" />
+    <state x="813" y="54" key="SettingsEditor" timestamp="1594382444279">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="813" y="54" key="SettingsEditor/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594373148530" />
-    <state x="969" y="289" key="Vcs.Push.Dialog.v2" timestamp="1594368475367">
+    <state x="813" y="54" key="SettingsEditor/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594382444279" />
+    <state x="969" y="289" key="Vcs.Push.Dialog.v2" timestamp="1594376455085">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="969" y="289" key="Vcs.Push.Dialog.v2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594368475367" />
+    <state x="969" y="289" key="Vcs.Push.Dialog.v2/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594376455085" />
   </component>
 </project>
