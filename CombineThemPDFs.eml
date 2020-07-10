@@ -8,5 +8,6 @@
 		<level name="poi" value="project"/>
 		<level name="documents4j" value="project"/>
 		<level name="sqlite-jdbc-3.28.0" value="project"/>
+		<level name="lib" value="project"/>
 	</levels>
 </component>

@@ -1,7 +1,6 @@
 Prerequisite
 ------
-Set PATH_TO_FX in your system's environment variables by following [these](https://openjfx.io/openjfx-docs/#introduction) 
-instructions. This environment variable must contain the path to the [JavaFX SDK](https://gluonhq.com/products/javafx/).
+Set PATH_TO_FX in your system's environment variables by following [these instructions](https://openjfx.io/openjfx-docs/#introduction). This environment variable must contain the path to the [JavaFX SDK](https://gluonhq.com/products/javafx/).
 
 Combine Them PDFs
 ------

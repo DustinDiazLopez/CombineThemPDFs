@@ -7,10 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="fontbox-2.0.16" level="project" />
-    <orderEntry type="library" name="poi" level="project" />
+    <orderEntry type="library" name="JavaFX" level="project" />
     <orderEntry type="library" name="documents4j" level="project" />
-    <orderEntry type="library" name="sqlite-jdbc-3.28.0" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="PDFBox" level="project" />
+    <orderEntry type="library" name="poi" level="project" />
+    <orderEntry type="library" name="SQLite" level="project" />
   </component>
 </module>
