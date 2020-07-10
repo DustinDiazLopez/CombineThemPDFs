@@ -1,3 +1,8 @@
+Prerequisite
+------
+Set PATH_TO_FX in your system's environment variables by following [these](https://openjfx.io/openjfx-docs/#introduction) 
+instructions. This environment variable must contain the path to the [JavaFX SDK](https://gluonhq.com/products/javafx/).
+
 Combine Them PDFs
 ------
 Application utilizing [SQLite](https://www.sqlite.org/index.html), [JavaFX](https://en.wikipedia.org/wiki/JavaFX), [PDFBox](https://pdfbox.apache.org/) and [documents4j](https://documents4j.com/#/).
@@ -8,7 +13,7 @@ new [PDF](https://en.wikipedia.org/wiki/PDF) file location instead of the [DOCX]
 location. Conversion from [DOCX](https://www.howtogeek.com/304622/what-is-a-.docx-file-and-how-is-it-different-from-a-.doc-file-in-microsoft-word/)
  to [PDF](https://en.wikipedia.org/wiki/PDF) does not work in [macOS](https://en.wikipedia.org/wiki/MacOS) 
  nor [Linux](https://en.wikipedia.org/wiki/Linux).
- 
+
 WARNING
 ------
 CLOSE AND SAVE ALL DOCUMENTS THAT YOU ARE CURRENTLY WORKING ON IN WORD BEFORE USING THIS APPLICATION. IF YOU FAIL TO DO SO IT WILL DELETE ALL UNSAVED WORK IN WORD.
