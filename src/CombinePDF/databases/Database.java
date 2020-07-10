@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    private static String path = Main.DATA;
+    private static final String path = Main.DATA;
 
     /**
      * Gets the connection to the database

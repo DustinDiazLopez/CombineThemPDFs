@@ -14,6 +14,7 @@
       <element id="library" level="project" name="documents4j" />
       <element id="library" level="project" name="fontbox-2.0.16" />
       <element id="library" level="project" name="poi" />
+      <element id="library" level="project" name="sqlite-jdbc-3.28.0" />
     </root>
   </artifact>
 </component>

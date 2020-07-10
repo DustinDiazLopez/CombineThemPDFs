@@ -11,5 +11,6 @@
     <orderEntry type="library" name="poi" level="project" />
     <orderEntry type="library" name="documents4j" level="project" />
     <orderEntry type="library" name="sqlite-jdbc-3.28.0" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
