@@ -32,7 +32,6 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/documents4j/documents4j-client-standalone-1.0.3-shaded.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/documents4j/documents4j-server-standalone-1.0.3-shaded.jar" path-in-jar="/" />
       <element id="library" level="project" name="documents4j" />
-      <element id="library" level="project" name="JavaFX" />
       <element id="library" level="project" name="PDFBox" />
       <element id="library" level="project" name="poi" />
       <element id="library" level="project" name="SQLite" />

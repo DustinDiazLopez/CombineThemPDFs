@@ -1,7 +1,11 @@
 Prerequisite
 ------
-Set PATH_TO_FX in your system's environment variables by following [these instructions](https://openjfx.io/openjfx-docs/#introduction). This environment variable must contain the path to the [JavaFX SDK](https://gluonhq.com/products/javafx/).
-
+1. Have Java (8+) installed
+1. Set PATH_TO_FX in your system's environment variables by following [these instructions](https://openjfx.io/openjfx-docs/#introduction). This environment variable must contain the path to the [JavaFX SDK](https://gluonhq.com/products/javafx/).
+    * [OPTION 1] [Download](https://www.mediafire.com/file/fp8k99me58x6vlv/CombineThemPDFs.jar/file) the JAR file
+        * Download the script to run the jar file [Windows](https://www.mediafire.com/file/2ais8mbeqoxn0ps/run.bat/file) or [Mac/Linux](https://www.mediafire.com/file/zv0vi0qzhai8mwo/run.sh/file)
+    * [OPTION 2] Run the source code
+    
 Combine Them PDFs
 ------
 Application utilizing [SQLite](https://www.sqlite.org/index.html), [JavaFX](https://en.wikipedia.org/wiki/JavaFX), [PDFBox](https://pdfbox.apache.org/) and [documents4j](https://documents4j.com/#/).

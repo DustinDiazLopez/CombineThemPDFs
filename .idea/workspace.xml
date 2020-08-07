@@ -7,8 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Updated to JavaFX 12.0.2 and to JDK14 (User needs to set PATH_TO_FX system variable)">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/CTP_JAR.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/CTP_JAR.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/CombineThemPDFs_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/CombineThemPDFs_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CombineThemPDFs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CombineThemPDFs.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,8 +108,8 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/JAR" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../dev/SDKs/JavaFX11/windows-x64/javafx-sdk-11.0.2/lib" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -242,8 +245,8 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="Batch.run" />
-      <item itemvalue="JAR Application.CombineThemPDFs.jar" />
       <item itemvalue="JAR Application.CombineThemPDFs.jar (1)" />
+      <item itemvalue="JAR Application.CombineThemPDFs.jar" />
     </list>
     <recent_temporary>
       <list>
@@ -254,6 +257,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -706,10 +710,10 @@
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
     <state x="1472" y="361" key="EnvironmentVariablesDialog/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594364811685" />
-    <state x="1121" y="262" key="FileChooserDialogImpl" timestamp="1594375948311">
+    <state x="1121" y="262" key="FileChooserDialogImpl" timestamp="1596840006102">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="1121" y="262" key="FileChooserDialogImpl/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594375948311" />
+    <state x="1121" y="262" key="FileChooserDialogImpl/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1596840006102" />
     <state width="1852" height="214" key="GridCell.Tab.0.bottom" timestamp="1594382386528">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
@@ -726,10 +730,10 @@
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
     <state width="1852" height="214" key="GridCell.Tab.0.right/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594382386528" />
-    <state x="813" y="54" key="SettingsEditor" timestamp="1594382444279">
+    <state x="813" y="54" key="SettingsEditor" timestamp="1596840019346">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
-    <state x="813" y="54" key="SettingsEditor/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1594382444279" />
+    <state x="813" y="54" key="SettingsEditor/0.0.2752.1112/-1920.0.1920.1080@0.0.2752.1112" timestamp="1596840019346" />
     <state x="969" y="289" key="Vcs.Push.Dialog.v2" timestamp="1594376455085">
       <screen x="0" y="0" width="2752" height="1112" />
     </state>
