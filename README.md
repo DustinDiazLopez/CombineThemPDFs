@@ -2,7 +2,7 @@ Prerequisite
 ------
 1. Have Java (JDK) 14 installed
 1. Set PATH_TO_FX in your system's environment variables by following [these instructions](https://openjfx.io/openjfx-docs/#introduction). This environment variable must contain the path to the [JavaFX SDK](https://gluonhq.com/products/javafx/).
-    * [OPTION 1] [Download](https://drive.google.com/file/d/1tKtk_FDNedErFE1Qm8sVzj-XK1Oqtpw5/view?usp=sharing) the JAR file. [[ZIP's SHA-512]](https://raw.githubusercontent.com/DustinDiazLopez/CombineThemPDFs/master/LICENSE)
+    * [OPTION 1] [Download](https://drive.google.com/file/d/1tKtk_FDNedErFE1Qm8sVzj-XK1Oqtpw5/view?usp=sharing) the JAR file. [[ZIP's SHA-512]](https://raw.githubusercontent.com/DustinDiazLopez/CombineThemPDFs/master/SHA512)
     * [OPTION 2] Run the source code
     
 Combine Them PDFs
